@@ -8,7 +8,7 @@ Estado comprobado el 15 de octubre de 2026. Se conserva la versión validada v0.
 | --- | --- | --- |
 | GitHub | Publicado: repositorio público MIT, etiqueta y archivo instalable con checksums | [Repositorio](https://github.com/PedroMorenoTrujillo/neural-ai), [release](https://github.com/PedroMorenoTrujillo/neural-ai/releases/tag/v0.1.0) |
 | Skills.sh | Publicado y ficha verificada en navegador | [neural-ui](https://www.skills.sh/pedromorenotrujillo/neural-ai/neural-ui), [captura](assets/skills-sh-listing.jpg) |
-| Skillstore | Enviado gratuitamente; procesamiento y revisión externa pendientes | [Seguimiento](https://skillstore.io/es/submissions/676de7bb-7215-4418-99f6-7e00fbbed494), [auditoría del directorio](https://github.com/aiskillstore/marketplace/actions/runs/38807780270), [justificante](assets/skillstore-submission.jpg) |
+| Skillstore | Procesamiento superado; PR creada y en revisión final, todavía no publicado | [PR #3792](https://github.com/aiskillstore/marketplace/pull/3792), [seguimiento](https://skillstore.io/es/submissions/676de7bb-7215-4418-99f6-7e00fbbed494), [workflow superado](https://github.com/aiskillstore/marketplace/actions/runs/38807780270), [justificante](assets/skillstore-submission.jpg) |
 | SkillsMP | Preparado para indexación automática; ficha no confirmada | [FAQ oficial](https://skillsmp.com/docs/faq): topics claude-skills y claude-code-skill añadidos; sincronización diaria |
 | Skills Directory | Pendiente por autenticación | [Acceso al envío](https://app.skillsdirectory.com/sign-in?returnTo=%2Fsubmit); requiere una sesión interactiva del titular que no se ha completado |
 | VoltAgent | No enviado: todavía no cumple el requisito de adopción comunitaria | [Reglas de contribución](https://github.com/VoltAgent/awesome-agent-skills/blob/main/CONTRIBUTING.md) |
@@ -54,6 +54,8 @@ Comprobaciones realizadas:
 
 Resultado: **2 escenarios nuevos superados**, además de **11 pruebas de contratos/instalación/compilación negativa y 8 escenarios Chromium de la suite original**. Las ejecuciones originales de GitHub Actions en [main](https://github.com/PedroMorenoTrujillo/neural-ai/actions/runs/38804446468) y en [v0.1.0](https://github.com/PedroMorenoTrujillo/neural-ai/actions/runs/38804794934) estaban superadas antes de distribuir la versión.
 
+El flujo ampliado también está [superado en Linux](https://github.com/PedroMorenoTrujillo/neural-ai/actions/runs/38808505548): suite original, instalación limpia completa, enlaces, procedencia y empaquetado. La [evidencia estructurada de CI](../evidence/distribution/ci.json) registra el commit comprobado y la conclusión de cada paso.
+
 Para reproducir toda la instalación limpia:
 
 ```sh
@@ -68,4 +70,4 @@ La instalación y la aplicación real están probadas. Las sesiones independient
 
 ## Trabajo externo pendiente
 
-Skillstore debe terminar su procesamiento y revisión. SkillsMP debe sincronizar su índice. Skills Directory requiere una sesión autenticada. Los listados curados tienen condiciones de elegibilidad que aún no se cumplen. No se ha creado una automatización de seguimiento ni contratado herramientas para resolver esos pasos.
+Skillstore debe aprobar la PR ya creada. SkillsMP debe sincronizar su índice. Skills Directory requiere una sesión autenticada. Los listados curados tienen condiciones de elegibilidad que aún no se cumplen. No se ha creado una automatización de seguimiento ni contratado herramientas para resolver esos pasos.

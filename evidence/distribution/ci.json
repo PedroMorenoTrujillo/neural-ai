@@ -1,0 +1,38 @@
+{
+  "url": "https://github.com/PedroMorenoTrujillo/neural-ai/actions/runs/38808505548",
+  "headSha": "ce41e358ed9d0837b2563bcfb2a7a32ad181e546",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "verify",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run npm ci --no-fund --no-audit",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run npm run verify",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run npm run test:clean-install",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run npm run check:links",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run npm run check:sources",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run node scripts/package.mjs",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}
