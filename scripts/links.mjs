@@ -1,0 +1,34 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { root } from './api.mjs';
+import { walk } from './validate.mjs';
+
+const urls = new Set();
+for (const file of walk(root).filter(f=>f.endsWith('.md'))) {
+  for (const match of fs.readFileSync(file,'utf8').matchAll(/\[[^\]]*\]\((https?:\/\/[^\s)]+)\)/g)) urls.add(match[1].split('#')[0]);
+}
+const report = [];
+const queue = [...urls].sort();
+await Promise.all(Array.from({length:4},async () => {
+  while (queue.length) {
+    const url = queue.shift();
+    let lastError;
+    for (let attempt=0;attempt<2;attempt++) {
+      try {
+        const response = await fetch(url,{signal:AbortSignal.timeout(20000),headers:{'user-agent':'neural-ai-link-check/0.1'}});
+        await response.body?.cancel();
+        if (!response.ok) throw Error(`HTTP ${response.status}`);
+        report.push({url,status:response.status,finalUrl:response.url});
+        lastError = undefined; break;
+      } catch(error) { lastError = error.message; }
+    }
+    if (lastError) report.push({url,error:lastError});
+  }
+}));
+report.sort((a,b)=>a.url.localeCompare(b.url));
+fs.mkdirSync(path.join(root,'test-results'),{recursive:true});
+fs.writeFileSync(path.join(root,'test-results/links.json'),JSON.stringify(report,null,2)+'\n');
+const failures = report.filter(r=>r.error);
+for (const result of failures) console.error(`${result.url}: ${result.error}`);
+console.log(`${report.length-failures.length}/${report.length} external links reachable; report: test-results/links.json`);
+if (failures.length) process.exitCode = 1;

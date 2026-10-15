@@ -1,0 +1,7 @@
+@use '@neural-ui/core/styles' as *;
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--neu-bg); color: var(--neu-text); font-family: var(--neu-font-sans); }
+main { max-width: 64rem; margin-inline: auto; padding: var(--neu-space-4); }
+section { margin-block: var(--neu-space-8); }
+output { display: block; overflow-wrap: anywhere; }
