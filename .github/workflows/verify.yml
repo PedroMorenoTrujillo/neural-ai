@@ -13,7 +13,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -21,12 +21,19 @@ jobs:
           node-version: '22.22.3'
           cache: npm
       - run: npm ci --no-fund --no-audit
+      - run: npm ci --prefix packages/mcp --no-fund --no-audit
       - run: npx playwright install --with-deps chromium
       - run: npm run verify
+      - run: npm run verify:mcp
       - run: npm run test:clean-install
       - run: npm run check:links
       - run: npm run check:sources
       - run: node scripts/package.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: neural-ui-mcp-verified
+          path: dist/mcp/
+          retention-days: 7
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

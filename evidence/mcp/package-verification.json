@@ -1,0 +1,20 @@
+{
+  "testedAt": "2026-10-15T21:51:08.465Z",
+  "package": "neural-ui-mcp",
+  "version": "0.1.0",
+  "filename": "neural-ui-mcp-0.1.0.tgz",
+  "sha256": "3fd682066deb55226e7edebaa38f29f8cb9b0aeb2dcc0f9d76629465e6486f3f",
+  "packedFiles": 13,
+  "unpackedBytes": 841044,
+  "cleanInstall": true,
+  "installedBinExecuted": true,
+  "officialSdkClient": "2.3.1",
+  "protocol": "2026-07-28",
+  "allFiveTools": true,
+  "resources": true,
+  "runtimeNetworkBlocked": true,
+  "stdoutProtocolOnly": true,
+  "corruptDataFailsClosed": true,
+  "publishedToNpm": false,
+  "hostAgentSessionsTested": []
+}

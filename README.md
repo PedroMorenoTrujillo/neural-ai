@@ -2,7 +2,7 @@
 
 Skill oficial de **Neural UI v2** para desarrollar aplicaciones Angular con contratos verificables. Primera versión: **0.1.0**, validada con **@neural-ui/core 2.0.1**, **Angular 22.2.2** y **TypeScript 6.0.3**. Licencia MIT.
 
-Una skill principal, referencias bajo demanda y ejemplos ejecutables. Sin MCP, backend de producto, hosting, Supabase ni servicio de IA de pago obligatorio. La instalación de la skill se hace desde GitHub y no necesita npm. La aplicación Angular consumidora sí instala Neural UI y sus peers.
+Una skill principal, referencias bajo demanda y ejemplos ejecutables. La segunda fase añade un [servidor MCP local opcional](packages/mcp/README.md), preparado para distribución y todavía sin publicación npm. Sin backend de producto, hosting, Supabase ni servicio de IA de pago obligatorio. La instalación de la skill se hace desde GitHub y no necesita npm. La aplicación Angular consumidora sí instala Neural UI y sus peers.
 
 La skill también está disponible en [Skills.sh](https://www.skills.sh/pedromorenotrujillo/neural-ai/neural-ui). Consulta el [informe de distribución](docs/distribution.md) para la instalación con su CLI, la prueba en Angular limpio y el estado real de los directorios.
 
@@ -48,6 +48,8 @@ skills/neural-ui/
     api/                    # 96 entrypoints, índice y 262 tokens públicos
   examples/                 # forms, table, navigation, overlays, theme
 scripts/                    # extracción, validación, enlaces, procedencia y empaquetado
+shared/usage-validator.mjs  # validador único para Skill y MCP
+packages/mcp/               # servidor TypeScript stdio y paquete npm independiente
 tests/
   *.test.mjs                # contratos, instalación y compilación negativa
   browser/                  # escenarios reales en Chromium
@@ -78,7 +80,7 @@ npm run check:sources
 
 Las pruebas de contratos incluyen imports/exportaciones inexistentes, entrypoints internos, Neural Native, componentes eliminados, cambios de inputs y referencias rotas. El compilador Angular rechaza además un import desde el barrel incorrecto, una tabla sin rowKey y un modelo open inventado para Dialog. Las pruebas de navegador cubren edición/validación/reset, Select, ordenación/selección, Tabs con teclado, cierre aceptado/rechazado y foco, presets, SSR sin JavaScript, hidratación sin errores y viewport estrecho.
 
-GitHub Actions ejecuta un único job Linux estándar, con timeout de 15 minutos, permisos de lectura y cancelación de ejecuciones anteriores de la misma rama. No hay cron, runners de pago ni servicios externos de ejecución. El repositorio público usa los runners estándar gratuitos de GitHub; no se aprovisiona infraestructura.
+GitHub Actions ejecuta un único job Linux estándar, con timeout de 20 minutos, permisos de lectura y cancelación de ejecuciones anteriores de la misma rama. También verifica el MCP y conserva su tarball probado durante siete días. No hay cron, runners de pago ni servicios externos de ejecución. El repositorio público usa los runners estándar gratuitos de GitHub; no se aprovisiona infraestructura.
 
 Consulta [resultados y límites de verificación](docs/verification.md). La cobertura de navegador se limita a los ejemplos incluidos y Chromium; no equivale a auditar cada componente ni a certificar WCAG.
 
