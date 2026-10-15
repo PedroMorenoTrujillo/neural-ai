@@ -2,9 +2,11 @@
 
 Skill oficial de **Neural UI v2** para desarrollar aplicaciones Angular con contratos verificables. Primera versión: **0.1.0**, validada con **@neural-ui/core 2.0.1**, **Angular 22.2.2** y **TypeScript 6.0.3**. Licencia MIT.
 
-Una skill principal, referencias bajo demanda y ejemplos ejecutables. La segunda fase añade un [servidor MCP local opcional](packages/mcp/README.md), preparado para distribución y todavía sin publicación npm. Sin backend de producto, hosting, Supabase ni servicio de IA de pago obligatorio. La instalación de la skill se hace desde GitHub y no necesita npm. La aplicación Angular consumidora sí instala Neural UI y sus peers.
+Una skill principal, referencias bajo demanda y ejemplos ejecutables. La segunda fase añade un [servidor MCP local opcional](packages/mcp/README.md), publicado como [neural-ui-mcp@0.1.0 en npm](https://www.npmjs.com/package/neural-ui-mcp). Sin backend de producto, hosting, Supabase ni servicio de IA de pago obligatorio. La instalación de la skill se hace desde GitHub y no necesita npm. La aplicación Angular consumidora sí instala Neural UI y sus peers.
 
 La skill también está disponible en [Skills.sh](https://www.skills.sh/pedromorenotrujillo/neural-ai/neural-ui). Consulta el [informe de distribución](docs/distribution.md) para la instalación con su CLI, la prueba en Angular limpio y el estado real de los directorios.
+
+El MCP requiere Node 22.22.3 o posterior y se puede iniciar con `npx --yes neural-ui-mcp@0.1.0`. Es un proceso stdio para conectar desde un cliente MCP; consulta su [configuración para Codex y Claude Code](packages/mcp/README.md#conectar-codex-y-claude-code).
 
 ## Instalar en Codex
 

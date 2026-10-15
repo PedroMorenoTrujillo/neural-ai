@@ -1,0 +1,21 @@
+{
+  "verifiedAt": "2026-10-15T22:04:03.960Z",
+  "package": "neural-ui-mcp",
+  "version": "0.1.0",
+  "url": "https://www.npmjs.com/package/neural-ui-mcp",
+  "registry": "https://registry.npmjs.org/",
+  "tarball": "https://registry.npmjs.org/neural-ui-mcp/-/neural-ui-mcp-0.1.0.tgz",
+  "sha256": "3fd682066deb55226e7edebaa38f29f8cb9b0aeb2dcc0f9d76629465e6486f3f",
+  "integrity": "sha512-odnSr/U70V8dtqwKkG9ThVq1VyWzGSb6K8NoJ1GplapUg0w6Bl0s5RXSTMw2LrilIeiinLIcYvxmG1Teq03gpg==",
+  "exactVerifiedTarball": true,
+  "installedFromRegistry": true,
+  "npmBin": true,
+  "npx": true,
+  "officialSdkClient": "2.3.1",
+  "protocol": "2026-07-28",
+  "allFiveTools": true,
+  "resources": true,
+  "stderrEmpty": true,
+  "publishedToNpm": true,
+  "hostAgentSessionsTested": []
+}

@@ -17,6 +17,18 @@ await Promise.all(Array.from({length:4},async () => {
       try {
         const response = await fetch(url,{signal:AbortSignal.timeout(20000),headers:{'user-agent':'neural-ai-link-check/0.1'}});
         await response.body?.cancel();
+        const parsed = new URL(url);
+        const packagePath = /^\/package\/((?:@[^/]+\/)?[^/]+)\/?$/.exec(parsed.pathname);
+        if (response.status===403 && parsed.hostname==='www.npmjs.com' && packagePath) {
+          // npm's website can block automated clients. Verify this exact package
+          // through its public registry; record the 403 rather than masking it.
+          const name = decodeURIComponent(packagePath[1]);
+          const registryUrl = `https://registry.npmjs.org/${encodeURIComponent(name)}`;
+          const checked = await fetch(registryUrl,{signal:AbortSignal.timeout(20000)});
+          if (!checked.ok || (await checked.json()).name!==name) throw Error('npm website blocked and package registry verification failed');
+          report.push({url,status:403,verification:'npm-registry',registryUrl,verifiedStatus:200});
+          lastError = undefined; break;
+        }
         if (!response.ok) throw Error(`HTTP ${response.status}`);
         report.push({url,status:response.status,finalUrl:response.url});
         lastError = undefined; break;
@@ -30,5 +42,5 @@ fs.mkdirSync(path.join(root,'test-results'),{recursive:true});
 fs.writeFileSync(path.join(root,'test-results/links.json'),JSON.stringify(report,null,2)+'\n');
 const failures = report.filter(r=>r.error);
 for (const result of failures) console.error(`${result.url}: ${result.error}`);
-console.log(`${report.length-failures.length}/${report.length} external links reachable; report: test-results/links.json`);
+console.log(`${report.length-failures.length}/${report.length} external links verified (${report.filter(r=>r.verification==='npm-registry').length} npm website blocks checked through registry); report: test-results/links.json`);
 if (failures.length) process.exitCode = 1;

@@ -1,6 +1,6 @@
 # MCP local de Neural UI v2
 
-Segunda fase de Neural AI: paquete **neural-ui-mcp 0.1.0**, MIT, preparado para distribución gratuita. No se ha publicado en npm. [Instalación y configuración de clientes](../packages/mcp/README.md). El nombre se comprobó en el registro; el resultado y la fecha están en [npm-name.json](../evidence/mcp/npm-name.json). Disponibilidad no equivale a reserva ni a autorización npm.
+Segunda fase de Neural AI: paquete **neural-ui-mcp 0.1.0**, MIT, [publicado gratuitamente en npm](https://www.npmjs.com/package/neural-ui-mcp) tras autorización web y 2FA del mantenedor. [Instalación y configuración de clientes](../packages/mcp/README.md). El nombre se comprobó antes de publicar; el resultado histórico está en [npm-name.json](../evidence/mcp/npm-name.json). La [verificación desde el registro](../evidence/mcp/publication.json) confirma que sirve el tarball exacto aprobado y que funcionan la instalación limpia, el binario y npx con el cliente oficial.
 
 ## Diseño y fuentes únicas
 
@@ -42,7 +42,7 @@ npm run verify
 npm run test:clean-install
 npm run check:links
 npm run check:sources
-npm run check:mcp:name
+npm run test:mcp:registry
 git diff v0.1.0 --exit-code -- skills
 ```
 
@@ -74,6 +74,8 @@ Las pruebas de protocolo con el SDK están ejecutadas. **No se han ejecutado ses
 
 GitHub Actions mantiene un único job Linux estándar, permisos de lectura, sin cron y timeout de 20 minutos. Instala ambos lockfiles, verifica Skill, MCP, tarball, seguridad, consumidor Angular, enlaces y procedencia. Guarda el tarball verificado como artefacto durante siete días. No publica nada ni usa credenciales npm. No configura runners de pago ni infraestructura.
 
-Antes de una primera publicación npm: repetir la suite y disponibilidad del nombre, autenticar la cuenta npm con permiso de publicación, revisar el tarball identificado por SHA-256 y obtener autorización expresa para publicarlo. La cuenta/2FA y políticas del registro pueden exigir intervención humana. No se debe sustituir el tarball validado por un build sin verificar. No hay obligación de contratar ningún plan.
+La publicación 0.1.0 se realizó desde el tarball verificado, sin recompilarlo. npm aplicó su procesamiento previo antes de hacerlo instalable; se comprobó después la integridad SHA-256/SHA-512 y una instalación sin autenticación. `npm run test:mcp:registry` repite esa comprobación contra la versión publicada, incluido npx desde un directorio y caché nuevos. La CI también ejecuta esta prueba pública, sin tokens. Los informes anteriores con `publishedToNpm: false` describen el estado antes de esta publicación; `publication.json` registra el resultado posterior. El README incluido en el tarball conserva la descripción del momento de preparación; las instrucciones vigentes están en este repositorio.
 
-Tras una publicación autorizada, actualizar las instrucciones con el paquete y versión exactos, verificar una instalación desde el registro y realizar las sesiones de integración con los hosts. La Skill 0.1.0 continúa instalándose desde su etiqueta original.
+Para publicaciones posteriores: incrementar la versión, repetir la suite, autenticar la cuenta npm con permiso de publicación, revisar el tarball identificado por SHA-256 y obtener autorización expresa para publicarlo. La cuenta/2FA y políticas del registro pueden exigir intervención humana. No se debe sustituir el tarball validado por un build sin verificar ni intentar sobrescribir 0.1.0. No hay obligación de contratar ningún plan.
+
+Quedan pendientes las sesiones de integración con los hosts. La Skill 0.1.0 continúa instalándose desde su etiqueta original.

@@ -2,7 +2,15 @@
 
 Servidor MCP oficial de Neural UI v2, local y de solo lectura. Consulta **@neural-ui/core 2.0.1**: 96 entrypoints públicos, 107 referencias y cinco ejemplos Angular 22. Licencia MIT. Node **22.22.3 o posterior**.
 
-Preparado para npm, **todavía no publicado**. No ejecutes `npx neural-ui-mcp` esperando esta versión hasta que exista una publicación verificada. No requiere backend, cuenta, claves, conexión de red durante la ejecución ni servicios de IA. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
+Publicado como [neural-ui-mcp@0.1.0](https://www.npmjs.com/package/neural-ui-mcp). No requiere backend, cuenta, claves, conexión de red durante la ejecución ni servicios de IA. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
+
+## Instalar desde npm
+
+```sh
+npx --yes neural-ui-mcp@0.1.0
+```
+
+El proceso espera mensajes MCP en stdin. Para instalarlo como dependencia de tu proyecto usa `npm install --save-dev --save-exact neural-ui-mcp@0.1.0`. La instalación desde el registro, el binario y el arranque con npx se han verificado con un cliente MCP real. [Evidencia de publicación](https://github.com/PedroMorenoTrujillo/neural-ai/blob/main/evidence/mcp/publication.json).
 
 ## Instalar el tarball verificado
 
@@ -19,7 +27,16 @@ El último comando instala el paquete local preparado por las pruebas. Comprueba
 
 ## Conectar Codex y Claude Code
 
-Sustituye las rutas por las de tu instalación y usa un Node compatible disponible para el cliente:
+Usa un Node compatible disponible para el cliente.
+
+Para usar directamente la versión publicada:
+
+```sh
+codex mcp add neural-ui -- npx --yes neural-ui-mcp@0.1.0
+claude mcp add --transport stdio neural-ui -- npx --yes neural-ui-mcp@0.1.0
+```
+
+Para una instalación local del tarball:
 
 ```sh
 codex mcp add neural-ui -- node /ruta/absoluta/neural-mcp-local/node_modules/neural-ui-mcp/dist/cli.js
