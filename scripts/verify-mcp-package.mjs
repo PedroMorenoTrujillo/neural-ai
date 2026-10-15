@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { connect, call } from '../tests/mcp/helpers.mjs';
+import { connect, assertConsumer } from '../tests/mcp/helpers.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const target = join(root, 'dist/mcp');
@@ -37,16 +37,7 @@ try {
   writeFileSync(guard, `const deny=()=>{throw new Error('RUNTIME_NETWORK_FORBIDDEN')};for(const m of ['node:http','node:https']){const x=require(m);x.request=deny;x.get=deny;}require('node:net').Socket.prototype.connect=deny;globalThis.fetch=deny;`);
   connection = await connect(join(installed, 'dist/cli.js'), { command: join(consumer, 'node_modules/.bin/neural-ui-mcp'), args: [], cwd: consumer, env: { PATH: process.env.PATH, NODE_OPTIONS: `--require=${guard}` } });
   const { client } = connection;
-  assert.equal(client.getNegotiatedProtocolVersion(), '2026-07-28');
-  assert.equal((await client.listTools()).tools.length, 5);
-  assert.ok((await call(client, 'list_components', {})).total > 0);
-  assert.equal((await call(client, 'get_api', { entrypoint: '@neural-ui/core/button', symbol: 'NeuButtonComponent' })).contract.selector, 'button[neu-button]');
-  assert.ok((await call(client, 'search_documentation', { query: 'SSR' })).results.length > 0);
-  for (const id of ['forms', 'table', 'navigation', 'overlays', 'theme']) {
-    const example = await call(client, 'get_example', { id });
-    assert.equal((await call(client, 'validate_usage', { source: example.text })).valid, true);
-  }
-  assert.ok((await client.readResource({ uri: 'neural-ui://docs/references/forms' })).contents[0].text.length > 0);
+  await assertConsumer(client);
   assert.equal(connection.stderr(), '');
   await client.close();
   connection = undefined;

@@ -25,6 +25,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run verify
       - run: npm run verify:mcp
+      - run: npm run test:mcp:registry
       - run: npm run test:clean-install
       - run: npm run check:links
       - run: npm run check:sources
