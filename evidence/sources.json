@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "package": {
+    "name": "@neural-ui/core",
+    "version": "2.0.1",
+    "tarball": "https://registry.npmjs.org/@neural-ui/core/-/core-2.0.1.tgz",
+    "integrity": "sha512-D9TSxcP3Z09usVF+hHkPQvOol4+It8Phutvc04JzHJ1jVMeXlElRJGvQ2X7Z7VoHZXNRyRweCfe9mPRhfOyVDQ==",
+    "shasum": "5d22a069370b94776efe2006efe68751e16f9b19"
+  },
+  "source": {
+    "repository": "https://github.com/PedroMorenoTrujillo/neural-ui-workspace",
+    "commit": "b1b9822d064cf6615c3765ca57791ba2685de870",
+    "version": "2.0.1"
+  },
+  "verifiedOn": "2026-10-15",
+  "documentation": "https://ui.neuralui.org/v2/",
+  "agentSpecifications": [
+    "https://developers.openai.com/codex/skills/",
+    "https://code.claude.com/docs/en/skills",
+    "https://agentskills.io/specification"
+  ]
+}
