@@ -13,6 +13,7 @@
     "test": "node --test tests/*.test.mjs",
     "build:examples": "cd tests/integration && ng build --configuration production",
     "test:integration": "playwright test",
+    "test:clean-install": "node scripts/verify-clean-install.mjs",
     "check:links": "node scripts/links.mjs",
     "check:sources": "node scripts/provenance.mjs",
     "release:prepare": "npm run verify && npm run check:links && npm run check:sources && node scripts/package.mjs",

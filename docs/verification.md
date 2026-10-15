@@ -2,6 +2,8 @@
 
 Baseline: @neural-ui/core 2.0.1; Angular/CDK/CLI 22.2.2; TypeScript 6.0.3; Playwright 1.63.0. Validación local ejecutada el 15 de octubre de 2026 en macOS. Los resultados de CI se consultan en la pestaña Actions del repositorio.
 
+La fase posterior de distribución añade una instalación desde GitHub en una aplicación Angular independiente y dos escenarios de navegador nuevos. Está documentada en [el informe de distribución](distribution.md), con su script reproducible y los estados de publicación.
+
 | Comprobación | Resultado local | Alcance |
 | --- | --- | --- |
 | Procedencia | Superada | SHA-512 del tarball npm, versión de código fuente y política oficial del commit registrado |

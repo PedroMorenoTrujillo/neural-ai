@@ -4,6 +4,8 @@ Skill oficial de **Neural UI v2** para desarrollar aplicaciones Angular con cont
 
 Una skill principal, referencias bajo demanda y ejemplos ejecutables. Sin MCP, backend de producto, hosting, Supabase ni servicio de IA de pago obligatorio. La instalación de la skill se hace desde GitHub y no necesita npm. La aplicación Angular consumidora sí instala Neural UI y sus peers.
 
+La skill también está disponible en [Skills.sh](https://www.skills.sh/pedromorenotrujillo/neural-ai/neural-ui). Consulta el [informe de distribución](docs/distribution.md) para la instalación con su CLI, la prueba en Angular limpio y el estado real de los directorios.
+
 ## Instalar en Codex
 
 Desde el directorio de tu aplicación, en macOS/Linux o Git Bash. Usa un directorio de descarga nuevo:

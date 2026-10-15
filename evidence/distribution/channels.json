@@ -1,0 +1,15 @@
+{
+  "verifiedOn": "2026-10-15",
+  "release": "v0.1.0",
+  "additionalCostEUR": 0,
+  "channels": [
+    { "name": "GitHub", "status": "published", "url": "https://github.com/PedroMorenoTrujillo/neural-ai", "releaseUrl": "https://github.com/PedroMorenoTrujillo/neural-ai/releases/tag/v0.1.0" },
+    { "name": "Skills.sh", "status": "published", "url": "https://www.skills.sh/pedromorenotrujillo/neural-ai/neural-ui", "method": "One genuine skills CLI installation from the tagged release; public page verified in browser", "paidPlan": false },
+    { "name": "Skillstore", "status": "processing_external_review", "url": "https://skillstore.io/es/submissions/676de7bb-7215-4418-99f6-7e00fbbed494", "workflowUrl": "https://github.com/aiskillstore/marketplace/actions/runs/38807780270", "submissionId": "676de7bb-7215-4418-99f6-7e00fbbed494", "source": "https://github.com/PedroMorenoTrujillo/neural-ai/tree/v0.1.0/skills/neural-ui", "method": "Anonymous free submission; optional GitHub notifications disabled; no account created", "paidPlan": false },
+    { "name": "SkillsMP", "status": "prepared_for_auto_indexing_not_confirmed_listed", "url": "https://skillsmp.com/docs/faq", "method": "Added claude-skills and claude-code-skill GitHub topics required by official daily-indexing FAQ", "manualSubmission": "not currently available according to official FAQ" },
+    { "name": "Skills Directory", "status": "blocked_by_authentication", "url": "https://app.skillsdirectory.com/sign-in?returnTo=%2Fsubmit", "reason": "Requires interactive sign-in by the account holder; no account or terms were accepted." },
+    { "name": "VoltAgent awesome-agent-skills", "status": "not_eligible_yet", "url": "https://github.com/VoltAgent/awesome-agent-skills/blob/main/CONTRIBUTING.md", "reason": "Requires community usage and explicitly rejects brand-new skills. No PR submitted." },
+    { "name": "travisvn awesome-claude-skills", "status": "not_eligible", "url": "https://github.com/travisvn/awesome-claude-skills/blob/main/CONTRIBUTING.md", "reason": "Requires at least 10 stars and excludes AI-assisted submissions. Repository had 0 stars; no PR submitted." },
+    { "name": "OpenAI universal plugin directory", "status": "investigated_not_submitted", "url": "https://developers.openai.com/plugins/deploy/submission", "reason": "Requires plugin packaging, verified publishing identity and organization publishing permissions. No account verification, paid plan or submission was performed." }
+  ]
+}
