@@ -2,9 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import ts from 'typescript';
-import { parseTemplate } from '@angular/compiler';
 import { parse as parseYaml } from 'yaml';
 import { root, inventory } from './api.mjs';
+import { validateSource } from '../shared/usage-validator.mjs';
+export { validateSource } from '../shared/usage-validator.mjs';
 
 export function walk(dir) {
   return fs.readdirSync(dir,{withFileTypes:true}).flatMap(entry => {
@@ -31,62 +32,6 @@ export function validateSkill(text, directoryName = 'neural-ui') {
   if (!text.slice(front[0].length).trim()) errors.push('Empty skill instructions');
   if (/\b(?:TODO|TBD|PLACEHOLDER)\b/.test(text)) errors.push('Unfinished scaffold');
   if (text.split('\n').length>500) errors.push('Entrypoint exceeds progressive disclosure budget');
-  return errors;
-}
-
-export function validateSource(text, api, filename = 'example.ts') {
-  const errors = [];
-  const source = ts.createSourceFile(filename,text,ts.ScriptTarget.Latest,true);
-  const available = new Map();
-  let hasFormField = false;
-  for (const node of source.statements) {
-    if (!ts.isImportDeclaration(node) || !ts.isStringLiteral(node.moduleSpecifier)) continue;
-    const specifier = node.moduleSpecifier.text;
-    if (/neural.*native|neural-native/.test(specifier)) errors.push(`Neural Native import forbidden: ${specifier}`);
-    if (specifier==='@angular/forms/signals') hasFormField = !!node.importClause?.namedBindings?.elements?.some(x=>x.name.text==='FormField') || hasFormField;
-    if (!specifier.startsWith('@neural-ui/core')) continue;
-    const entry = api.entrypoints[specifier];
-    if (!entry) { errors.push(`Unsupported public entrypoint: ${specifier}`); continue; }
-    if (node.importClause?.name || (node.importClause?.namedBindings && !ts.isNamedImports(node.importClause.namedBindings))) errors.push(`Use explicit named Neural imports: ${specifier}`);
-    for (const item of node.importClause?.namedBindings?.elements ?? []) {
-      const name = item.propertyName?.text ?? item.name.text;
-      const contract = entry.symbols.find(s=>s.name===name);
-      if (!contract) errors.push(`Unknown public export: ${specifier}#${name}`);
-      else available.set(item.name.text, contract);
-    }
-  }
-  function visit(node) {
-    if (ts.isCallExpression(node) && node.expression.getText(source)==='Component') {
-      const object = node.arguments[0];
-      const template = object?.properties?.find(p=>p.name?.getText(source)==='template')?.initializer;
-      if (template && (ts.isNoSubstitutionTemplateLiteral(template)||ts.isStringLiteral(template))) {
-        const parsed = parseTemplate(template.text,filename);
-        for (const error of parsed.errors ?? []) errors.push(String(error));
-        function elements(nodes) {
-          for (const element of nodes ?? []) {
-            if (element.name?.startsWith('neu-')) {
-              const contract = [...available.values()].find(s=>s.selector===element.name);
-              if (!contract) errors.push(`Unknown or unimported Neural selector: ${element.name}`);
-              else {
-                const inputs = new Set(contract.inputs.map(b=>b.alias));
-                const outputs = new Set(contract.outputs.map(b=>b.alias));
-                for (const input of element.inputs ?? []) if (!inputs.has(input.name) && !(hasFormField && input.name==='formField') && !['class','style','attribute'].includes(String(input.type).toLowerCase()) && !/^(aria-|data-)/.test(input.name)) errors.push(`Unknown input: ${element.name}.${input.name}`);
-                for (const output of element.outputs ?? []) if (!outputs.has(output.name) && !['click','keydown','focus','blur','change','input'].includes(output.name)) errors.push(`Unknown output: ${element.name}.${output.name}`);
-                const supplied = new Set([...(element.inputs??[]),...(element.attributes??[])].map(x=>x.name));
-                for (const input of contract.inputs) if(input.required && !supplied.has(input.alias)) errors.push(`Missing required input: ${element.name}.${input.alias}`);
-                if ((element.inputs??[]).some(x=>['ngModel','formControl','formControlName'].includes(x.name))) errors.push('CVA binding on a Neural signal control');
-                if (supplied.has('formField') && supplied.has('value')) errors.push('Conflicting form and model owners');
-              }
-            }
-            elements(element.children); elements(element.branches);
-          }
-        }
-        elements(parsed.nodes);
-      }
-    }
-    ts.forEachChild(node,visit);
-  }
-  visit(source);
   return errors;
 }
 

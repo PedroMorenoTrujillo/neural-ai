@@ -48,6 +48,7 @@ export function inventory(dir = packageRoot) {
         const meta = declaration.members.find(m => ['ɵcmp','ɵdir'].includes(m.name?.getText()));
         const args = meta?.type?.typeArguments;
         if (args) {
+          contract.angularKind = meta.name.getText() === 'ɵcmp' ? 'component' : 'directive';
           contract.selector = args[1]?.literal?.text;
           contract.inputs = bindings(args[3]);
           contract.outputs = bindings(args[4]);
