@@ -1,0 +1,22 @@
+{
+  "name": "neural-ui-mcp",
+  "version": "0.1.0",
+  "description": "Official local MCP server for Neural UI v2 public APIs, documentation, examples and static usage validation",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=22.22.3" },
+  "bin": { "neural-ui-mcp": "dist/cli.js" },
+  "files": ["dist/", "data/", "README.md", "LICENSE"],
+  "exports": { ".": { "types": "./dist/server.d.ts", "import": "./dist/server.js" } },
+  "repository": { "type": "git", "url": "git+https://github.com/PedroMorenoTrujillo/neural-ai.git", "directory": "packages/mcp" },
+  "homepage": "https://github.com/PedroMorenoTrujillo/neural-ai/tree/main/packages/mcp",
+  "bugs": "https://github.com/PedroMorenoTrujillo/neural-ai/issues",
+  "keywords": ["mcp", "neural-ui", "angular", "model-context-protocol", "stdio"],
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "dependencies": {
+    "@angular/compiler": "22.2.2",
+    "@modelcontextprotocol/server": "2.3.1",
+    "typescript": "6.0.3",
+    "zod": "4.6.7"
+  }
+}

@@ -5,7 +5,9 @@
   "description": "Official Neural UI v2 agent skill and reproducible public API verification",
   "license": "MIT",
   "type": "module",
-  "engines": { "node": ">=22.22.2" },
+  "engines": {
+    "node": ">=22.22.2"
+  },
   "scripts": {
     "api:generate": "node scripts/api.mjs --write",
     "api:check": "node scripts/api.mjs --check",
@@ -14,6 +16,12 @@
     "build:examples": "cd tests/integration && ng build --configuration production",
     "test:integration": "playwright test",
     "test:clean-install": "node scripts/verify-clean-install.mjs",
+    "build:mcp": "node scripts/build-mcp.mjs",
+    "test:mcp": "node --test tests/mcp/*.test.mjs",
+    "test:mcp:package": "node scripts/verify-mcp-package.mjs",
+    "check:mcp:name": "node scripts/check-mcp-name.mjs",
+    "check:mcp:security": "node scripts/audit-mcp.mjs",
+    "verify:mcp": "npm run build:mcp && npm run test:mcp && npm run check:mcp:security && npm run test:mcp:package",
     "check:links": "node scripts/links.mjs",
     "check:sources": "node scripts/provenance.mjs",
     "release:prepare": "npm run verify && npm run check:links && npm run check:sources && node scripts/package.mjs",
@@ -33,12 +41,13 @@
     "@angular/platform-server": "22.2.2",
     "@angular/router": "22.2.2",
     "@angular/ssr": "22.2.2",
+    "@modelcontextprotocol/client": "2.3.1",
     "@neural-ui/core": "2.0.1",
     "@playwright/test": "1.63.0",
     "@schematics/angular": "22.2.2",
+    "@types/express": "5.0.5",
     "@types/node": "22.19.0",
     "express": "5.1.0",
-    "@types/express": "5.0.5",
     "typescript": "6.0.3",
     "yaml": "2.8.1"
   }
