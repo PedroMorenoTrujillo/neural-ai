@@ -15,7 +15,7 @@ Implement against the installed package's public contracts. This skill's verifie
 
 ## Working rules
 
-1. Identify the component and state owner before writing a binding. Load the relevant reference below and only the required [API entrypoint](references/api/index.md).
+1. Identify the component and state owner before writing a binding. Load the relevant reference below and only the required [API entrypoint](references/api/index.md). For long API files, search the exact symbol heading and read the relevant sections instead of loading the entire file.
 2. Verify the exact export, selector, input, output and payload in that entrypoint. The published declarations and package exports take precedence over documentation or remembered examples. A physically exported internal entrypoint is not a supported consumer API.
 3. Never invent components, aliases, models, events, CSS tokens or providers. Never deep-import implementation files, use internal entrypoints, or bypass errors with schemas, casts to any, forced peers or disabled template checking. When the contract cannot support a request, explain the gap and use application-owned Angular/HTML logic where appropriate.
 4. Prefer standalone components, signals, explicit types and OnPush. Import each Neural component from its public secondary entrypoint; root exports are configuration and shared types. Import FormField from Angular forms/signals, not Neural form-field.

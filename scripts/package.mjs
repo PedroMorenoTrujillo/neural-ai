@@ -1,8 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import os from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { root } from './api.mjs';
+import { localLinks, validateSkill, walk } from './validate.mjs';
 
 const version = JSON.parse(fs.readFileSync(path.join(root,'package.json'))).version;
 // Refuse to package a stale committed skill when working-tree edits exist.
@@ -14,4 +16,19 @@ const name = `neural-ui-${version}.tar.gz`;
 execFileSync('git',['archive','--format=tar.gz','--prefix=neural-ui/',`--output=${path.join(output,name)}`,'HEAD:skills/neural-ui'],{cwd:root,stdio:'pipe'});
 const digest = crypto.createHash('sha256').update(fs.readFileSync(path.join(output,name))).digest('hex');
 fs.writeFileSync(path.join(output,'SHA256SUMS'),`${digest}  ${name}\n`);
+const temporary = fs.mkdtempSync(path.join(os.tmpdir(),'neural-ai-package-'));
+try {
+  execFileSync('tar',['-xzf',path.join(output,name),'-C',temporary],{stdio:'pipe'});
+  const installed = path.join(temporary,'neural-ui');
+  const errors = validateSkill(fs.readFileSync(path.join(installed,'SKILL.md'),'utf8'));
+  const files = walk(installed);
+  for (const file of files) {
+    const relative = path.relative(installed,file);
+    if(!fs.readFileSync(file).equals(fs.readFileSync(path.join(root,'skills/neural-ui',relative)))) errors.push(`Archive mismatch: ${relative}`);
+    if(file.endsWith('.md')) errors.push(...localLinks(file,fs.readFileSync(file,'utf8')));
+  }
+  if(files.length!==walk(path.join(root,'skills/neural-ui')).length) errors.push('Archive omits skill resources');
+  if(errors.length) throw Error(errors.join('\n'));
+  console.log(`Verified archive extraction: ${files.length} files, identical contents and self-contained references.`);
+} finally { fs.rmSync(temporary,{recursive:true,force:true}); }
 console.log(`dist/${name}\ndist/SHA256SUMS`);

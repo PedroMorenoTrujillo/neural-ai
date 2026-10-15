@@ -25,6 +25,7 @@ jobs:
       - run: npm run verify
       - run: npm run check:links
       - run: npm run check:sources
+      - run: node scripts/package.mjs
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

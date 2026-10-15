@@ -124,6 +124,9 @@ export function validateRepository() {
   const sources = JSON.parse(fs.readFileSync(path.join(root,'evidence/sources.json')));
   const lock = JSON.parse(fs.readFileSync(path.join(root,'package-lock.json')));
   if (sources.package.version!==version || api.version!==version || !skill.includes(`neural-ui-version: "${version}"`)) errors.push('Version metadata drift');
+  const releaseVersion = JSON.parse(fs.readFileSync(path.join(root,'package.json'))).version;
+  const metadata = parseYaml(/^---\r?\n([\s\S]*?)\r?\n---/.exec(skill)?.[1] ?? '')?.metadata;
+  if(metadata?.version!==releaseVersion) errors.push('Skill release version differs from package.json');
   if (lock.packages['node_modules/@neural-ui/core'].integrity!==sources.package.integrity) errors.push('npm integrity differs from reviewed package');
   const config = ts.readConfigFile(path.join(root,'tests/integration/tsconfig.json'),ts.sys.readFile).config;
   if(config?.compilerOptions?.strict!==true || config?.angularCompilerOptions?.strictTemplates!==true) errors.push('Integration fixture must retain explicit strict TypeScript and Angular template checks');
