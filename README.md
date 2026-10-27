@@ -2,21 +2,27 @@
 
 Skills oficiales de **Neural UI v2 Web** y **Neural Native**, con contratos verificables y un MCP compartido. La skill Web 0.1.0 conserva su baseline **@neural-ui/core 2.0.1**. La nueva skill Native 0.1.0 se prepara contra **@neural-ui/native 0.1.0-beta.2**, Angular Native 0.18.2 y Angular 22.2.2. Licencia MIT.
 
-Una skill principal, referencias bajo demanda y ejemplos ejecutables. La segunda fase añade un [servidor MCP local opcional](packages/mcp/README.md), publicado como [neural-ui-mcp@0.1.0 en npm](https://www.npmjs.com/package/neural-ui-mcp). Sin backend de producto, hosting, Supabase ni servicio de IA de pago obligatorio. La instalación de la skill se hace desde GitHub y no necesita npm. La aplicación Angular consumidora sí instala Neural UI y sus peers.
+Dos skills especializadas, referencias bajo demanda y ejemplos ejecutables. El [servidor MCP local opcional](packages/mcp/README.md) se distribuye como [neural-ui-mcp@0.2.0 en npm](https://www.npmjs.com/package/neural-ui-mcp), con catálogos Web y Native separados. Sin backend de producto, hosting, Supabase ni servicio de IA de pago obligatorio. La instalación de las skills se hace desde GitHub y no necesita el MCP. La aplicación consumidora sí instala Neural y sus peers.
 
 La skill también está disponible en [Skills.sh](https://www.skills.sh/pedromorenotrujillo/neural-ai/neural-ui). Consulta el [informe de distribución](docs/distribution.md) para la instalación con su CLI, la prueba en Angular limpio y el estado real de los directorios.
 
-El MCP requiere Node 22.22.3 o posterior y se puede iniciar con `npx --yes neural-ui-mcp@0.1.0`. Es un proceso stdio para conectar desde un cliente MCP; consulta su [configuración para Codex y Claude Code](packages/mcp/README.md#conectar-codex-y-claude-code).
+El MCP requiere Node 22.22.3 o posterior y se puede iniciar con `npx --yes neural-ui-mcp@0.2.0`. Es un proceso stdio para conectar desde un cliente MCP; consulta su [configuración para Codex y Claude Code](packages/mcp/README.md#conectar-codex-y-claude-code).
 
 ## Ampliación Native
 
-Esta rama añade [neural-native](skills/neural-native/SKILL.md) y prepara **neural-ui-mcp 0.2.0**. La versión actualmente publicada en npm, 0.1.0, sigue siendo solo Web. La ampliación no se considera publicada hasta crear su release; se puede probar con el tarball local verificado.
+La skill [neural-native](skills/neural-native/SKILL.md) tiene su propia [release 0.1.0](https://github.com/PedroMorenoTrujillo/neural-ai/releases/tag/neural-native-v0.1.0). El MCP compartido **0.2.0** sirve Web y Native; su versión anterior 0.1.0 sigue siendo exclusivamente Web.
 
 - La skill Native contiene referencias derivadas de 67 entrypoints npm, los 28 tokens públicos con valores claros/oscuros y cinco ejemplos reales: formularios, colecciones, navegación, overlays y temas.
 - El MCP mantiene las cinco herramientas y los URI Web. Todas admiten `library: "native"` y la versión Native explícita; omitir `library` conserva Web como predeterminado. No intercambia contratos entre productos.
 - Las fuentes de verdad son los tipos del paquete publicado, su integridad npm y los ejemplos compilados. La prueba de navegador usa `@ng-native/web`; no se presenta como certificación de accesibilidad o comportamiento nativo.
 
-Para probar la skill desde una copia de esta rama, copia **toda** la carpeta `skills/neural-native` a `.agents/skills/neural-native` en tu aplicación (Codex) o `.claude/skills/neural-native` (Claude Code), sin sobrescribir una copia existente. Invócala con `$neural-native` o `/neural-native` según el cliente. El paquete es autocontenido; el MCP es opcional.
+Para instalar Native desde su etiqueta, ejecuta desde tu aplicación:
+
+```sh
+npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/neural-native-v0.1.0/skills/neural-native --skill neural-native --agent codex claude-code --copy --yes
+```
+
+También puedes descargar el archivo de la release o copiar **toda** la carpeta `skills/neural-native` a `.agents/skills/neural-native` (Codex) o `.claude/skills/neural-native` (Claude Code), sin sobrescribir una copia existente. Invócala con `$neural-native` o `/neural-native` según el cliente. El paquete es autocontenido; el MCP es opcional.
 
 Para verificar la ampliación:
 

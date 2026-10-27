@@ -43,7 +43,7 @@ npm run test:clean-install
 npm run check:links
 npm run check:sources
 npm run test:mcp:registry
-git diff v0.1.0 --exit-code -- skills
+git diff v0.1.0 --exit-code -- skills/neural-ui
 ```
 
 La suite MCP comprueba:
@@ -80,12 +80,12 @@ Para publicaciones posteriores: incrementar la versión, repetir la suite, auten
 
 Quedan pendientes las sesiones de integración con los hosts. La Skill 0.1.0 continúa instalándose desde su etiqueta original.
 
-## Ampliación Native preparada el 27-10-2026
+## Ampliación Native 0.2.0
 
-La descripción anterior registra la publicación Web 0.1.0. La siguiente versión preparada es **0.2.0**, todavía sin publicar en npm. Reutiliza las cinco herramientas y la forma de respuesta Web, añadiendo `library: "native"`; la selección por defecto sigue siendo Web. La skill `skills/neural-ui` permanece intacta respecto a su release; la nueva `skills/neural-native` es independiente.
+La descripción anterior registra la publicación Web 0.1.0. La ampliación **0.2.0** reutiliza las cinco herramientas y la forma de respuesta Web, añadiendo `library: "native"`; la selección por defecto sigue siendo Web. La skill `skills/neural-ui` permanece intacta respecto a su release; la nueva `skills/neural-native` es independiente y se distribuye con la etiqueta `neural-native-v0.1.0`.
 
 `scripts/native-api.mjs` extrae 67 entrypoints del paquete npm 0.1.0-beta.2, resuelve modelos heredados y registra los 28 tokens claros/oscuros sin ejecutar el runtime. `build:mcp` verifica los dos snapshots antes de empaquetarlos. Los catálogos usan archivos y hashes separados; la biblioteca nunca se convierte en una ruta proporcionada por el cliente.
 
 Los recursos Native usan `neural-native://` y los Web conservan `neural-ui://`. El validador comparte el parser, pero aplica contratos por biblioteca: rechaza imports Web dentro de Native y viceversa, eventos inventados y versiones cruzadas. No ejecuta la fuente ni afirma que se haya compilado.
 
-La verificación del tarball ampliado ejercita las cinco herramientas y recursos de ambas bibliotecas tras una instalación limpia con la red bloqueada. La versión pública 0.1.0 se sigue comprobando por separado para conservar la compatibilidad histórica. Consulta el [README actual del paquete](../packages/mcp/README.md) para distinguir instalación publicada y tarball preparado.
+La verificación del tarball ampliado ejercita las cinco herramientas y recursos de ambas bibliotecas tras una instalación limpia con la red bloqueada. La versión pública 0.1.0 se sigue comprobando por separado para conservar la compatibilidad histórica. `test:mcp:registry:current` comprueba 0.2.0 contra el hash autorizado de `release-0.2.0.json`, incluyendo instalación y npx con ambos catálogos. Consulta el [README actual del paquete](../packages/mcp/README.md) para instalarlo.

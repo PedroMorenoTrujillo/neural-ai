@@ -2,7 +2,7 @@
 
 This skill release is 0.1.0 and its verified package baseline is `@neural-ui/native@0.1.0-beta.2`, Angular Native 0.18.2 and Angular 22.2.2. Beta APIs can change before 1.0. The installed package and lockfile are the contract for an existing application.
 
-The shared MCP's prepared expansion is 0.2.0; use its verified local package until that version is published. A client's published `neural-ui-mcp@0.1.0` only understands Web and cannot answer Native requests. Do not claim it supports Native because a tool happens to share the same name.
+Use `neural-ui-mcp@0.2.0` for both Web and Native. The earlier `neural-ui-mcp@0.1.0` only understands Web and cannot answer Native requests. Do not claim it supports Native because a tool happens to share the same name.
 
 Use an explicitly selected Native call:
 

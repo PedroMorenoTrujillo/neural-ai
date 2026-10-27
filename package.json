@@ -28,6 +28,7 @@
     "test:mcp": "node --test tests/mcp/*.test.mjs",
     "test:mcp:package": "node scripts/verify-mcp-package.mjs",
     "test:mcp:registry": "node scripts/verify-mcp-registry.mjs",
+    "test:mcp:registry:current": "node scripts/verify-mcp-registry.mjs --current",
     "check:mcp:name": "node scripts/check-mcp-name.mjs",
     "check:mcp:security": "node scripts/audit-mcp.mjs",
     "verify:mcp": "npm run build:mcp && npm run test:mcp && npm run check:mcp:security && npm run test:mcp:package",

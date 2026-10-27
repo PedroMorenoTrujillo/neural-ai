@@ -27,6 +27,7 @@ jobs:
       - run: npm run verify:native
       - run: npm run verify:mcp
       - run: npm run test:mcp:registry
+      - run: npm run test:mcp:registry:current
       - run: npm run test:clean-install
       - run: npm run check:links
       - run: npm run check:sources

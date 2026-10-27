@@ -37,6 +37,6 @@ Baseline adicional: `@neural-ui/native@0.1.0-beta.2`, Angular Native/renderer We
 - Quince pruebas MCP cubren el catálogo Web existente y el nuevo catálogo Native, el cliente SDK real, los cinco tools, recursos, parsers, integridad, límites, selección de biblioteca y rechazo de versiones/imports cruzados.
 - La prueba del paquete instalado verifica ambas bibliotecas con la red bloqueada durante la ejecución del servidor. Descargar o instalar dependencias sí necesita npm.
 
-Estos resultados son de compilación, transporte y navegador, no una nueva prueba de hardware iOS/Android ni de VoiceOver/TalkBack. Tampoco se han ejecutado sesiones independientes de generación en los hosts Codex y Claude Code. La distribución Native y MCP 0.2.0 se consideran preparadas, no publicadas, hasta completar sus releases.
+Estos resultados son de compilación, transporte y navegador, no una nueva prueba de hardware iOS/Android ni de VoiceOver/TalkBack. Tampoco se han ejecutado sesiones independientes de generación en los hosts Codex y Claude Code. La instalación pública del MCP se contrasta con el registro y el hash de release; la skill Native usa la etiqueta independiente `neural-native-v0.1.0`.
 
 Antes de anunciar compatibilidad probada con cada agente, ejecutar los escenarios del protocolo y adjuntar versiones, prompts, diffs, builds y resultados de interacción. Para ampliar versiones de Neural, regenerar contratos y volver a verificar antes de cambiar el soporte declarado.
