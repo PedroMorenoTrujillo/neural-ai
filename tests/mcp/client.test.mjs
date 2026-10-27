@@ -5,7 +5,7 @@ import { connect, call } from './helpers.mjs';
 test('official MCP SDK client interoperates over real stdio: all tools and resources', { timeout: 30000 }, async () => {
   const { client, stderr } = await connect();
   try {
-    assert.deepEqual(client.getServerVersion(), { name: 'neural-ui-mcp', version: '0.1.0' });
+    assert.deepEqual(client.getServerVersion(), { name: 'neural-ui-mcp', version: '0.2.0' });
     assert.equal(client.getProtocolEra(), 'modern');
     assert.equal(client.getNegotiatedProtocolVersion(), '2026-07-28');
     const tools = await client.listTools();
@@ -31,7 +31,8 @@ test('official MCP SDK client interoperates over real stdio: all tools and resou
       assert.ok(report.templatesChecked > 0);
     }
     const resources = await client.listResources();
-    assert.equal(resources.resources.length, 112);
+    assert.equal(resources.resources.filter(item => item.uri.startsWith('neural-ui://')).length, 112);
+    assert.ok(resources.resources.some(item => item.uri === 'neural-native://docs/references/forms'));
     assert.equal(stderr(), '');
   } finally { await client.close(); }
 });

@@ -24,12 +24,14 @@ jobs:
       - run: npm ci --prefix packages/mcp --no-fund --no-audit
       - run: npx playwright install --with-deps chromium
       - run: npm run verify
+      - run: npm run verify:native
       - run: npm run verify:mcp
       - run: npm run test:mcp:registry
       - run: npm run test:clean-install
       - run: npm run check:links
       - run: npm run check:sources
       - run: node scripts/package.mjs
+      - run: npm run package:native
       - uses: actions/upload-artifact@v4
         with:
           name: neural-ui-mcp-verified

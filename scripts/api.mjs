@@ -25,9 +25,10 @@ function bindings(node) {
   });
 }
 
-export function inventory(dir = packageRoot) {
+export function inventory(dir = packageRoot, options = {}) {
+  const support = options.policy ?? policy;
   const pkg = json(path.join(dir, 'package.json'));
-  const entries = Object.entries(pkg.exports).filter(([key, value]) => value.types && !policy.internalEntrypoints.includes(key));
+  const entries = Object.entries(pkg.exports).filter(([key, value]) => value.types && !support.internalEntrypoints.includes(key));
   const program = ts.createProgram(entries.map(([,value]) => path.join(dir, value.types)), { skipLibCheck: true, target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.NodeNext, moduleResolution: ts.ModuleResolutionKind.NodeNext });
   const checker = program.getTypeChecker();
   const result = { schemaVersion: 1, package: pkg.name, version: pkg.version, entrypoints: {}, tokens: [] };
@@ -38,7 +39,7 @@ export function inventory(dir = packageRoot) {
     const symbols = [];
     for (let symbol of checker.getExportsOfModule(moduleSymbol).sort((a,b) => a.name.localeCompare(b.name))) {
       const name = symbol.name;
-      if (name.startsWith('ɵ') || policy.internalDeclarations.includes(`${key}#${name}`)) continue;
+      if (name.startsWith('ɵ') || support.internalDeclarations.includes(`${key}#${name}`)) continue;
       if (symbol.flags & ts.SymbolFlags.Alias) symbol = checker.getAliasedSymbol(symbol);
       const declarations = (symbol.declarations ?? []).filter(d => !hidden(d));
       if (!declarations.length) continue;
@@ -56,8 +57,30 @@ export function inventory(dir = packageRoot) {
             const member = declaration.members.find(m => m.name?.getText() === binding.name);
             binding.type = member?.type ? print(member.type) : '(generated model output)';
           }
+          if (options.inheritedBindings) {
+            const seen = new Set();
+            const mergeBase = type => {
+              if (seen.has(type)) return;
+              seen.add(type);
+              for (const base of checker.getBaseTypes(type) ?? []) {
+                mergeBase(base);
+                const parent = base.getSymbol()?.declarations?.find(ts.isClassDeclaration);
+                if (!parent) continue;
+                const meta = parent.members.find(m => ['ɵcmp','ɵdir'].includes(m.name?.getText()));
+                for (const [field, index] of [['inputs',3],['outputs',4]]) {
+                  const inherited = bindings(meta?.type?.typeArguments?.[index]);
+                  for (const binding of inherited) {
+                    const member = checker.getPropertyOfType(base, binding.name)?.valueDeclaration;
+                    binding.type = member?.type ? print(member.type) : '(generated model output)';
+                    if (!contract[field].some(item => item.alias === binding.alias)) contract[field].push(binding);
+                  }
+                }
+              }
+            };
+            mergeBase(checker.getTypeAtLocation(declaration));
+          }
         }
-        const allowed = new Set([...(policy.publicMembers[name] ?? []), ...(policy.publicImperativeMembers[name] ?? [])]);
+        const allowed = new Set([...(support.publicMembers[name] ?? []), ...(support.publicImperativeMembers[name] ?? [])]);
         contract.members = declaration.members.filter(m => !hidden(m) && allowed.has(m.name?.getText())).map(print);
       } else if (ts.isInterfaceDeclaration(declaration)) {
         const cleaned = ts.factory.updateInterfaceDeclaration(declaration, declaration.modifiers, declaration.name, declaration.typeParameters, declaration.heritageClauses, declaration.members.filter(m => !hidden(m)));
@@ -69,12 +92,13 @@ export function inventory(dir = packageRoot) {
     }
     result.entrypoints[key === '.' ? pkg.name : pkg.name + key.slice(1)] = { types: value.types, sha256: hash(read(path.join(dir, value.types))), symbols };
   }
-  result.tokens = json(path.join(dir, 'token-manifest.json')).tokens.filter(t => t.public).map(t => ({ name: t.token, category: t.category, default: t.default }));
-  result.assets = Object.fromEntries(['styles.scss','styles/_tokens.scss','token-manifest.json'].map(file => [file,hash(read(path.join(dir,file)))]));
+  result.tokens = options.tokens ?? json(path.join(dir, 'token-manifest.json')).tokens.filter(t => t.public).map(t => ({ name: t.token, category: t.category, default: t.default }));
+  result.assets = options.assets ?? Object.fromEntries(['styles.scss','styles/_tokens.scss','token-manifest.json'].map(file => [file,hash(read(path.join(dir,file)))]));
   return result;
 }
 
-export function artifacts(api) {
+export function artifacts(api, options = {}) {
+  const skill = options.skill ?? 'neural-ui';
   const files = new Map();
   const index = [`# Public API — ${api.package}@${api.version}`, '', 'Generated from the installed npm declarations, filtered by the reviewed upstream support policy. Read only the relevant entrypoint. Angular metadata and private implementation methods are excluded.', '', '| Entrypoint | Exports |', '| --- | ---: |'];
   for (const [entry, contract] of Object.entries(api.entrypoints)) {
@@ -93,12 +117,12 @@ export function artifacts(api) {
       if (s.declaration) lines.push('```typescript', s.declaration, '```', '');
       if (s.members?.length) lines.push('Supported imperative members:', '', '```typescript', ...s.members, '```', '');
     }
-    files.set(`skills/neural-ui/references/api/${name}.md`, lines.join('\n')+'\n');
+    files.set(`skills/${skill}/references/api/${name}.md`, lines.join('\n')+'\n');
   }
   index.push('', '[Public design tokens](tokens.md)', '');
-  files.set('skills/neural-ui/references/api/index.md',index.join('\n'));
-  files.set('skills/neural-ui/references/api/tokens.md', ['# Public design tokens', '', `Generated from ${api.package}@${api.version}/token-manifest.json.`, '', '| Token | Category | Default |', '| --- | --- | --- |', ...api.tokens.map(t=>`| \`${t.name}\` | ${t.category} | \`${String(t.default).replaceAll('|','\\|')}\` |`), ''].join('\n'));
-  files.set('evidence/api.json',JSON.stringify(api,null,2)+'\n');
+  files.set(`skills/${skill}/references/api/index.md`,index.join('\n'));
+  files.set(`skills/${skill}/references/api/tokens.md`, ['# Public design tokens', '', `Generated from ${api.package}@${api.version}/${options.tokenSource ?? 'token-manifest.json'}.`, '', '| Token | Category | Default |', '| --- | --- | --- |', ...api.tokens.map(t=>`| \`${t.name}\` | ${t.category} | \`${String(t.default).replaceAll('|','\\|')}\` |`), ''].join('\n'));
+  files.set(options.evidence ?? 'evidence/api.json',JSON.stringify(api,null,2)+'\n');
   return files;
 }
 

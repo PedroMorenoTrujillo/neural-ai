@@ -1,10 +1,12 @@
 # neural-ui-mcp
 
-Servidor MCP oficial de Neural UI v2, local y de solo lectura. Consulta **@neural-ui/core 2.0.1**: 96 entrypoints públicos, 107 referencias y cinco ejemplos Angular 22. Licencia MIT. Node **22.22.3 o posterior**.
+Servidor MCP oficial de Neural Web y Native, local y de solo lectura. La actualización **0.2.0** mantiene Web **@neural-ui/core 2.0.1** como predeterminado y añade **@neural-ui/native 0.1.0-beta.2** mediante `library: "native"`. Licencia MIT. Node **22.22.3 o posterior**.
 
-Publicado como [neural-ui-mcp@0.1.0](https://www.npmjs.com/package/neural-ui-mcp). No requiere backend, cuenta, claves, conexión de red durante la ejecución ni servicios de IA. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
+La versión publicada actualmente es [neural-ui-mcp@0.1.0](https://www.npmjs.com/package/neural-ui-mcp), exclusivamente Web. **0.2.0 se prepara y verifica en esta rama; todavía no se afirma su publicación en npm.** No requiere backend, cuenta, claves, conexión de red durante la ejecución ni servicios de IA. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
 
 ## Instalar desde npm
+
+Estas instrucciones corresponden a la versión publicada Web 0.1.0. Para probar Native antes de publicar la actualización, usa el tarball local verificado del siguiente apartado.
 
 ```sh
 npx --yes neural-ui-mcp@0.1.0
@@ -20,7 +22,7 @@ Desde una copia del repositorio [Neural AI](https://github.com/PedroMorenoTrujil
 npm ci
 npm ci --prefix packages/mcp
 npm run verify:mcp
-npm install --prefix /ruta/absoluta/neural-mcp-local ./dist/mcp/neural-ui-mcp-0.1.0.tgz
+npm install --prefix /ruta/absoluta/neural-mcp-local ./dist/mcp/neural-ui-mcp-0.2.0.tgz
 ```
 
 El último comando instala el paquete local preparado por las pruebas. Comprueba su SHA-256 con `dist/mcp/SHA256SUMS`. También puedes ejecutar directamente `node /ruta/absoluta/neural-ai/packages/mcp/dist/cli.js` después de compilarlo. El proceso espera a un cliente en stdin.
@@ -76,21 +78,31 @@ Sintaxis contrastada con [Codex MCP](https://developers.openai.com/codex/mcp/) y
 | `get_example` | `id`: forms, table, navigation, overlays, theme | Fuente del ejemplo validado |
 | `validate_usage` | `source`, `filename?` | Errores y advertencias estáticas; `compilationChecked: false` |
 
-Todas aceptan `version: "2.0.1"` opcional y rechazan otras versiones. Respuestas con `version`, datos estructurados y texto JSON equivalente. La validación detecta imports internos, símbolos desconocidos, inputs/outputs inexistentes, inputs requeridos ausentes y propietarios de formulario en conflicto, dentro del alcance descrito abajo.
+Todas aceptan `library: "web" | "native"` (predeterminado `web`) y una versión opcional que debe coincidir con el catálogo: Web `2.0.1`, Native `0.1.0-beta.2`. Las respuestas conservan `{ version, data }`, datos estructurados y texto JSON equivalente. Los errores de mezcla de catálogo o versión se rechazan; no hay conversión implícita. La validación detecta imports internos, símbolos desconocidos, inputs/outputs inexistentes, inputs requeridos ausentes y propietarios de formulario en conflicto, dentro del alcance descrito abajo.
+
+Ejemplo de argumentos para `get_api`:
+
+```json
+{"library":"native","version":"0.1.0-beta.2","entrypoint":"@neural-ui/native/input","symbol":"NeuInputComponent"}
+```
+
+Native tiene 67 entrypoints, los modelos heredados de sus controles y sus propios contratos de templates. Sus ejemplos son `forms`, `collections`, `navigation`, `overlays` y `theme`; `table` sigue siendo Web. `validate_usage` en Native rechaza imports Web de Neural y controles DOM, y comprueba `pressed` en lugar de aceptar `click` como evento del botón Native.
 
 Recursos fijos: `neural-ui://docs/references/forms`, el resto de referencias bajo `neural-ui://docs/`, y ejemplos bajo `neural-ui://examples/examples/forms` (análogamente para los otros cuatro). Usa `resources/list` para descubrir los URI exactos. La búsqueda devuelve URI completos.
+
+Native usa el espacio separado `neural-native://docs/references/forms` y `neural-native://examples/examples/forms`. La búsqueda de una biblioteca no devuelve documentos de la otra. Todos los URI Web existentes se conservan.
 
 ## Límites y seguridad
 
 - Solo texto y recursos empaquetados. No lee proyectos, `.env`, rutas o URL suministradas; no importa ni ejecuta código enviado. No abre puertos, solicita roots, hace sampling ni escribe archivos durante la ejecución.
 - Esquemas estrictos, límites de longitud, paginación y límite de elementos. Fuente máxima: 64 KiB UTF-8. El cliente debe limitar también el tamaño de los mensajes de transporte: el esquema se aplica después de decodificar JSON.
 - Analiza sintaxis, imports e inline templates. No resuelve tipos de expresiones, herencia, scopes de componentes, NgModules ni templates externos/computados. Puede producir falsos positivos con directivas personalizadas. `valid: true` significa que no detectó errores dentro de ese alcance; ejecuta siempre el compilador y las pruebas Angular.
-- Las referencias de migración mencionan v1 como contexto histórico. La API servida es exclusivamente v2 web. Neural Native queda fuera de ámbito.
+- Las referencias Web de migración mencionan v1 solo como contexto histórico. Native usa un catálogo separado y requiere selección explícita. El servidor no prueba comportamiento en iOS/Android ni garantiza accesibilidad por validar código estático.
 - stdout contiene solo mensajes del protocolo. Diagnósticos genéricos en stderr; no registra el código recibido. SHA-256 detecta corrupción accidental del catálogo; no sustituye la autenticidad del paquete.
 - Transporte stdio mediante SDK oficial TypeScript v2 **2.3.1**, compatible con MCP **2026-07-28** y clientes legacy **2025-11-25**. Sin transporte HTTP.
 
 ## Mantenimiento
 
-Fuentes únicas: `evidence/api.json`, `skills/neural-ui/references`, `skills/neural-ui/examples` y `shared/usage-validator.mjs`. `npm run build:mcp` comprueba la API y genera copias de distribución. La Skill y su release 0.1.0 permanecen intactas. Para actualizar Neural, revisa primero la extracción y los ejemplos, después reconstruye y verifica el MCP. No cambies silenciosamente la versión del catálogo.
+Fuentes únicas: `evidence/api.json` y `evidence/native-api.json`, las referencias/ejemplos de cada skill y `shared/usage-validator.mjs`. `npm run build:mcp` comprueba ambos snapshots y genera los catálogos empaquetados con hashes separados. La skill Web y su release 0.1.0 conservan su alcance. Para actualizar Neural, revisa primero la extracción y los ejemplos, después reconstruye y verifica el MCP. No cambies silenciosamente la versión del catálogo.
 
 Arquitectura, pruebas y publicación: [docs/mcp.md](https://github.com/PedroMorenoTrujillo/neural-ai/blob/main/docs/mcp.md).

@@ -27,4 +27,16 @@ Los informes de enlaces y navegador se generan en test-results. GitHub Actions c
 
 Limitaciones: solo baseline 2.0.1; solo Chromium; no auditoría exhaustiva de los componentes; no prueba de lector de pantalla ni certificación WCAG; sin integración remota de Table ni codemod automático de v1; evaluaciones de agentes pendientes según [el protocolo](../tests/agent-scenarios.md). El catálogo generado certifica la extracción estructural, no el comportamiento completo de cada export.
 
+## Ampliación Native del 27-10-2026
+
+Baseline adicional: `@neural-ui/native@0.1.0-beta.2`, Angular Native/renderer Web 0.18.2 y Angular 22.2.2. La skill Native tiene ciclo propio y no cambia las instrucciones de la skill Web publicada.
+
+- Extracción comprobable desde 67 entrypoints, incluyendo bindings heredados y los 28 tokens claros/oscuros. El paquete instalado se contrasta con su integridad npm y el commit público registrado en `evidence/native-sources.json`.
+- Los cinco ejemplos importados directamente de la skill pasan el compilador Angular con `strictTemplates`. Su fixture usa `@ng-native/web`, no imitaciones HTML de los componentes.
+- Diez recorridos de navegador ejercitan formularios, selección y filtrado, cambio real de contenido de navegación, apertura/cierre de modal con footer proyectado y cambio de tema. Se prueban 390×844 y 844×390, errores de página y desbordamiento horizontal.
+- Quince pruebas MCP cubren el catálogo Web existente y el nuevo catálogo Native, el cliente SDK real, los cinco tools, recursos, parsers, integridad, límites, selección de biblioteca y rechazo de versiones/imports cruzados.
+- La prueba del paquete instalado verifica ambas bibliotecas con la red bloqueada durante la ejecución del servidor. Descargar o instalar dependencias sí necesita npm.
+
+Estos resultados son de compilación, transporte y navegador, no una nueva prueba de hardware iOS/Android ni de VoiceOver/TalkBack. Tampoco se han ejecutado sesiones independientes de generación en los hosts Codex y Claude Code. La distribución Native y MCP 0.2.0 se consideran preparadas, no publicadas, hasta completar sus releases.
+
 Antes de anunciar compatibilidad probada con cada agente, ejecutar los escenarios del protocolo y adjuntar versiones, prompts, diffs, builds y resultados de interacción. Para ampliar versiones de Neural, regenerar contratos y volver a verificar antes de cambiar el soporte declarado.

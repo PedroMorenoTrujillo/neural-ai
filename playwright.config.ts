@@ -6,7 +6,7 @@ export default defineConfig({
   workers: 1,
   retries: 0,
   reporter: [['list'], ['json', { outputFile: 'test-results/browser.json' }]],
-  use: { baseURL: 'http://127.0.0.1:4177', trace: 'retain-on-failure' },
+  use: { baseURL: 'http://127.0.0.1:4177', channel: process.env.NEURAL_BROWSER_CHANNEL, trace: 'retain-on-failure' },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
     command: 'node tests/integration/dist/integration/server/server.mjs',

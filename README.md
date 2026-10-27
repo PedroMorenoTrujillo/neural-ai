@@ -1,12 +1,33 @@
 # Neural AI
 
-Skill oficial de **Neural UI v2** para desarrollar aplicaciones Angular con contratos verificables. Primera versión: **0.1.0**, validada con **@neural-ui/core 2.0.1**, **Angular 22.2.2** y **TypeScript 6.0.3**. Licencia MIT.
+Skills oficiales de **Neural UI v2 Web** y **Neural Native**, con contratos verificables y un MCP compartido. La skill Web 0.1.0 conserva su baseline **@neural-ui/core 2.0.1**. La nueva skill Native 0.1.0 se prepara contra **@neural-ui/native 0.1.0-beta.2**, Angular Native 0.18.2 y Angular 22.2.2. Licencia MIT.
 
 Una skill principal, referencias bajo demanda y ejemplos ejecutables. La segunda fase añade un [servidor MCP local opcional](packages/mcp/README.md), publicado como [neural-ui-mcp@0.1.0 en npm](https://www.npmjs.com/package/neural-ui-mcp). Sin backend de producto, hosting, Supabase ni servicio de IA de pago obligatorio. La instalación de la skill se hace desde GitHub y no necesita npm. La aplicación Angular consumidora sí instala Neural UI y sus peers.
 
 La skill también está disponible en [Skills.sh](https://www.skills.sh/pedromorenotrujillo/neural-ai/neural-ui). Consulta el [informe de distribución](docs/distribution.md) para la instalación con su CLI, la prueba en Angular limpio y el estado real de los directorios.
 
 El MCP requiere Node 22.22.3 o posterior y se puede iniciar con `npx --yes neural-ui-mcp@0.1.0`. Es un proceso stdio para conectar desde un cliente MCP; consulta su [configuración para Codex y Claude Code](packages/mcp/README.md#conectar-codex-y-claude-code).
+
+## Ampliación Native
+
+Esta rama añade [neural-native](skills/neural-native/SKILL.md) y prepara **neural-ui-mcp 0.2.0**. La versión actualmente publicada en npm, 0.1.0, sigue siendo solo Web. La ampliación no se considera publicada hasta crear su release; se puede probar con el tarball local verificado.
+
+- La skill Native contiene referencias derivadas de 67 entrypoints npm, los 28 tokens públicos con valores claros/oscuros y cinco ejemplos reales: formularios, colecciones, navegación, overlays y temas.
+- El MCP mantiene las cinco herramientas y los URI Web. Todas admiten `library: "native"` y la versión Native explícita; omitir `library` conserva Web como predeterminado. No intercambia contratos entre productos.
+- Las fuentes de verdad son los tipos del paquete publicado, su integridad npm y los ejemplos compilados. La prueba de navegador usa `@ng-native/web`; no se presenta como certificación de accesibilidad o comportamiento nativo.
+
+Para probar la skill desde una copia de esta rama, copia **toda** la carpeta `skills/neural-native` a `.agents/skills/neural-native` en tu aplicación (Codex) o `.claude/skills/neural-native` (Claude Code), sin sobrescribir una copia existente. Invócala con `$neural-native` o `/neural-native` según el cliente. El paquete es autocontenido; el MCP es opcional.
+
+Para verificar la ampliación:
+
+```sh
+npm ci
+npm ci --prefix packages/mcp
+npm run verify:native
+npm run verify:mcp
+```
+
+Los ejemplos se importan directamente desde la carpeta de la skill y se compilan con plantillas Angular estrictas. Sus diez recorridos de navegador cubren las cinco composiciones en vertical y horizontal. Las pruebas del cliente MCP comprueban herramientas, recursos, versiones y rechazo de cruces Web/Native. Las instrucciones Web históricas que siguen debajo permanecen fijadas a su release v0.1.0.
 
 ## Instalar en Codex
 
@@ -64,7 +85,7 @@ docs/verification.md
 
 La entrada principal contiene las reglas esenciales y enlaza referencias especializadas. No carga todo el catálogo de componentes al activar la skill. Cada referencia de API se deriva del paquete distribuido; la política oficial del código fuente excluye entrypoints internos aunque estén físicamente exportados.
 
-Cobertura: instalación y configuración; componentes e imports; formularios y Signal Forms; propiedad del estado; tablas, navegación y overlays; theming y tokens; layouts y accesibilidad; SSR e hidratación; migración desde v1; mantenimiento de versiones. Neural Native queda fuera del ámbito.
+La skill Web cubre instalación, componentes, formularios, estado, tablas, navegación, overlays, temas, accesibilidad, SSR y migración. Neural Native queda fuera de esa skill Web y usa su propia [skill especializada](skills/neural-native/SKILL.md).
 
 ## Verificar el proyecto
 

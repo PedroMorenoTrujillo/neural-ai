@@ -19,13 +19,17 @@ export interface Catalog {
   examples: Document[];
 }
 
-export function loadCatalog(): Catalog {
+export type Library = 'web' | 'native';
+export function loadCatalog(library: Library = 'web'): Catalog {
+  if (library !== 'web' && library !== 'native') throw new Error('Unsupported library');
   // Fixed package-relative paths only. Tool arguments never reach the filesystem.
-  const bytes = readFileSync(new URL('../data/catalog.json', import.meta.url));
-  const expected = readFileSync(new URL('../data/sha256', import.meta.url), 'utf8').trim();
+  const bytes = readFileSync(new URL(library === 'native' ? '../data/native-catalog.json' : '../data/catalog.json', import.meta.url));
+  const expected = readFileSync(new URL(library === 'native' ? '../data/native-sha256' : '../data/sha256', import.meta.url), 'utf8').trim();
   if (createHash('sha256').update(bytes).digest('hex') !== expected) throw new Error('Catalogue integrity check failed');
   const data = JSON.parse(bytes.toString()) as Catalog;
-  if (data.schemaVersion !== 1 || data.api.package !== '@neural-ui/core' || data.api.version !== '2.0.1') {
+  const pkg = library === 'native' ? '@neural-ui/native' : '@neural-ui/core';
+  const version = library === 'native' ? '0.1.0-beta.2' : '2.0.1';
+  if (data.schemaVersion !== 1 || data.api.package !== pkg || data.api.version !== version) {
     throw new Error('Unsupported catalogue');
   }
   return data;
@@ -33,7 +37,8 @@ export function loadCatalog(): Catalog {
 
 export function components(catalog: Catalog, query = '', kind = 'all') {
   const needle = query.toLowerCase();
-  return Object.entries(catalog.api.entrypoints).flatMap(([entrypoint, entry]) => entry.symbols
+  const entries = Object.entries(catalog.api.entrypoints).filter(([entrypoint]) => catalog.api.package !== '@neural-ui/native' || entrypoint !== catalog.api.package);
+  return entries.flatMap(([entrypoint, entry]) => entry.symbols
     .filter(symbol => symbol.angularKind && (kind === 'all' || symbol.angularKind === kind))
     .map(symbol => ({ entrypoint, name: symbol.name, kind: symbol.angularKind!, selector: symbol.selector! })))
     .filter(item => `${item.name} ${item.selector} ${item.entrypoint}`.toLowerCase().includes(needle))
@@ -66,7 +71,7 @@ export function search(catalog: Catalog, query: string, limit = 5) {
       const positions = words.map(word => body.indexOf(word)).filter(index => index >= 0);
       const start = Math.max(0, Math.min(...positions) - 160);
       return { id: doc.id, source: doc.source, heading: chunk.heading, score,
-        uri: `neural-ui://docs/${doc.id}`, excerpt: chunk.text.slice(start, start + 1800) };
+        uri: `${catalog.api.package === '@neural-ui/native' ? 'neural-native' : 'neural-ui'}://docs/${doc.id}`, excerpt: chunk.text.slice(start, start + 1800) };
     });
   }).filter(hit => hit.score > 0).sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, limit);
 }

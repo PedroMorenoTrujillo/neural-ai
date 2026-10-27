@@ -79,3 +79,13 @@ La publicación 0.1.0 se realizó desde el tarball verificado, sin recompilarlo.
 Para publicaciones posteriores: incrementar la versión, repetir la suite, autenticar la cuenta npm con permiso de publicación, revisar el tarball identificado por SHA-256 y obtener autorización expresa para publicarlo. La cuenta/2FA y políticas del registro pueden exigir intervención humana. No se debe sustituir el tarball validado por un build sin verificar ni intentar sobrescribir 0.1.0. No hay obligación de contratar ningún plan.
 
 Quedan pendientes las sesiones de integración con los hosts. La Skill 0.1.0 continúa instalándose desde su etiqueta original.
+
+## Ampliación Native preparada el 27-10-2026
+
+La descripción anterior registra la publicación Web 0.1.0. La siguiente versión preparada es **0.2.0**, todavía sin publicar en npm. Reutiliza las cinco herramientas y la forma de respuesta Web, añadiendo `library: "native"`; la selección por defecto sigue siendo Web. La skill `skills/neural-ui` permanece intacta respecto a su release; la nueva `skills/neural-native` es independiente.
+
+`scripts/native-api.mjs` extrae 67 entrypoints del paquete npm 0.1.0-beta.2, resuelve modelos heredados y registra los 28 tokens claros/oscuros sin ejecutar el runtime. `build:mcp` verifica los dos snapshots antes de empaquetarlos. Los catálogos usan archivos y hashes separados; la biblioteca nunca se convierte en una ruta proporcionada por el cliente.
+
+Los recursos Native usan `neural-native://` y los Web conservan `neural-ui://`. El validador comparte el parser, pero aplica contratos por biblioteca: rechaza imports Web dentro de Native y viceversa, eventos inventados y versiones cruzadas. No ejecuta la fuente ni afirma que se haya compilado.
+
+La verificación del tarball ampliado ejercita las cinco herramientas y recursos de ambas bibliotecas tras una instalación limpia con la red bloqueada. La versión pública 0.1.0 se sigue comprobando por separado para conservar la compatibilidad histórica. Consulta el [README actual del paquete](../packages/mcp/README.md) para distinguir instalación publicada y tarball preparado.

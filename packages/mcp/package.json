@@ -1,7 +1,7 @@
 {
   "name": "neural-ui-mcp",
-  "version": "0.1.0",
-  "description": "Official local MCP server for Neural UI v2 public APIs, documentation, examples and static usage validation",
+  "version": "0.2.0",
+  "description": "Official local MCP server for Neural UI Web and Native public APIs, documentation, examples and static usage validation",
   "license": "MIT",
   "type": "module",
   "engines": { "node": ">=22.22.3" },

@@ -16,7 +16,7 @@ export async function connect(path = cli, options = {}) {
 export async function call(client, name, args) {
   const response = await client.callTool({ name, arguments: args });
   assert.equal(response.isError, undefined, JSON.stringify(response.content));
-  assert.equal(response.structuredContent.version, '2.0.1');
+  assert.equal(response.structuredContent.version, args?.library === 'native' ? '0.1.0-beta.2' : '2.0.1');
   assert.deepEqual(JSON.parse(response.content[0].text), response.structuredContent);
   return response.structuredContent.data;
 }

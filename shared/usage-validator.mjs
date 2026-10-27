@@ -12,9 +12,11 @@ export function analyzeSource(text, api, filename = 'example.ts') {
   const available = new Map();
   const componentNames = new Set();
   let hasFormField = false;
+  const isNative = api.package === '@neural-ui/native';
   function entryFor(specifier) {
-    if (/neural.*native|neural-native/.test(specifier)) errors.push(`Neural Native import forbidden: ${specifier}`);
-    if (!specifier.startsWith('@neural-ui/core')) return null;
+    if (!isNative && /neural.*native|neural-native/.test(specifier)) errors.push(`Neural Native import forbidden: ${specifier}`);
+    if (isNative && (specifier === '@neural-ui/core' || specifier.startsWith('@neural-ui/core/'))) errors.push(`Neural Web import forbidden in Native: ${specifier}`);
+    if (specifier !== api.package && !specifier.startsWith(api.package + '/')) return null;
     const entry = api.entrypoints[specifier];
     if (!entry) errors.push(`Unsupported public entrypoint: ${specifier}`);
     return entry ?? null;
@@ -38,11 +40,12 @@ export function analyzeSource(text, api, filename = 'example.ts') {
   const matcher = new SelectorMatcher();
   const dom = new DomElementSchemaRegistry();
   for (const contract of available.values()) if (contract.selector) matcher.addSelectables(CssSelector.parse(contract.selector),contract);
-  const nativeEvents = new Set(['click','keydown','keyup','keypress','focus','blur','focusin','focusout','change','input','pointerdown','pointerup','mousedown','mouseup','mouseenter','mouseleave']);
+  const nativeEvents = new Set(isNative ? [] : ['click','keydown','keyup','keypress','focus','blur','focusin','focusout','change','input','pointerdown','pointerup','mousedown','mouseup','mouseenter','mouseleave']);
   function checkElements(nodes) {
     for (const element of nodes ?? []) {
       const tag = element.name ?? element.tagName;
       if (tag) {
+        if (isNative && ['div','span','button','input','textarea','select','form','section','article','h1','p'].includes(tag)) errors.push(`Web DOM element is not a native primitive: ${tag}`);
         const selector = new CssSelector();
         selector.setElement(tag);
         for (const attribute of [...(element.attributes ?? []),...(element.inputs ?? [])]) selector.addAttribute(attribute.name,typeof attribute.value==='string' ? attribute.value : '');
@@ -52,7 +55,7 @@ export function analyzeSource(text, api, filename = 'example.ts') {
         if (matches.length) {
           const inputs = new Set(matches.flatMap(contract=>contract.inputs.map(b=>b.alias)));
           const outputs = new Set(matches.flatMap(contract=>contract.outputs.map(b=>b.alias)));
-          for (const input of element.inputs ?? []) if(input.type===BindingType.Property && !inputs.has(input.name) && !dom.hasProperty(tag,input.name,[]) && !(hasFormField && input.name==='formField')) errors.push(`Unknown input: ${tag}.${input.name}`);
+          for (const input of element.inputs ?? []) if(input.type===BindingType.Property && !inputs.has(input.name) && !(isNative ? ['style','class'].includes(input.name) : dom.hasProperty(tag,input.name,[])) && !(hasFormField && input.name==='formField')) errors.push(`Unknown input: ${tag}.${input.name}`);
           for (const output of element.outputs ?? []) if(!outputs.has(output.name) && !nativeEvents.has(output.name.split('.')[0])) errors.push(`Unknown output: ${tag}.${output.name}`);
           const supplied = new Set([...(element.inputs??[]),...(element.attributes??[])].map(attribute=>attribute.name));
           for (const contract of matches) for (const input of contract.inputs) if(input.required && !supplied.has(input.alias)) errors.push(`Missing required input: ${tag}.${input.alias}`);
@@ -71,7 +74,7 @@ export function analyzeSource(text, api, filename = 'example.ts') {
     if (ts.isCallExpression(node) && node.expression.kind===ts.SyntaxKind.ImportKeyword && node.arguments[0] && ts.isStringLiteral(node.arguments[0])) {
       const specifier = node.arguments[0].text;
       entryFor(specifier);
-      if (specifier.startsWith('@neural-ui/core')) warnings.push('Dynamic Neural imports are not checked for named exports or template scope');
+      if (specifier === api.package || specifier.startsWith(api.package + '/')) warnings.push('Dynamic Neural imports are not checked for named exports or template scope');
     }
     if (ts.isCallExpression(node) && componentNames.has(node.expression.getText(source))) {
       const object = node.arguments[0];

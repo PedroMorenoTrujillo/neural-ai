@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { connect, assertConsumer } from '../tests/mcp/helpers.mjs';
+import { connect, call, assertConsumer } from '../tests/mcp/helpers.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const target = join(root, 'dist/mcp');
@@ -18,7 +18,7 @@ for (const file of packed.files) {
   assert.ok(/^(dist\/|data\/|README\.md$|LICENSE$|package\.json$)/.test(file.path), `Unexpected packed file: ${file.path}`);
   assert.ok(!/node_modules|\.env|package-lock/.test(file.path));
 }
-for (const path of ['dist/cli.js', 'dist/server.js', 'dist/server.d.ts', 'dist/usage-validator.mjs', 'data/catalog.json', 'data/sha256', 'README.md', 'LICENSE']) {
+for (const path of ['dist/cli.js', 'dist/server.js', 'dist/server.d.ts', 'dist/usage-validator.mjs', 'data/catalog.json', 'data/sha256', 'data/native-catalog.json', 'data/native-sha256', 'README.md', 'LICENSE']) {
   assert.ok(packed.files.some(file => file.path === path), `Missing ${path}`);
 }
 const archive = join(target, packed.filename);
@@ -38,6 +38,15 @@ try {
   connection = await connect(join(installed, 'dist/cli.js'), { command: join(consumer, 'node_modules/.bin/neural-ui-mcp'), args: [], cwd: consumer, env: { PATH: process.env.PATH, NODE_OPTIONS: `--require=${guard}` } });
   const { client } = connection;
   await assertConsumer(client);
+  const nativeScope = { library: 'native', version: '0.1.0-beta.2' };
+  assert.equal((await call(client, 'get_api', { ...nativeScope, entrypoint: '@neural-ui/native/button', symbol: 'NeuButtonComponent' })).contract.selector, 'neu-button');
+  assert.ok((await call(client, 'list_components', { ...nativeScope })).total > 0);
+  assert.ok((await call(client, 'search_documentation', { ...nativeScope, query: 'safe area' })).results.length > 0);
+  for (const id of ['forms', 'collections', 'navigation', 'overlays', 'theme']) {
+    const example = await call(client, 'get_example', { ...nativeScope, id });
+    assert.equal((await call(client, 'validate_usage', { ...nativeScope, source: example.text })).valid, true);
+  }
+  assert.ok((await client.readResource({ uri: 'neural-native://docs/references/forms' })).contents[0].text.length > 0);
   assert.equal(connection.stderr(), '');
   await client.close();
   connection = undefined;
@@ -55,6 +64,7 @@ try {
     filename: packed.filename, sha256, packedFiles: packed.files.length, unpackedBytes: packed.unpackedSize,
     cleanInstall: true, installedBinExecuted: true, officialSdkClient: '2.3.1', protocol: '2026-07-28', allFiveTools: true, resources: true,
     runtimeNetworkBlocked: true, stdoutProtocolOnly: true, corruptDataFailsClosed: true,
+    nativeCatalogue: '0.1.0-beta.2', nativeAllFiveTools: true,
     publishedToNpm: false, hostAgentSessionsTested: [] };
   writeFileSync(join(root, 'evidence/mcp/package-verification.json'), JSON.stringify(report, null, 2) + '\n');
   console.log(`Packed package verified: ${packed.filename}; ${packed.files.length} files, ${packed.unpackedSize} bytes; isolated client + network denial + integrity tests passed`);
