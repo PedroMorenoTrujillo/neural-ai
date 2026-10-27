@@ -7,5 +7,7 @@
   "packageVerification": "package-verification.json",
   "nativeCatalogue": "0.1.0-beta.2",
   "webCompatibility": true,
-  "publishedToNpm": false
+  "publishedToNpm": true,
+  "registryVerifiedAt": "2026-10-27T13:39:27.577Z",
+  "registryIntegrity": "sha512-xw62yX9uiCQNC2GRwmwpV9PntSfd+so9OLGa1X34snBmleqK3VZBXgcQZTknAXrAzzteNj1Wv5DArwUF4Re7Sg=="
 }

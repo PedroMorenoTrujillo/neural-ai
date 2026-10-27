@@ -1,12 +1,12 @@
 {
-  "verifiedAt": "2026-10-27T12:40:13.396Z",
+  "verifiedAt": "2026-10-27T13:39:27.577Z",
   "package": "neural-ui-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "url": "https://www.npmjs.com/package/neural-ui-mcp",
   "registry": "https://registry.npmjs.org/",
-  "tarball": "https://registry.npmjs.org/neural-ui-mcp/-/neural-ui-mcp-0.1.0.tgz",
-  "sha256": "3fd682066deb55226e7edebaa38f29f8cb9b0aeb2dcc0f9d76629465e6486f3f",
-  "integrity": "sha512-odnSr/U70V8dtqwKkG9ThVq1VyWzGSb6K8NoJ1GplapUg0w6Bl0s5RXSTMw2LrilIeiinLIcYvxmG1Teq03gpg==",
+  "tarball": "https://registry.npmjs.org/neural-ui-mcp/-/neural-ui-mcp-0.2.0.tgz",
+  "sha256": "6cb8a2cb587bd01634f11a87a03e44dfae3973e77c75f79f5dbec0313e2dc916",
+  "integrity": "sha512-xw62yX9uiCQNC2GRwmwpV9PntSfd+so9OLGa1X34snBmleqK3VZBXgcQZTknAXrAzzteNj1Wv5DArwUF4Re7Sg==",
   "exactVerifiedTarball": true,
   "installedFromRegistry": true,
   "npmBin": true,
@@ -17,5 +17,6 @@
   "resources": true,
   "stderrEmpty": true,
   "publishedToNpm": true,
+  "nativeAllFiveTools": true,
   "hostAgentSessionsTested": []
 }

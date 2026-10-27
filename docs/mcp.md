@@ -1,6 +1,6 @@
 # MCP local de Neural UI v2
 
-Segunda fase de Neural AI: paquete **neural-ui-mcp 0.1.0**, MIT, [publicado gratuitamente en npm](https://www.npmjs.com/package/neural-ui-mcp) tras autorización web y 2FA del mantenedor. [Instalación y configuración de clientes](../packages/mcp/README.md). El nombre se comprobó antes de publicar; el resultado histórico está en [npm-name.json](../evidence/mcp/npm-name.json). La [verificación desde el registro](../evidence/mcp/publication.json) confirma que sirve el tarball exacto aprobado y que funcionan la instalación limpia, el binario y npx con el cliente oficial.
+Segunda fase de Neural AI: paquete **neural-ui-mcp 0.1.0**, MIT, [publicado gratuitamente en npm](https://www.npmjs.com/package/neural-ui-mcp) tras autorización web y 2FA del mantenedor. [Instalación y configuración de clientes](../packages/mcp/README.md). El nombre se comprobó antes de publicar; el resultado histórico está en [npm-name.json](../evidence/mcp/npm-name.json). La [verificación histórica desde el registro](../evidence/mcp/publication-0.1.0.json) confirma que sirve el tarball exacto aprobado y que funcionan la instalación limpia, el binario y npx con el cliente oficial.
 
 ## Diseño y fuentes únicas
 
