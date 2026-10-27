@@ -2,16 +2,16 @@
 name: neural-ui
 description: Build and migrate Angular applications with Neural UI v2 using verified public APIs, Signal Forms, controlled state, themes and accessible standalone components. Use for @neural-ui/core v2 implementation or debugging; excludes Neural UI v1 APIs and Neural Native.
 license: MIT
-compatibility: Angular 22 and @neural-ui/core 2.0.1. Portable Agent Skills instructions for Codex, Claude Code and compatible agents. No MCP or paid AI service required by this skill.
 metadata:
   author: PedroMorenoTrujillo
-  version: "0.1.0"
-  neural-ui-version: "2.0.1"
+  version: "0.1.1"
+  neural-ui-version: "2.0.3"
+  compatibility: Angular 22 and @neural-ui/core 2.0.3. Portable Agent Skills instructions for Codex, Claude Code and compatible agents. No MCP or paid AI service required by this skill.
 ---
 
 # Neural UI v2
 
-Implement against the installed package's public contracts. This skill's verified baseline is **@neural-ui/core 2.0.1 with Angular 22**. Read package.json and the lockfile first. If versions differ, inspect the installed exports and declarations and report the gap; do not silently apply another version's API or change dependencies without task authorization.
+Implement against the installed package's public contracts. This skill's verified baseline is **@neural-ui/core 2.0.3 with Angular 22**. Read package.json and the lockfile first. If versions differ, inspect the installed exports and declarations and report the gap; do not silently apply another version's API or change dependencies without task authorization.
 
 ## Working rules
 

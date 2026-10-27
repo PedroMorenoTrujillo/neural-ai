@@ -1,6 +1,6 @@
 # Version maintenance
 
-This installed skill is a snapshot for 2.0.1. Before applying it to another version, inspect the actual package exports, declarations and changelog; do not claim coverage for an untested release.
+This installed skill is a snapshot for 2.0.3. Before applying it to another version, inspect the actual package exports, declarations and changelog; do not claim coverage for an untested release.
 
 Maintainers regenerate API references from the installed npm tarball's declarations using the Neural AI repository's api:generate command. api:check compares exports, full declaration hashes, input/output aliases, domain declarations, public tokens and style hashes with the reviewed snapshot. Any change requires review; regeneration alone does not certify compatibility.
 

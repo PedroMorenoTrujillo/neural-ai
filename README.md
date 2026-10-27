@@ -1,16 +1,16 @@
 # Neural AI
 
-Skills oficiales de **Neural UI v2 Web** y **Neural Native**, con contratos verificables y un MCP compartido. La skill Web 0.1.0 conserva su baseline **@neural-ui/core 2.0.1**. La nueva skill Native 0.1.0 se prepara contra **@neural-ui/native 0.1.0-beta.2**, Angular Native 0.18.2 y Angular 22.2.2. Licencia MIT.
+Skills oficiales de **Neural UI v2 Web** y **Neural Native**, con contratos verificables y un MCP compartido. La skill Web **0.1.1** usa **@neural-ui/core 2.0.3**. La skill Native 0.1.0 está verificada contra **@neural-ui/native 0.1.0-beta.2**, Angular Native 0.18.2 y Angular 22.2.2. Licencia MIT.
 
-Dos skills especializadas, referencias bajo demanda y ejemplos ejecutables. El [servidor MCP local opcional](packages/mcp/README.md) se distribuye como [neural-ui-mcp@0.2.0 en npm](https://www.npmjs.com/package/neural-ui-mcp), con catálogos Web y Native separados. Sin backend de producto, hosting, Supabase ni servicio de IA de pago obligatorio. La instalación de las skills se hace desde GitHub y no necesita el MCP. La aplicación consumidora sí instala Neural y sus peers.
+Dos skills especializadas, referencias bajo demanda y ejemplos ejecutables. El [servidor MCP local opcional](packages/mcp/README.md) se distribuye como [neural-ui-mcp@0.2.1 en npm](https://www.npmjs.com/package/neural-ui-mcp), con catálogos Web y Native separados. Sin backend de producto, hosting, Supabase ni servicio de IA de pago obligatorio. La instalación de las skills se hace desde GitHub y no necesita el MCP. La aplicación consumidora sí instala Neural y sus peers.
 
 La skill también está disponible en [Skills.sh](https://www.skills.sh/pedromorenotrujillo/neural-ai/neural-ui). Consulta el [informe de distribución](docs/distribution.md) para la instalación con su CLI, la prueba en Angular limpio y el estado real de los directorios.
 
-El MCP requiere Node 22.22.3 o posterior y se puede iniciar con `npx --yes neural-ui-mcp@0.2.0`. Es un proceso stdio para conectar desde un cliente MCP; consulta su [configuración para Codex y Claude Code](packages/mcp/README.md#conectar-codex-y-claude-code).
+El MCP requiere Node 22.22.3 o posterior y se puede iniciar con `npx --yes neural-ui-mcp@0.2.1`. Es un proceso stdio para conectar desde un cliente MCP; consulta su [configuración para Codex y Claude Code](packages/mcp/README.md#conectar-codex-y-claude-code).
 
 ## Ampliación Native
 
-La skill [neural-native](skills/neural-native/SKILL.md) tiene su propia [release 0.1.0](https://github.com/PedroMorenoTrujillo/neural-ai/releases/tag/neural-native-v0.1.0). El MCP compartido **0.2.0** sirve Web y Native; su versión anterior 0.1.0 sigue siendo exclusivamente Web.
+La skill [neural-native](skills/neural-native/SKILL.md) tiene su propia [release 0.1.0](https://github.com/PedroMorenoTrujillo/neural-ai/releases/tag/neural-native-v0.1.0). El MCP compartido **0.2.1** sirve Web y Native; su versión anterior 0.1.0 sigue siendo exclusivamente Web.
 
 - La skill Native contiene referencias derivadas de 67 entrypoints npm, los 28 tokens públicos con valores claros/oscuros y cinco ejemplos reales: formularios, colecciones, navegación, overlays y temas.
 - El MCP mantiene las cinco herramientas y los URI Web. Todas admiten `library: "native"` y la versión Native explícita; omitir `library` conserva Web como predeterminado. No intercambia contratos entre productos.
@@ -33,19 +33,19 @@ npm run verify:native
 npm run verify:mcp
 ```
 
-Los ejemplos se importan directamente desde la carpeta de la skill y se compilan con plantillas Angular estrictas. Sus diez recorridos de navegador cubren las cinco composiciones en vertical y horizontal. Las pruebas del cliente MCP comprueban herramientas, recursos, versiones y rechazo de cruces Web/Native. Las instrucciones Web históricas que siguen debajo permanecen fijadas a su release v0.1.0.
+Los ejemplos se importan directamente desde la carpeta de la skill y se compilan con plantillas Angular estrictas. Sus diez recorridos de navegador cubren las cinco composiciones en vertical y horizontal. Las pruebas del cliente MCP comprueban herramientas, recursos, versiones y rechazo de cruces Web/Native. Las instrucciones Web siguientes corresponden a la release v0.1.1; las etiquetas anteriores conservan sus catálogos originales.
 
 ## Instalar en Codex
 
 Desde el directorio de tu aplicación, en macOS/Linux o Git Bash. Usa un directorio de descarga nuevo:
 
 ```sh
-git clone --depth 1 --branch v0.1.0 https://github.com/PedroMorenoTrujillo/neural-ai.git neural-ai-skills
+git clone --depth 1 --branch v0.1.1 https://github.com/PedroMorenoTrujillo/neural-ai.git neural-ai-skills
 mkdir -p .agents/skills
 test ! -e .agents/skills/neural-ui && cp -R neural-ai-skills/skills/neural-ui .agents/skills/neural-ui
 ```
 
-La última línea evita sobrescribir una instalación existente. Conserva la carpeta completa, incluidas references, examples y LICENSE. Reinicia la sesión si no aparece y solicita: `Usa $neural-ui para crear un formulario de clientes con Neural UI 2.0.1 y Angular 22`.
+La última línea evita sobrescribir una instalación existente. Conserva la carpeta completa, incluidas references, examples y LICENSE. Reinicia la sesión si no aparece y solicita: `Usa $neural-ui para crear un formulario de clientes con Neural UI 2.0.3 y Angular 22`.
 
 Para instalar a nivel de usuario, copia la misma carpeta a `~/.agents/skills/neural-ui` en lugar de la ruta del proyecto. No instales dos copias con el mismo nombre en ubicaciones que Codex descubra simultáneamente.
 
@@ -128,7 +128,7 @@ Para preparar una distribución: `npm run release:prepare`, con los cambios de l
 ## Fuentes y alcance
 
 - [Código oficial](https://github.com/PedroMorenoTrujillo/neural-ui-workspace), commit exacto en [evidence/sources.json](evidence/sources.json).
-- [Paquete 2.0.1 en el registro npm](https://registry.npmjs.org/@neural-ui%2fcore/2.0.1), con SHA-512 comprobable.
+- [Paquete 2.0.3 en el registro npm](https://registry.npmjs.org/@neural-ui%2fcore/2.0.3), con SHA-512 comprobable.
 - [Documentación oficial v2](https://ui.neuralui.org/v2/).
 
-El paquete publicado y sus contratos públicos son la referencia principal para APIs consumibles. Los documentos históricos de migración no sustituyen los tipos de 2.0.1. Este proyecto no modifica Neural UI ni requiere acceso a su repositorio para usar la skill.
+El paquete publicado y sus contratos públicos son la referencia principal para APIs consumibles. Los documentos históricos de migración no sustituyen los tipos de 2.0.3. Este proyecto no modifica Neural UI ni requiere acceso a su repositorio para usar la skill.

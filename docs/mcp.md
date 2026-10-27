@@ -1,4 +1,12 @@
-# MCP local de Neural UI v2
+# MCP local de Neural Web y Native
+
+## Versión actual: 0.2.1
+
+MCP 0.2.1 actualiza el catálogo Web a **@neural-ui/core 2.0.3** y conserva Native **0.1.0-beta.2**. Mantiene las cinco herramientas, los recursos y la selección explícita de biblioteca. Las llamadas que indiquen Web 2.0.1 se rechazan; conserva MCP 0.2.0 para ese baseline anterior.
+
+La [instalación actual](../packages/mcp/README.md) usa `npx --yes neural-ui-mcp@0.2.1`. La skill Web 0.1.1 y el MCP comparten las referencias regeneradas desde el paquete distribuido; Native conserva sus referencias verificadas. Los [resultados de verificación](verification.md#actualización-web-011-y-mcp-021) describen las pruebas y sus límites.
+
+## Registro de la publicación Web original: 0.1.0
 
 Segunda fase de Neural AI: paquete **neural-ui-mcp 0.1.0**, MIT, [publicado gratuitamente en npm](https://www.npmjs.com/package/neural-ui-mcp) tras autorización web y 2FA del mantenedor. [Instalación y configuración de clientes](../packages/mcp/README.md). El nombre se comprobó antes de publicar; el resultado histórico está en [npm-name.json](../evidence/mcp/npm-name.json). La [verificación histórica desde el registro](../evidence/mcp/publication-0.1.0.json) confirma que sirve el tarball exacto aprobado y que funcionan la instalación limpia, el binario y npx con el cliente oficial.
 

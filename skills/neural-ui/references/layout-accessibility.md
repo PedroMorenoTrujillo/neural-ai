@@ -4,7 +4,7 @@ Use semantic HTML and application CSS Grid/Flexbox for page composition. Neural 
 
 Use public spacing, typography, surface and border tokens from [the catalog](api/tokens.md). Prefer logical CSS properties, min-width: 0 on flexible children, and explicit local overflow on wide data regions. Test narrow viewports with real data and long labels. Avoid hiding content merely to suppress document overflow.
 
-Use an application-wide border-box sizing baseline for elements and pseudo-elements. The integration fixture applies this reset; without it the 2.0.1 Select trigger can exceed its available width through padding and borders. This is application CSS, not a private component override.
+Use an application-wide border-box sizing baseline for elements and pseudo-elements. The integration fixture applies this reset so control padding and borders stay within the available width. This is application CSS, not a private component override.
 
 Every form control needs a meaningful accessible name. Prefer each control's documented label input or explicit label/ID associations. Keep labels distinct from placeholders. Connect hint and error text through the supported contracts. Preserve aria-invalid and required semantics, and inspect the resulting native control, not only the Angular host.
 

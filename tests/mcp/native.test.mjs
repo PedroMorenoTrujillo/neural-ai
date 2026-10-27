@@ -58,7 +58,8 @@ test('real MCP client selects Native on every tool and keeps Web defaults isolat
       assert.equal(report.compilationChecked,false);
     }
     for(const args of [
-      {library:'native',version:'2.0.1'}, {library:'web',version:'0.1.0-beta.2'},
+      {library:'native',version:'2.0.3'}, {library:'web',version:'0.1.0-beta.2'},
+      {library:'web',version:'2.0.1'},
       {library:'../../.env'}, {library:'native',version:'0.1.0-beta.999'},
     ])assert.equal((await client.callTool({name:'list_components',arguments:args})).isError,true);
     for(const args of [

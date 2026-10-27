@@ -5,7 +5,7 @@ import { connect, call } from './helpers.mjs';
 test('official MCP SDK client interoperates over real stdio: all tools and resources', { timeout: 30000 }, async () => {
   const { client, stderr } = await connect();
   try {
-    assert.deepEqual(client.getServerVersion(), { name: 'neural-ui-mcp', version: '0.2.0' });
+    assert.deepEqual(client.getServerVersion(), { name: 'neural-ui-mcp', version: '0.2.1' });
     assert.equal(client.getProtocolEra(), 'modern');
     assert.equal(client.getNegotiatedProtocolVersion(), '2026-07-28');
     const tools = await client.listTools();

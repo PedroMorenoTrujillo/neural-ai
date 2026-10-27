@@ -1,6 +1,6 @@
 # Components and public imports
 
-Read the [API index](api/index.md), then only the relevant entrypoint. Those files are generated from published 2.0.1 declarations, with support exclusions from the reviewed upstream policy. They include exact selectors, required inputs, output types and exported domain types.
+Read the [API index](api/index.md), then only the relevant entrypoint. Those files are generated from published 2.0.3 declarations, with support exclusions from the reviewed upstream policy. They include exact selectors, required inputs, output types and exported domain types.
 
 | Task | Start with |
 | --- | --- |

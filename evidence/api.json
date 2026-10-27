@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "@neural-ui/core",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "entrypoints": {
     "@neural-ui/core": {
       "types": "./types/neural-ui-core.d.ts",
@@ -1857,7 +1857,7 @@
     },
     "@neural-ui/core/cascade-select": {
       "types": "./types/neural-ui-core-cascade-select.d.ts",
-      "sha256": "1582a1b3cb750480bcfd5421f7b6b034d321cdd75e5bb37f0a373942b1708df8",
+      "sha256": "081eaa3224689415e62524b8ce8cff187be5628edc8fcda723be3e1108763570",
       "symbols": [
         {
           "name": "NeuCascadeSelectComponent",

@@ -16,20 +16,21 @@ export async function connect(path = cli, options = {}) {
 export async function call(client, name, args) {
   const response = await client.callTool({ name, arguments: args });
   assert.equal(response.isError, undefined, JSON.stringify(response.content));
-  assert.equal(response.structuredContent.version, args?.library === 'native' ? '0.1.0-beta.2' : '2.0.1');
+  assert.equal(response.structuredContent.version, args?.version ?? (args?.library === 'native' ? '0.1.0-beta.2' : '2.0.3'));
   assert.deepEqual(JSON.parse(response.content[0].text), response.structuredContent);
   return response.structuredContent.data;
 }
 
-export async function assertConsumer(client) {
+export async function assertConsumer(client, webVersion = '2.0.3') {
+  const webCall = (name, args = {}) => call(client, name, { version: webVersion, ...args });
   assert.equal(client.getNegotiatedProtocolVersion(), '2026-07-28');
   assert.equal((await client.listTools()).tools.length, 5);
-  assert.ok((await call(client, 'list_components', {})).total > 0);
-  assert.equal((await call(client, 'get_api', { entrypoint: '@neural-ui/core/button', symbol: 'NeuButtonComponent' })).contract.selector, 'button[neu-button]');
-  assert.ok((await call(client, 'search_documentation', { query: 'SSR' })).results.length > 0);
+  assert.ok((await webCall('list_components')).total > 0);
+  assert.equal((await webCall('get_api', { entrypoint: '@neural-ui/core/button', symbol: 'NeuButtonComponent' })).contract.selector, 'button[neu-button]');
+  assert.ok((await webCall('search_documentation', { query: 'SSR' })).results.length > 0);
   for (const id of ['forms', 'table', 'navigation', 'overlays', 'theme']) {
-    const example = await call(client, 'get_example', { id });
-    assert.equal((await call(client, 'validate_usage', { source: example.text })).valid, true);
+    const example = await webCall('get_example', { id });
+    assert.equal((await webCall('validate_usage', { source: example.text })).valid, true);
   }
   assert.ok((await client.readResource({ uri: 'neural-ui://docs/references/forms' })).contents[0].text.length > 0);
 }

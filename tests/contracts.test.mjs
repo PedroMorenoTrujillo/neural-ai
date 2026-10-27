@@ -12,7 +12,7 @@ test('portable frontmatter validates and rejects nonportable or malformed metada
   assert.deepEqual(validateSkill(validSkill),[]);
   assert.ok(validateSkill(validSkill.replace('name: neural-ui','name: Invalid_Name')).length);
   assert.ok(validateSkill(validSkill.replace('license: MIT','context: fork')).length);
-  assert.ok(validateSkill(validSkill.replace('version: "0.1.0"','version: 123')).length);
+  assert.ok(validateSkill(validSkill.replace('version: "0.1.1"','version: 123')).length);
 });
 test('all shipped example imports and templates are valid', () => {
   for (const file of walk(path.join(root,'skills/neural-ui/examples'))) assert.deepEqual(validateSource(fs.readFileSync(file,'utf8'),api,file),[]);
@@ -22,7 +22,7 @@ test('invalid exports, deep imports and Neural Native imports are rejected', () 
 });
 test('legacy install instructions, wrong documentation versions and invented tokens fail', () => {
   const tokens = new Set(api.tokens.map(token=>token.name));
-  assert.deepEqual(validateAuthored('npm install @neural-ui/core@2.0.1; --neu-bg',api.version,tokens),[]);
+  assert.deepEqual(validateAuthored('npm install @neural-ui/core@2.0.3; --neu-bg',api.version,tokens),[]);
   for(const text of ['npm install @neural-ui/core@^1.0.0','https://ui.neuralui.org/v1/en/components','--neu-imaginary-background']) assert.ok(validateAuthored(text,api.version,tokens).length);
   for(const entry of ['organization-chart','scheduler-gantt']) assert.ok(validateSource(`import { Imaginary } from '@neural-ui/core/${entry}';`,api).length);
 });

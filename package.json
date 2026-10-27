@@ -1,6 +1,6 @@
 {
   "name": "neural-ai",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Official Neural UI v2 agent skill and reproducible public API verification",
   "license": "MIT",
@@ -52,7 +52,7 @@
     "@angular/router": "22.2.2",
     "@angular/ssr": "22.2.2",
     "@modelcontextprotocol/client": "2.3.1",
-    "@neural-ui/core": "2.0.1",
+    "@neural-ui/core": "2.0.3",
     "@neural-ui/native": "0.1.0-beta.2",
     "@ng-native/web": "0.18.2",
     "@playwright/test": "1.63.0",

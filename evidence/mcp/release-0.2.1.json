@@ -1,0 +1,11 @@
+{
+  "package": "neural-ui-mcp",
+  "version": "0.2.1",
+  "filename": "neural-ui-mcp-0.2.1.tgz",
+  "sha256": "7ed614e45e973ccbd9bc673f0f3b7e87810d84a6036a06424b6580e7b9426208",
+  "verifiedAt": "2026-10-27T22:06:53.602Z",
+  "packageVerification": "package-verification.json",
+  "webCatalogue": "2.0.3",
+  "nativeCatalogue": "0.1.0-beta.2",
+  "publishedToNpm": false
+}

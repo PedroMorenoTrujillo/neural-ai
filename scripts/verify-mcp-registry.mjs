@@ -11,6 +11,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const name = 'neural-ui-mcp';
 const current = process.argv.includes('--current');
 const version = current ? JSON.parse(readFileSync(join(root,'packages/mcp/package.json'),'utf8')).version : '0.1.0';
+const webVersion = current ? JSON.parse(readFileSync(join(root,'evidence/sources.json'),'utf8')).package.version : '2.0.1';
 const registry = 'https://registry.npmjs.org/';
 const response = await fetch(`${registry}${name}/${version}?verify=${Date.now()}`, { signal: AbortSignal.timeout(15000) });
 assert.equal(response.status, 200, 'Published version is not available yet; do not install the temporary staging placeholder');
@@ -51,7 +52,7 @@ try {
   const bin = join(consumer, 'node_modules/.bin/' + name);
   const cli = join(consumer, 'node_modules/' + name + '/dist/cli.js');
   connection = await connect(cli, { command: bin, args: [], cwd: consumer });
-  await assertConsumer(connection.client);
+  await assertConsumer(connection.client, webVersion);
   await assertNative(connection.client);
   assert.equal(connection.stderr(), '');
   await connection.client.close();
@@ -60,7 +61,7 @@ try {
   const launch = join(consumer, 'npx-only');
   mkdirSync(launch);
   connection = await connect(cli, { command: 'npx', args: ['--yes', '--registry=' + registry, '--cache=' + join(consumer, 'npx-cache'), `${name}@${version}`], cwd: launch });
-  await assertConsumer(connection.client);
+  await assertConsumer(connection.client, webVersion);
   await assertNative(connection.client);
   assert.equal(connection.stderr(), '');
   await connection.client.close();

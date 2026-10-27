@@ -1,4 +1,18 @@
-# Verificación de Neural AI 0.1.0
+# Verificación de Neural AI
+
+## Actualización Web 0.1.1 y MCP 0.2.1
+
+Baseline comprobado el 27 de octubre de 2026: **@neural-ui/core 2.0.3**, Angular/CDK/CLI 22.2.2 y TypeScript 6.0.3. Se han regenerado las referencias desde el paquete npm y verificado su SHA-512 y el commit de publicación `748b85a3b4e9a183b306eaa00cf64d4deb58de21`.
+
+La comparación con 2.0.1 conserva los 96 entrypoints admitidos, las firmas públicas y los 262 tokens. Solo cambia el hash de una declaración de CascadeSelect; no cambia su contrato público. La política de soporte coincide con la del commit publicado.
+
+La compilación Angular estricta y los ocho escenarios Web de navegador pasan con 2.0.3. También pasan los diez recorridos Native, las quince pruebas del MCP y el paquete instalado en un consumidor aislado con la red bloqueada durante la ejecución. Una aplicación Angular limpia instala la skill en las carpetas de Codex y Claude Code, comprueba la integridad del paquete 2.0.3, compila y supera sus dos escenarios adicionales de navegador. La auditoría de dependencias de producción del MCP no informa vulnerabilidades conocidas.
+
+El catálogo Native continúa en `@neural-ui/native@0.1.0-beta.2` y la skill Native en 0.1.0. El MCP 0.2.1 exige Web 2.0.3 si se indica una versión; rechaza 2.0.1 en lugar de mezclar contratos. Los consumidores que necesiten Core 2.0.1 pueden conservar la skill Web 0.1.0 y MCP 0.2.0. Las etiquetas y evidencias históricas no se reescriben.
+
+Estas comprobaciones no añaden sesiones independientes de generación en Codex o Claude Code ni certificación de dispositivos o accesibilidad. Los límites descritos más abajo siguen vigentes.
+
+## Verificación original de Web 0.1.0
 
 Baseline: @neural-ui/core 2.0.1; Angular/CDK/CLI 22.2.2; TypeScript 6.0.3; Playwright 1.63.0. Validación local ejecutada el 15 de octubre de 2026 en macOS. Los resultados de CI se consultan en la pestaña Actions del repositorio.
 

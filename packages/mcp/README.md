@@ -1,18 +1,18 @@
 # neural-ui-mcp
 
-Servidor MCP oficial de Neural Web y Native, local y de solo lectura. La actualización **0.2.0** mantiene Web **@neural-ui/core 2.0.1** como predeterminado y añade **@neural-ui/native 0.1.0-beta.2** mediante `library: "native"`. Licencia MIT. Node **22.22.3 o posterior**.
+Servidor MCP oficial de Neural Web y Native, local y de solo lectura. La actualización **0.2.1** alinea Web con **@neural-ui/core 2.0.3** como predeterminado y conserva **@neural-ui/native 0.1.0-beta.2** mediante `library: "native"`. Licencia MIT. Node **22.22.3 o posterior**.
 
-[neural-ui-mcp@0.2.0](https://www.npmjs.com/package/neural-ui-mcp) incluye ambos catálogos. La versión anterior 0.1.0 solo cubre Web. No requiere backend, cuenta, claves, conexión de red durante la ejecución ni servicios de IA. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
+[neural-ui-mcp@0.2.1](https://www.npmjs.com/package/neural-ui-mcp) incluye ambos catálogos. La versión anterior 0.1.0 solo cubre Web. No requiere backend, cuenta, claves, conexión de red durante la ejecución ni servicios de IA. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
 
 ## Instalar desde npm
 
 La misma instalación sirve para Web y Native. Selecciona Native explícitamente al llamar a las herramientas.
 
 ```sh
-npx --yes neural-ui-mcp@0.2.0
+npx --yes neural-ui-mcp@0.2.1
 ```
 
-El proceso espera mensajes MCP en stdin. Para instalarlo como dependencia de tu proyecto usa `npm install --save-dev --save-exact neural-ui-mcp@0.2.0`. La instalación, el binario y el arranque con npx se comprueban con un cliente MCP real. [Evidencia de publicación](https://github.com/PedroMorenoTrujillo/neural-ai/blob/main/evidence/mcp/publication.json).
+El proceso espera mensajes MCP en stdin. Para instalarlo como dependencia de tu proyecto usa `npm install --save-dev --save-exact neural-ui-mcp@0.2.1`. La instalación, el binario y el arranque con npx se comprueban con un cliente MCP real. [Evidencia de publicación](https://github.com/PedroMorenoTrujillo/neural-ai/blob/main/evidence/mcp/publication.json).
 
 ## Instalar el tarball verificado
 
@@ -22,7 +22,7 @@ Desde una copia del repositorio [Neural AI](https://github.com/PedroMorenoTrujil
 npm ci
 npm ci --prefix packages/mcp
 npm run verify:mcp
-npm install --prefix /ruta/absoluta/neural-mcp-local ./dist/mcp/neural-ui-mcp-0.2.0.tgz
+npm install --prefix /ruta/absoluta/neural-mcp-local ./dist/mcp/neural-ui-mcp-0.2.1.tgz
 ```
 
 El último comando instala el paquete local preparado por las pruebas. Comprueba su SHA-256 con `dist/mcp/SHA256SUMS`. También puedes ejecutar directamente `node /ruta/absoluta/neural-ai/packages/mcp/dist/cli.js` después de compilarlo. El proceso espera a un cliente en stdin.
@@ -34,8 +34,8 @@ Usa un Node compatible disponible para el cliente.
 Para usar directamente la versión publicada:
 
 ```sh
-codex mcp add neural-ui -- npx --yes neural-ui-mcp@0.2.0
-claude mcp add --transport stdio neural-ui -- npx --yes neural-ui-mcp@0.2.0
+codex mcp add neural-ui -- npx --yes neural-ui-mcp@0.2.1
+claude mcp add --transport stdio neural-ui -- npx --yes neural-ui-mcp@0.2.1
 ```
 
 Para una instalación local del tarball:
@@ -78,7 +78,7 @@ Sintaxis contrastada con [Codex MCP](https://developers.openai.com/codex/mcp/) y
 | `get_example` | `id`: forms, table, navigation, overlays, theme | Fuente del ejemplo validado |
 | `validate_usage` | `source`, `filename?` | Errores y advertencias estáticas; `compilationChecked: false` |
 
-Todas aceptan `library: "web" | "native"` (predeterminado `web`) y una versión opcional que debe coincidir con el catálogo: Web `2.0.1`, Native `0.1.0-beta.2`. Las respuestas conservan `{ version, data }`, datos estructurados y texto JSON equivalente. Los errores de mezcla de catálogo o versión se rechazan; no hay conversión implícita. La validación detecta imports internos, símbolos desconocidos, inputs/outputs inexistentes, inputs requeridos ausentes y propietarios de formulario en conflicto, dentro del alcance descrito abajo.
+Todas aceptan `library: "web" | "native"` (predeterminado `web`) y una versión opcional que debe coincidir con el catálogo: Web `2.0.3`, Native `0.1.0-beta.2`. Las respuestas conservan `{ version, data }`, datos estructurados y texto JSON equivalente. Los errores de mezcla de catálogo o versión se rechazan; no hay conversión implícita. Para proyectos fijados a Core 2.0.1, conserva MCP 0.2.0 y la skill Web 0.1.0 hasta actualizar su baseline. La validación detecta imports internos, símbolos desconocidos, inputs/outputs inexistentes, inputs requeridos ausentes y propietarios de formulario en conflicto, dentro del alcance descrito abajo.
 
 Ejemplo de argumentos para `get_api`:
 
