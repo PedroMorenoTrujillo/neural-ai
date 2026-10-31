@@ -78,7 +78,7 @@ fs.writeFileSync(routesFile,fs.readFileSync(routesFile,'utf8').replace('RenderMo
 const dependencyOutput = run('dependencies','npm',['ls','@neural-ui/core','@angular/core','@angular/forms','@angular/cdk','--json']);
 const dependencies = JSON.parse(dependencyOutput).dependencies;
 for(const name of ['@angular/core','@angular/forms','@angular/cdk']) if(dependencies[name]?.version!=='22.2.2') throw Error(`Unexpected ${name} version`);
-if(dependencies['@neural-ui/core']?.version!=='2.0.3') throw Error('Unexpected Neural UI version');
+if(dependencies['@neural-ui/core']?.version!=='2.0.4') throw Error('Unexpected Neural UI version');
 const consumerLock = JSON.parse(fs.readFileSync(path.join(project,'package-lock.json')));
 const provenance = JSON.parse(fs.readFileSync(path.join(root,'evidence/sources.json')));
 if(consumerLock.packages['node_modules/@neural-ui/core']?.integrity!==provenance.package.integrity) throw Error('Consumer package integrity differs from the reviewed npm tarball');
@@ -87,7 +87,7 @@ if(!installedPackage.startsWith(fs.realpathSync(project)+path.sep)) throw Error(
 run('build',path.join(project,'node_modules/.bin/ng'),['build','--configuration','production']);
 run('browser',path.join(root,'node_modules/.bin/playwright'),['test','--config','tests/distribution/playwright.config.ts'],root,{NEURAL_CONSUMER_PROJECT:project});
 const summary = {
-  date: new Date().toISOString(), release:tag, package:'@neural-ui/core@2.0.3', angular:'22.2.2', skillsCli:'1.7.2',
+  date: new Date().toISOString(), release:tag, package:'@neural-ui/core@2.0.4', angular:'22.2.2', skillsCli:'1.7.2',
   independentDependencies:true, strictTemplates:true, installedAgents:['codex','claude-code'],
   installation:`${local ? 'Working tree' : 'GitHub release'} via skills CLI, copies with matching SHA-256`, installedSkillSha256:hashes[0],
   browserScenarios:2, browser:'Chromium', checks:['form create/validation/reset','Select scalar model','table sorting/selection','dialog reject/save/focus restoration','tabs keyboard','typed theme','375px layout','SSR without JavaScript','hydration without browser errors'],

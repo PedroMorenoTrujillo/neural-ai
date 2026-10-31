@@ -1,10 +1,10 @@
 # MCP local de Neural Web y Native
 
-## Versión actual: 0.2.1
+## Versión actual: 0.2.2
 
-MCP 0.2.1 actualiza el catálogo Web a **@neural-ui/core 2.0.3** y conserva Native **0.1.0-beta.2**. Mantiene las cinco herramientas, los recursos y la selección explícita de biblioteca. Las llamadas que indiquen Web 2.0.1 se rechazan; conserva MCP 0.2.0 para ese baseline anterior.
+MCP 0.2.2 actualiza el catálogo Web a **@neural-ui/core 2.0.4** y conserva Native **0.1.0-beta.2**. Mantiene las cinco herramientas, los recursos y la selección explícita de biblioteca. Las llamadas que indiquen Web 2.0.3 o 2.0.1 se rechazan; conserva respectivamente MCP 0.2.1 o 0.2.0 para esos baselines anteriores.
 
-La [instalación actual](../packages/mcp/README.md) usa `npx --yes neural-ui-mcp@0.2.1`. La skill Web 0.1.1 y el MCP comparten las referencias regeneradas desde el paquete distribuido; Native conserva sus referencias verificadas. Los [resultados de verificación](verification.md#actualización-web-011-y-mcp-021) describen las pruebas y sus límites.
+La [instalación actual](../packages/mcp/README.md) usa `npx --yes neural-ui-mcp@0.2.2`. La skill Web 0.1.2 y el MCP comparten las referencias regeneradas desde el paquete distribuido; Native conserva sus referencias verificadas. Los [resultados de verificación](verification.md#actualización-web-012-y-mcp-022) describen las pruebas y sus límites.
 
 ## Registro de la publicación Web original: 0.1.0
 

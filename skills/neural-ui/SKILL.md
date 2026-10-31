@@ -4,14 +4,14 @@ description: Build and migrate Angular applications with Neural UI v2 using veri
 license: MIT
 metadata:
   author: PedroMorenoTrujillo
-  version: "0.1.1"
-  neural-ui-version: "2.0.3"
-  compatibility: Angular 22 and @neural-ui/core 2.0.3. Portable Agent Skills instructions for Codex, Claude Code and compatible agents. No MCP or paid AI service required by this skill.
+  version: "0.1.2"
+  neural-ui-version: "2.0.4"
+  compatibility: Angular 22 and @neural-ui/core 2.0.4. Portable Agent Skills instructions for Codex, Claude Code and compatible agents. No MCP or paid AI service required by this skill.
 ---
 
 # Neural UI v2
 
-Implement against the installed package's public contracts. This skill's verified baseline is **@neural-ui/core 2.0.3 with Angular 22**. Read package.json and the lockfile first. If versions differ, inspect the installed exports and declarations and report the gap; do not silently apply another version's API or change dependencies without task authorization.
+Implement against the installed package's public contracts. This skill's verified baseline is **@neural-ui/core 2.0.4 with Angular 22**. Read package.json and the lockfile first. If versions differ, inspect the installed exports and declarations and report the gap; do not silently apply another version's API or change dependencies without task authorization.
 
 ## Working rules
 

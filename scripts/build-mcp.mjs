@@ -26,7 +26,7 @@ function collect(dir, target, extension, skill = 'neural-ui') {
 collect(resolve(root, 'skills/neural-ui/references'), documents, '.md');
 collect(resolve(root, 'skills/neural-ui/examples'), examples, '.ts');
 const api = JSON.parse(readFileSync(resolve(root, 'evidence/api.json'), 'utf8'));
-if (api.package !== '@neural-ui/core' || api.version !== '2.0.3') throw new Error('Unsupported catalogue version');
+if (api.package !== '@neural-ui/core' || api.version !== '2.0.4') throw new Error('Unsupported catalogue version');
 const catalog = JSON.stringify({ schemaVersion: 1, api, documents, examples });
 mkdirSync(resolve(pkg, 'data'), { recursive: true });
 mkdirSync(resolve(pkg, 'src'), { recursive: true });

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "@neural-ui/core",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "entrypoints": {
     "@neural-ui/core": {
       "types": "./types/neural-ui-core.d.ts",
@@ -7115,7 +7115,7 @@
     },
     "@neural-ui/core/modal": {
       "types": "./types/neural-ui-core-modal.d.ts",
-      "sha256": "e1c7c3276b9fdb20159c04efe97d3d6ffeb9ef1eaa50dff3760d67cd80bc358d",
+      "sha256": "883b30a07b3309e14dd45cfaa588fa14b78981961e65d01ef0b574067f437a1c",
       "symbols": [
         {
           "name": "NeuDialogComponent",
@@ -7204,6 +7204,12 @@
             {
               "name": "resizeLabel",
               "alias": "resizeLabel",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "closeLabel",
+              "alias": "closeLabel",
               "required": false,
               "type": "import(\"@angular/core\").InputSignal<string>"
             }

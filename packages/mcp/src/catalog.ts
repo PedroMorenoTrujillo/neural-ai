@@ -28,7 +28,7 @@ export function loadCatalog(library: Library = 'web'): Catalog {
   if (createHash('sha256').update(bytes).digest('hex') !== expected) throw new Error('Catalogue integrity check failed');
   const data = JSON.parse(bytes.toString()) as Catalog;
   const pkg = library === 'native' ? '@neural-ui/native' : '@neural-ui/core';
-  const version = library === 'native' ? '0.1.0-beta.2' : '2.0.3';
+  const version = library === 'native' ? '0.1.0-beta.2' : '2.0.4';
   if (data.schemaVersion !== 1 || data.api.package !== pkg || data.api.version !== version) {
     throw new Error('Unsupported catalogue');
   }
