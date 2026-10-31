@@ -12,6 +12,8 @@ Use native buttons and links for their corresponding actions. Neural Button is b
 
 For Tabs verify tablist/tab/tabpanel names, selected state and arrow-key behavior. For tables use meaningful column headers and stable row identity. For Dialog verify its name, Escape behavior, focus containment and restoration. Accepting or rejecting a close proposal must match the product's intended behavior.
 
+Core 2.0.4 adds Dialog's public `closeLabel` input for a localized accessible close action; its default is English. See the [modal contract](api/modal.md). Exercise scrolling and action reachability with the mobile keyboard open in both orientations; the dialog tracks the visual viewport and compacts its header when available height is short.
+
 Test zoom, reduced motion, forced colors, light/dark contrast, validation announcements and screen-reader behavior where required. The bundled Chromium checks cover specific naming, keyboard and focus scenarios plus a narrow layout; they are not a WCAG conformance certificate or an assistive-technology audit.
 
 Sources: [official accessibility guidance](https://ui.neuralui.org/v2/en/foundations/accessibility), [design tokens](https://ui.neuralui.org/v2/en/foundations/design-tokens).

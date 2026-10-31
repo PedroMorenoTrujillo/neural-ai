@@ -54,3 +54,12 @@ Baseline adicional: `@neural-ui/native@0.1.0-beta.2`, Angular Native/renderer We
 Estos resultados son de compilación, transporte y navegador, no una nueva prueba de hardware iOS/Android ni de VoiceOver/TalkBack. Tampoco se han ejecutado sesiones independientes de generación en los hosts Codex y Claude Code. La instalación pública del MCP se contrasta con el registro y el hash de release; la skill Native usa la etiqueta independiente `neural-native-v0.1.0`.
 
 Antes de anunciar compatibilidad probada con cada agente, ejecutar los escenarios del protocolo y adjuntar versiones, prompts, diffs, builds y resultados de interacción. Para ampliar versiones de Neural, regenerar contratos y volver a verificar antes de cambiar el soporte declarado.
+## Actualización Web 0.1.2 y MCP 0.2.2
+
+La actualización utiliza `@neural-ui/core@2.0.4`, publicado desde el commit `f691969df36bd402dbe2d62ed6adaaa4799b55d9`. Las referencias se regeneran desde las declaraciones distribuidas por npm y su integridad registrada en `evidence/sources.json`.
+
+Incluye el nuevo input público `closeLabel` de Dialog. La prueba con el cliente MCP consulta ese input y valida un componente Angular que lo utiliza; también comprueba que las peticiones fijadas al catálogo Web 2.0.3 se rechacen en el servidor actualizado. Native conserva su baseline 0.1.0-beta.2.
+
+Pasan las 11 pruebas de contratos, ocho escenarios Web con plantillas Angular estrictas y SSR, diez escenarios de los ejemplos Native mediante su renderer Web, y 15 pruebas MCP con el cliente oficial sobre stdio real. El paquete MCP se ha instalado de forma aislada con la red bloqueada: las cinco herramientas, los recursos y ambos catálogos funcionan. La auditoría de dependencias de producción no detecta vulnerabilidades conocidas; la skill también pasa el validador de estructura de Codex.
+
+El archivo preparado es `neural-ui-mcp-0.2.2.tgz`, con 15 archivos y SHA-256 `0986755e0e489af97f0bf25ae3eabbd8faf5eeb77b68bb255071b556162eb62a`. La publicación y su comprobación desde npm se registrarán después de completarse. Estas pruebas no equivalen a una sesión de un agente dentro de Codex o Claude Code, ni a pruebas en dispositivos Native físicos. Los resultados y límites de las publicaciones anteriores se conservan.

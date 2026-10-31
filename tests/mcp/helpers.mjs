@@ -16,12 +16,12 @@ export async function connect(path = cli, options = {}) {
 export async function call(client, name, args) {
   const response = await client.callTool({ name, arguments: args });
   assert.equal(response.isError, undefined, JSON.stringify(response.content));
-  assert.equal(response.structuredContent.version, args?.version ?? (args?.library === 'native' ? '0.1.0-beta.2' : '2.0.3'));
+  assert.equal(response.structuredContent.version, args?.version ?? (args?.library === 'native' ? '0.1.0-beta.2' : '2.0.4'));
   assert.deepEqual(JSON.parse(response.content[0].text), response.structuredContent);
   return response.structuredContent.data;
 }
 
-export async function assertConsumer(client, webVersion = '2.0.3') {
+export async function assertConsumer(client, webVersion = '2.0.4') {
   const webCall = (name, args = {}) => call(client, name, { version: webVersion, ...args });
   assert.equal(client.getNegotiatedProtocolVersion(), '2026-07-28');
   assert.equal((await client.listTools()).tools.length, 5);

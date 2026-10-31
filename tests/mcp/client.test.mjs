@@ -5,7 +5,7 @@ import { connect, call } from './helpers.mjs';
 test('official MCP SDK client interoperates over real stdio: all tools and resources', { timeout: 30000 }, async () => {
   const { client, stderr } = await connect();
   try {
-    assert.deepEqual(client.getServerVersion(), { name: 'neural-ui-mcp', version: '0.2.1' });
+    assert.deepEqual(client.getServerVersion(), { name: 'neural-ui-mcp', version: '0.2.2' });
     assert.equal(client.getProtocolEra(), 'modern');
     assert.equal(client.getNegotiatedProtocolVersion(), '2026-07-28');
     const tools = await client.listTools();
@@ -17,6 +17,13 @@ test('official MCP SDK client interoperates over real stdio: all tools and resou
     const api = await call(client, 'get_api', { entrypoint: '@neural-ui/core/button', symbol: 'NeuButtonComponent' });
     assert.equal(api.contract.selector, 'button[neu-button]');
     assert.ok(api.contract.outputs.some(item => item.alias === 'neuClick'));
+    const dialog = await call(client, 'get_api', { library: 'web', version: '2.0.4', entrypoint: '@neural-ui/core/modal', symbol: 'NeuDialogComponent' });
+    assert.ok(dialog.contract.inputs.some(item => item.alias === 'closeLabel'));
+    const localizedDialog = await call(client, 'validate_usage', { library: 'web', version: '2.0.4', source: `import { Component, signal } from '@angular/core';
+import { NeuDialogComponent } from '@neural-ui/core/modal';
+@Component({ standalone: true, imports: [NeuDialogComponent], template: '<neu-dialog [open]="open()" title="Confirmar" closeLabel="Cerrar diálogo">Contenido</neu-dialog>' })
+export class LocalizedDialog { readonly open = signal(true); }` });
+    assert.equal(localizedDialog.valid, true);
     const exports = await call(client, 'get_api', { entrypoint: '@neural-ui/core/button' });
     assert.ok(exports.exports.some(item => item.name === 'NeuButtonTone'));
     const docs = await call(client, 'search_documentation', { query: 'Signal Forms', limit: 3 });
@@ -42,6 +49,7 @@ test('security: bounded schemas, allowlisted resources, parse-only source and re
   try {
     for (const [name, args] of [
       ['list_components', { version: '1.0.0' }], ['list_components', { limit: 50000 }],
+      ['list_components', { library: 'web', version: '2.0.3' }],
       ['search_documentation', { query: 'a'.repeat(201) }], ['search_documentation', { query: ' ', limit: 1 }],
       ['get_api', { entrypoint: '@neural-ui/core/internal' }], ['get_api', { entrypoint: '__proto__' }],
       ['get_api', { entrypoint: '@neural-ui/core/button', symbol: 'NeuInventedComponent' }],

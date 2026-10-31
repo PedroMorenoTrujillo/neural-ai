@@ -1,11 +1,11 @@
 # Distribución pública de Neural AI
 
-## Versión Web actual: 0.1.1
+## Versión Web actual: 0.1.2
 
-La skill Web 0.1.1 usa **@neural-ui/core 2.0.3** y MCP **0.2.1** sirve ese catálogo junto al de Native. Para instalar la skill Web actual:
+La skill Web 0.1.2 usa **@neural-ui/core 2.0.4** y MCP **0.2.2** sirve ese catálogo junto al de Native. Para instalar la skill Web actual:
 
 ```sh
-npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/v0.1.1/skills/neural-ui --skill neural-ui --agent codex claude-code --copy --yes
+npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/v0.1.2/skills/neural-ui --skill neural-ui --agent codex claude-code --copy --yes
 ```
 
 Las instrucciones de copia manual están en el [README](../README.md#instalar-en-codex) y los resultados actualizados en [verificación](verification.md#actualización-web-011-y-mcp-021). Native mantiene su release independiente `neural-native-v0.1.0`. Las versiones publicadas anteriormente conservan sus etiquetas originales; no se sustituyen sus contratos por otros más recientes.

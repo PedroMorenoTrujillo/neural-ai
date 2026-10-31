@@ -1,12 +1,12 @@
 # Migration from v1 to the verified v2 baseline
 
-Treat old application code as migration input, never as evidence of the v2 API. Inventory existing imports, template bindings, models and state owners. Keep the migration scoped to the application's intended release. Pin 2.0.3 for this skill's verified baseline and confirm Angular 22 peers before editing templates.
+Treat old application code as migration input, never as evidence of the v2 API. Inventory existing imports, template bindings, models and state owners. Keep the migration scoped to the application's intended release. Pin 2.0.4 for this skill's verified baseline and confirm Angular 22 peers before editing templates.
 
 Replace CVA bindings on Neural controls with Signal Forms or the individual control's explicit model contract. Rebuild validation and reset behavior deliberately; do not simply rename ngModel to value while retaining a second state owner. See [forms](forms.md).
 
 Resolve each legacy import against the generated [public API](api/index.md). The absence of an export is a migration blocker for that API, not permission to import an implementation file. OrganizationChart and SchedulerGantt were removed; do not generate those legacy components. Choose application-owned alternatives only after understanding the feature requirement. Neural Native is a separate product and is never a replacement API source for this skill.
 
-Rebuild table state using the current query/selection/metadata contracts. Current table selectionChange exposes next; old planning documents and older releases can use different selection terminology. Inspect the installed 2.0.3 types and use the [compiled table example](../examples/table.ts).
+Rebuild table state using the current query/selection/metadata contracts. Current table selectionChange exposes next; old planning documents and older releases can use different selection terminology. Inspect the installed 2.0.4 types and use the [compiled table example](../examples/table.ts).
 
 Check Select modes, option accessors and nullability against the current /select and /option-api types. Do not assume a former standalone multiselect export remains. Map each use case to the present catalog after checking behavior.
 
