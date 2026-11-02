@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { connect, call, assertConsumer } from '../tests/mcp/helpers.mjs';
 import { expectedPublishedHash } from './mcp-publication-artifact.mjs';
+import { NATIVE_VERSION } from './release-state.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const name = 'neural-ui-mcp';
@@ -34,7 +35,7 @@ const consumer = mkdtempSync(join(tmpdir(), 'neural-mcp-registry-'));
 let connection;
 async function assertNative(client) {
   if (!current) return;
-  const scope={library:'native',version:'0.1.0-beta.5'};
+  const scope={library:'native',version:NATIVE_VERSION};
   assert.ok((await call(client,'list_components',{...scope})).total>0);
   assert.equal((await call(client,'get_api',{...scope,entrypoint:'@neural-ui/native/button',symbol:'NeuButtonComponent'})).contract.selector,'neu-button');
   const docs=await call(client,'search_documentation',{...scope,query:'safe area'});

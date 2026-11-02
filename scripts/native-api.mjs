@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import ts from 'typescript';
 import { inventory, artifacts, root } from './api.mjs';
+import { NATIVE_VERSION } from './release-state.mjs';
 
 const dir = path.join(root, 'node_modules/@neural-ui/native');
 const read = file => fs.readFileSync(file, 'utf8');
@@ -40,7 +41,7 @@ export function tokenDefaults(source) {
 
 export function nativeInventory() {
   const pkg = JSON.parse(read(path.join(dir, 'package.json')));
-  if (pkg.version !== '0.1.0-beta.5') throw Error('Review the Native version before regenerating');
+  if (pkg.version !== NATIVE_VERSION) throw Error('Installed Native package differs from the pinned baseline');
   const defaults = tokenDefaults(read(path.join(dir, 'dist/foundation/index.js')));
   const assets = Object.fromEntries(['dist/foundation/index.js', 'dist/foundation/index.d.ts'].map(file => [file, hash(read(path.join(dir, file)))]));
   const api = inventory(dir, { policy, inheritedBindings: true, tokens: [], assets });

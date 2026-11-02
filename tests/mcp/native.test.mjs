@@ -1,3 +1,4 @@
+import { WEB_VERSION, NATIVE_VERSION } from '../../scripts/release-state.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -53,7 +54,7 @@ test('Native tokens are read as literals and never executed',()=>{
 test('real MCP client selects Native on every tool and keeps Web defaults isolated',{timeout:30000},async()=>{
   const {client,stderr}=await connect();
   try{
-    const scope={library:'native',version:'0.1.0-beta.5'};
+    const scope={library:'native',version:NATIVE_VERSION};
     const list=await call(client,'list_components',{...scope,query:'NeuButtonComponent'});
     assert.equal(list.total,1);
     assert.equal(list.items[0].entrypoint,'@neural-ui/native/button');
@@ -71,7 +72,7 @@ test('real MCP client selects Native on every tool and keeps Web defaults isolat
       assert.equal(report.compilationChecked,false);
     }
     for(const args of [
-      {library:'native',version:'2.0.4'}, {library:'web',version:'0.1.0-beta.5'},
+      {library:'native',version:WEB_VERSION}, {library:'web',version:NATIVE_VERSION},
       {library:'web',version:'2.0.1'},
       {library:'../../.env'}, {library:'native',version:'0.1.0-beta.999'},
     ])assert.equal((await client.callTool({name:'list_components',arguments:args})).isError,true);

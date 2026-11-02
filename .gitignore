@@ -8,3 +8,6 @@ playwright-report/
 .DS_Store
 packages/mcp/data/
 packages/mcp/src/usage-validator.mjs
+
+# Local dependency directories, including isolated verification links.
+node_modules

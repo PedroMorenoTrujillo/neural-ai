@@ -2,15 +2,25 @@ name: Publish MCP to npm
 on:
   push:
     tags: ['mcp-v*']
+  workflow_dispatch:
+    inputs:
+      parent_run_id:
+        description: Successful owner main verification run (automatic dispatch only)
+        type: string
+        default: ''
 permissions:
   contents: read
+  actions: read
+env:
+  GH_TOKEN: ${{ github.token }}
+  PARENT_RUN_ID: ${{ inputs.parent_run_id }}
 concurrency:
   group: publish-mcp-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   verify-release:
-    if: github.actor == 'PedroMorenoTrujillo' && github.triggering_actor == 'PedroMorenoTrujillo'
-    runs-on: ubuntu-latest
+    if: github.repository == 'PedroMorenoTrujillo/neural-ai' && ((github.actor == 'PedroMorenoTrujillo' && github.triggering_actor == 'PedroMorenoTrujillo') || (github.event_name == 'workflow_dispatch' && github.actor == 'github-actions[bot]' && inputs.parent_run_id != ''))
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v7
@@ -39,12 +49,13 @@ jobs:
           if-no-files-found: error
           retention-days: 7
   publish:
-    if: github.actor == 'PedroMorenoTrujillo' && github.triggering_actor == 'PedroMorenoTrujillo'
+    if: github.repository == 'PedroMorenoTrujillo/neural-ai' && ((github.actor == 'PedroMorenoTrujillo' && github.triggering_actor == 'PedroMorenoTrujillo') || (github.event_name == 'workflow_dispatch' && github.actor == 'github-actions[bot]' && inputs.parent_run_id != ''))
     needs: verify-release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       contents: read
+      actions: read
       id-token: write
     steps:
       - uses: actions/checkout@v7
@@ -64,10 +75,12 @@ jobs:
         env:
           TARBALL: ${{ steps.release.outputs.file }}
           CHANNEL: ${{ steps.release.outputs.channel }}
-        run: npm publish "$TARBALL" --access public --tag "$CHANNEL" --provenance
+        run: node scripts/publish-mcp-artifact.mjs
   verify-registry:
     needs: publish
-    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
@@ -87,3 +100,9 @@ jobs:
             if [ "$attempt" -lt 6 ]; then sleep 20; fi
           done
           exit 1
+      - name: Preserve the verified archive and manifest for future clean registry checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then exit 0; fi
+          gh release create "$GITHUB_REF_NAME" --verify-tag --title "$GITHUB_REF_NAME" --notes 'Verified npm publication with provenance and real stdio client checks.' dist/mcp/*.tgz dist/mcp/release-manifest.json

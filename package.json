@@ -35,7 +35,9 @@
     "check:links": "node scripts/links.mjs",
     "check:sources": "node scripts/provenance.mjs",
     "release:prepare": "npm run verify && npm run check:links && npm run check:sources && node scripts/package.mjs",
-    "verify": "npm run api:check && npm run validate && npm test && npm run build:examples && npm run test:integration"
+    "verify": "npm run api:check && npm run validate && npm test && npm run build:examples && npm run test:integration",
+    "sync:upstream": "node scripts/sync-upstream.mjs",
+    "verify:release-policy": "node --test tests/upstream-release-policy.test.mjs tests/release-authorization.test.mjs"
   },
   "devDependencies": {
     "@angular-devkit/schematics": "22.2.2",

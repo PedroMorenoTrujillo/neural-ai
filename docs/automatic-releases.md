@@ -1,0 +1,15 @@
+# Independent skills and MCP releases
+
+Web uses pinned stable `@neural-ui/core` **v2** releases. It never follows Core v1 or a different major simply because npm calls it `latest`. Native follows its own published stable/beta channel. The Web skill, Native skill and `neural-ui-mcp` each have their own version.
+
+`sync-upstream.yml` runs hourly when `AI_AUTO_SYNC_ENABLED=true`, or manually. It verifies the exact official tag, source commit, successful owner-triggered publication and npm SHA-512 before installing a new library. It regenerates only the changed API evidence and skill baseline, gives that skill a patch version, and gives the shared MCP an independent patch version. It does not upgrade Angular, Angular Native or any framework peer. An incompatible peer relationship fails rather than being bypassed.
+
+The updater opens a PR containing the API additions and potential breaking changes. Pedro reviews both the generated evidence and any instructions/examples needing semantic changes; API generation cannot write a migration guide on its own. CI runs on that branch, and CODEOWNERS requires Pedro's approval. The bot cannot merge, approve on Pedro's behalf or bypass main protections. An already-open updater PR prevents duplicate proposals.
+
+After Pedro integrates a verified change into `main`, `verify.yml` verifies Web examples, Native browser examples, API inventories, contracts, MCP package/client tests, upstream provenance, links and clean installation. Only a successful owner-triggered main run may create release tags. Existing skill tags must still identify exactly the same folder tree; their published archives are extracted and compared file by file, without replacing existing assets. New skill archives use the last skill commit timestamp for reproducibility.
+
+The MCP uses `mcp-v<its own version>`. The main workflow explicitly dispatches `publish-mcp.yml` at that immutable tag because a tag pushed by `GITHUB_TOKEN` does not start another workflow. A bot dispatch is accepted only after reading the actual parent Actions run: the official repository and head repository, exact commit, `verify.yml`, main push, Pedro as actor and triggering actor, and successful completion must all match. A PR run, fork, failed run, another workflow, another commit or an unverified bot dispatch cannot publish. A direct owner tag push remains supported.
+
+`publish-mcp.yml` retains the filename registered with npm Trusted Publishing. It checks main ancestry, rebuilds and tests, packs one archive, verifies its commit and checksum in the publishing job, and publishes that exact archive with OIDC/provenance. It refuses npm channel rollbacks or an existing version with different bytes. The final job installs the public npm artifact and exercises a real stdio client before preserving its archive and manifest in the GitHub release. No long-lived npm publishing token or per-release 2FA code is used.
+
+Enablement: `AI_AUTO_SYNC_ENABLED=true`. Manual inspection: `node scripts/sync-upstream.mjs --detect`. Policy checks: `npm run verify:release-policy`. Release publishing does not deploy or change UI v1, UI v2, Icons or Native website URLs.

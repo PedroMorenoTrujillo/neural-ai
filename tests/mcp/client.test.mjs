@@ -1,3 +1,4 @@
+import { WEB_VERSION, MCP_VERSION } from '../../scripts/release-state.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { connect, call } from './helpers.mjs';
@@ -5,7 +6,7 @@ import { connect, call } from './helpers.mjs';
 test('official MCP SDK client interoperates over real stdio: all tools and resources', { timeout: 30000 }, async () => {
   const { client, stderr } = await connect();
   try {
-    assert.deepEqual(client.getServerVersion(), { name: 'neural-ui-mcp', version: '0.2.3' });
+    assert.deepEqual(client.getServerVersion(), { name: 'neural-ui-mcp', version: MCP_VERSION });
     assert.equal(client.getProtocolEra(), 'modern');
     assert.equal(client.getNegotiatedProtocolVersion(), '2026-07-28');
     const tools = await client.listTools();
@@ -17,9 +18,9 @@ test('official MCP SDK client interoperates over real stdio: all tools and resou
     const api = await call(client, 'get_api', { entrypoint: '@neural-ui/core/button', symbol: 'NeuButtonComponent' });
     assert.equal(api.contract.selector, 'button[neu-button]');
     assert.ok(api.contract.outputs.some(item => item.alias === 'neuClick'));
-    const dialog = await call(client, 'get_api', { library: 'web', version: '2.0.4', entrypoint: '@neural-ui/core/modal', symbol: 'NeuDialogComponent' });
+    const dialog = await call(client, 'get_api', { library: 'web', version: WEB_VERSION, entrypoint: '@neural-ui/core/modal', symbol: 'NeuDialogComponent' });
     assert.ok(dialog.contract.inputs.some(item => item.alias === 'closeLabel'));
-    const localizedDialog = await call(client, 'validate_usage', { library: 'web', version: '2.0.4', source: `import { Component, signal } from '@angular/core';
+    const localizedDialog = await call(client, 'validate_usage', { library: 'web', version: WEB_VERSION, source: `import { Component, signal } from '@angular/core';
 import { NeuDialogComponent } from '@neural-ui/core/modal';
 @Component({ standalone: true, imports: [NeuDialogComponent], template: '<neu-dialog [open]="open()" title="Confirmar" closeLabel="Cerrar diálogo">Contenido</neu-dialog>' })
 export class LocalizedDialog { readonly open = signal(true); }` });
