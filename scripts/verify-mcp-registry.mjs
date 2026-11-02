@@ -6,6 +6,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { connect, call, assertConsumer } from '../tests/mcp/helpers.mjs';
+import { expectedPublishedHash } from './mcp-publication-artifact.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const name = 'neural-ui-mcp';
@@ -25,7 +26,7 @@ assert.equal(archiveResponse.status, 200);
 const bytes = Buffer.from(await archiveResponse.arrayBuffer());
 const sha256 = createHash('sha256').update(bytes).digest('hex');
 const ci = JSON.parse(readFileSync(join(root, 'evidence/mcp/ci.json'), 'utf8'));
-const expectedHash = current ? JSON.parse(readFileSync(join(root, `evidence/mcp/release-${version}.json`),'utf8')).sha256 : ci.localArchiveSha256;
+const expectedHash = current ? expectedPublishedHash(root, name, version) : ci.localArchiveSha256;
 assert.equal(sha256, expectedHash, 'Registry must serve the exact tarball authorized for publication');
 assert.equal(metadata.dist.integrity, 'sha512-' + createHash('sha512').update(bytes).digest('base64'));
 
@@ -38,7 +39,7 @@ async function assertNative(client) {
   assert.equal((await call(client,'get_api',{...scope,entrypoint:'@neural-ui/native/button',symbol:'NeuButtonComponent'})).contract.selector,'neu-button');
   const docs=await call(client,'search_documentation',{...scope,query:'safe area'});
   assert.ok((await client.readResource({uri:docs.results[0].uri})).contents[0].text.length>0);
-  for(const id of ['forms','collections','navigation','overlays','theme']) {
+  for(const id of ['forms','collections','navigation','overlays','theme','haptics']) {
     const example=await call(client,'get_example',{...scope,id});
     assert.equal((await call(client,'validate_usage',{...scope,source:example.text})).valid,true);
   }

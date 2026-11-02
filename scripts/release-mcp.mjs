@@ -7,6 +7,11 @@ import { pathToFileURL } from 'node:url';
 const root = path.resolve(import.meta.dirname, '..');
 const read = file => JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
 const hash = file => createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+export function assertReleaseActor(actor, triggeringActor) {
+  if (actor !== 'PedroMorenoTrujillo' || triggeringActor !== 'PedroMorenoTrujillo') {
+    throw new Error('Only PedroMorenoTrujillo may publish or retry an MCP release');
+  }
+}
 export function releaseIdentity(tag, version) {
   if (!/^mcp-v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(tag ?? '') || tag !== 'mcp-v' + version) throw new Error('MCP tag must exactly match the package version');
   const channel = version.includes('-') ? version.split('-')[1].split('.')[0] : 'latest';
@@ -14,6 +19,7 @@ export function releaseIdentity(tag, version) {
   return { tag, version, channel, name: 'neural-ui-mcp' };
 }
 function identity() {
+  if (process.env.GITHUB_ACTIONS === 'true') assertReleaseActor(process.env.GITHUB_ACTOR, process.env.GITHUB_TRIGGERING_ACTOR);
   if (process.env.GITHUB_REF_TYPE !== 'tag') throw new Error('MCP publication requires a tag push');
   const pkg = read('packages/mcp/package.json');
   if (pkg.name !== 'neural-ui-mcp' || pkg.private) throw new Error('Unexpected MCP package');

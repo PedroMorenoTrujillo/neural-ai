@@ -5,6 +5,11 @@ on:
     tags: ['v*']
   pull_request:
   workflow_dispatch:
+    inputs:
+      verify_published_mcp:
+        description: Verify the currently published MCP archive, clean install and npx client
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -26,6 +31,9 @@ jobs:
       - run: npm run verify
       - run: npm run verify:native
       - run: npm run verify:mcp
+      - name: Verify the published MCP from npm
+        if: github.event_name == 'workflow_dispatch' && inputs.verify_published_mcp
+        run: npm run test:mcp:registry:current
       - run: npm run test:mcp:registry
       - run: npm run test:clean-install
       - run: npm run check:links

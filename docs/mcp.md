@@ -6,6 +6,10 @@ MCP 0.2.3 actualiza Native a **@neural-ui/native 0.1.0-beta.5** y mantiene Web C
 
 La publicación automática se activa únicamente al subir un tag `mcp-vVERSION` coincidente con el paquete y el servidor. El flujo `.github/workflows/publish-mcp.yml` verifica ambos catálogos, ejemplos, cliente MCP, seguridad e integridad del tarball antes de publicar mediante npm OIDC. Requiere configurar una vez el publicador de confianza en npm para `PedroMorenoTrujillo/neural-ai`, archivo `publish-mcp.yml`, sin environment y con publicación directa permitida. No utiliza un token persistente.
 
+El commit del tag debe estar incluido en `main`. Solo `PedroMorenoTrujillo` puede iniciar o reintentar la publicación: lo comprueban los jobs y el script de release. Un PR externo o un fork puede aportar código, pero no publicar el paquete. Conceder permisos de escritura al repositorio permite modificar workflows y sigue siendo una decisión independiente del mantenedor.
+
+`main` exige PR, el check `verify` actualizado y una revisión de CODEOWNERS. Los administradores conservan su excepción para que el único mantenedor pueda gestionar sus propios cambios. Abrir un PR no concede permisos de escritura.
+
 ## Registro anterior: 0.2.2
 
 MCP 0.2.2 actualiza el catálogo Web a **@neural-ui/core 2.0.4** y conserva Native **0.1.0-beta.2**. Mantiene las cinco herramientas, los recursos y la selección explícita de biblioteca. Las llamadas que indiquen Web 2.0.3 o 2.0.1 se rechazan; conserva respectivamente MCP 0.2.1 o 0.2.0 para esos baselines anteriores.

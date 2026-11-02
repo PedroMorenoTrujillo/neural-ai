@@ -1,0 +1,10 @@
+{
+  "package": "neural-ui-mcp",
+  "version": "0.2.3",
+  "tag": "mcp-v0.2.3",
+  "sha256": "7341569447722771e25b860c27c3e46ef931d0597ca54b08ecc27effda43c401",
+  "filename": "neural-ui-mcp-0.2.3.tgz",
+  "sourceCommit": "738cee49c2d49d12c889f8f367087a4f62647292",
+  "workflowRun": "https://github.com/PedroMorenoTrujillo/neural-ai/actions/runs/41395095709",
+  "artifactName": "neural-mcp-npm"
+}
