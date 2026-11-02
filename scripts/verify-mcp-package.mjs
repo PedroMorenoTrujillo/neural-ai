@@ -6,6 +6,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { connect, call, assertConsumer } from '../tests/mcp/helpers.mjs';
+import { NATIVE_VERSION } from './release-state.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const target = join(root, 'dist/mcp');
@@ -38,7 +39,7 @@ try {
   connection = await connect(join(installed, 'dist/cli.js'), { command: join(consumer, 'node_modules/.bin/neural-ui-mcp'), args: [], cwd: consumer, env: { PATH: process.env.PATH, NODE_OPTIONS: `--require=${guard}` } });
   const { client } = connection;
   await assertConsumer(client);
-  const nativeScope = { library: 'native', version: '0.1.0-beta.5' };
+  const nativeScope = { library: 'native', version: NATIVE_VERSION };
   assert.equal((await call(client, 'get_api', { ...nativeScope, entrypoint: '@neural-ui/native/button', symbol: 'NeuButtonComponent' })).contract.selector, 'neu-button');
   assert.ok((await call(client, 'list_components', { ...nativeScope })).total > 0);
   assert.ok((await call(client, 'search_documentation', { ...nativeScope, query: 'safe area' })).results.length > 0);
@@ -64,7 +65,7 @@ try {
     filename: packed.filename, sha256, packedFiles: packed.files.length, unpackedBytes: packed.unpackedSize,
     cleanInstall: true, installedBinExecuted: true, officialSdkClient: '2.3.1', protocol: '2026-07-28', allFiveTools: true, resources: true,
     runtimeNetworkBlocked: true, stdoutProtocolOnly: true, corruptDataFailsClosed: true,
-    nativeCatalogue: '0.1.0-beta.5', nativeAllFiveTools: true,
+    nativeCatalogue: NATIVE_VERSION, nativeAllFiveTools: true,
     publishedToNpm: false, hostAgentSessionsTested: [] };
   writeFileSync(join(root, 'evidence/mcp/package-verification.json'), JSON.stringify(report, null, 2) + '\n');
   console.log(`Packed package verified: ${packed.filename}; ${packed.files.length} files, ${packed.unpackedSize} bytes; isolated client + network denial + integrity tests passed`);

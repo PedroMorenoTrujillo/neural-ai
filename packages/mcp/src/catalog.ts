@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { LIBRARY_VERSIONS } from './release-versions.js';
 
 export interface Contract {
   name: string;
@@ -28,7 +29,7 @@ export function loadCatalog(library: Library = 'web'): Catalog {
   if (createHash('sha256').update(bytes).digest('hex') !== expected) throw new Error('Catalogue integrity check failed');
   const data = JSON.parse(bytes.toString()) as Catalog;
   const pkg = library === 'native' ? '@neural-ui/native' : '@neural-ui/core';
-  const version = library === 'native' ? '0.1.0-beta.5' : '2.0.4';
+  const version = LIBRARY_VERSIONS[library];
   if (data.schemaVersion !== 1 || data.api.package !== pkg || data.api.version !== version) {
     throw new Error('Unsupported catalogue');
   }

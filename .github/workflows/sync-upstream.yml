@@ -1,0 +1,40 @@
+name: Prepare independent skills and MCP updates
+on:
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: sync-published-library-baselines
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: github.repository == 'PedroMorenoTrujillo/neural-ai' && github.ref_name == 'main' && (github.event_name == 'workflow_dispatch' || vars.AI_AUTO_SYNC_ENABLED == 'true')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: npm
+      - name: Find independently published Web v2 and Native versions
+        id: upstream
+        run: node scripts/sync-upstream.mjs --detect
+      - name: Prepare API evidence without changing Angular or Angular Native
+        if: steps.upstream.outputs.changed == 'true'
+        run: |
+          test "$(gh pr list --state open --search 'in:title chore: sync published Neural baselines' --json number --jq length)" = 0 || exit 0
+          node scripts/sync-upstream.mjs --apply
+      - name: Open an owner-reviewed update and run its verification
+        if: steps.upstream.outputs.changed == 'true'
+        run: node scripts/open-upstream-pr.mjs

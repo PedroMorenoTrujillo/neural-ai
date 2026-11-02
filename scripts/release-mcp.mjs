@@ -3,6 +3,8 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
+import { generateMcpVersions } from './generate-mcp-versions.mjs';
+import { authorizeRelease } from './release-authorization.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const read = file => JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
@@ -19,13 +21,11 @@ export function releaseIdentity(tag, version) {
   return { tag, version, channel, name: 'neural-ui-mcp' };
 }
 function identity() {
-  if (process.env.GITHUB_ACTIONS === 'true') assertReleaseActor(process.env.GITHUB_ACTOR, process.env.GITHUB_TRIGGERING_ACTOR);
   if (process.env.GITHUB_REF_TYPE !== 'tag') throw new Error('MCP publication requires a tag push');
   const pkg = read('packages/mcp/package.json');
   if (pkg.name !== 'neural-ui-mcp' || pkg.private) throw new Error('Unexpected MCP package');
   const release = releaseIdentity(process.env.GITHUB_REF_NAME, pkg.version);
-  const server = fs.readFileSync(path.join(root, 'packages/mcp/src/server.ts'), 'utf8');
-  if (!server.includes(`export const VERSION = '${pkg.version}'`)) throw new Error('MCP server and package versions differ');
+  generateMcpVersions(true);
   return release;
 }
 function verify(file, manifest) {
@@ -35,7 +35,8 @@ function verify(file, manifest) {
   const files = execFileSync('tar', ['-tzf', file], { encoding: 'utf8' }).trim().split('\n');
   if (files.some(file => file.split('/').includes('..') || !/^package\/(?:dist\/|data\/|README\.md$|LICENSE$|package\.json$)/.test(file))) throw new Error('Unexpected private file in public MCP archive');
 }
-export function main(command) {
+export async function main(command) {
+  await authorizeRelease();
   const release = identity();
   if (command === 'identity') { console.log(JSON.stringify(release)); return; }
   const directory = path.join(root, 'dist/mcp/release');
@@ -55,4 +56,4 @@ export function main(command) {
   if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `file=dist/mcp/release/${manifest.file}\nchannel=${release.channel}\nversion=${release.version}\n`);
   console.log(JSON.stringify({ verified: true, ...release, sha256: manifest.sha256 }));
 }
-if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url) main(process.argv[2]);
+if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url) await main(process.argv[2]);

@@ -1,18 +1,18 @@
 # neural-ui-mcp
 
-Servidor MCP oficial de Neural Web y Native, local y de solo lectura. La actualización **0.2.3** incorpora **@neural-ui/native 0.1.0-beta.5**, incluida su háptica opcional, mediante `library: "native"`. Web mantiene **@neural-ui/core 2.0.4** como catálogo predeterminado. Licencia MIT. Node **22.22.3 o posterior**.
+Servidor MCP oficial de Neural Web y Native, local y de solo lectura. La actualización **0.2.4** incorpora **@neural-ui/native 0.1.0-beta.5**, incluida su háptica opcional, mediante `library: "native"`. Web mantiene **@neural-ui/core 2.0.4** como catálogo predeterminado. Licencia MIT. Node **22.22.3 o posterior**.
 
-[neural-ui-mcp@0.2.3](https://www.npmjs.com/package/neural-ui-mcp) incluye ambos catálogos. La versión anterior 0.1.0 solo cubre Web. No requiere backend, cuenta, claves, conexión de red durante la ejecución ni servicios de IA. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
+[neural-ui-mcp@0.2.4](https://www.npmjs.com/package/neural-ui-mcp) incluye ambos catálogos. La versión anterior 0.1.0 solo cubre Web. No requiere backend, cuenta, claves, conexión de red durante la ejecución ni servicios de IA. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
 
 ## Instalar desde npm
 
 La misma instalación sirve para Web y Native. Selecciona Native explícitamente al llamar a las herramientas.
 
 ```sh
-npx --yes neural-ui-mcp@0.2.3
+npx --yes neural-ui-mcp@0.2.4
 ```
 
-El proceso espera mensajes MCP en stdin. Para instalarlo como dependencia de tu proyecto usa `npm install --save-dev --save-exact neural-ui-mcp@0.2.3`. La instalación, el binario y el arranque con npx se comprueban con un cliente MCP real. [Evidencia de publicación](https://github.com/PedroMorenoTrujillo/neural-ai/blob/main/evidence/mcp/publication.json).
+El proceso espera mensajes MCP en stdin. Para instalarlo como dependencia de tu proyecto usa `npm install --save-dev --save-exact neural-ui-mcp@0.2.4`. La instalación, el binario y el arranque con npx se comprueban con un cliente MCP real. [Evidencia de publicación](https://github.com/PedroMorenoTrujillo/neural-ai/blob/main/evidence/mcp/publication.json).
 
 ## Instalar el tarball verificado
 
@@ -22,7 +22,7 @@ Desde una copia del repositorio [Neural AI](https://github.com/PedroMorenoTrujil
 npm ci
 npm ci --prefix packages/mcp
 npm run verify:mcp
-npm install --prefix /ruta/absoluta/neural-mcp-local ./dist/mcp/neural-ui-mcp-0.2.3.tgz
+npm install --prefix /ruta/absoluta/neural-mcp-local ./dist/mcp/neural-ui-mcp-0.2.4.tgz
 ```
 
 El último comando instala el paquete local preparado por las pruebas. Comprueba su SHA-256 con `dist/mcp/SHA256SUMS`. También puedes ejecutar directamente `node /ruta/absoluta/neural-ai/packages/mcp/dist/cli.js` después de compilarlo. El proceso espera a un cliente en stdin.
@@ -34,8 +34,8 @@ Usa un Node compatible disponible para el cliente.
 Para usar directamente la versión publicada:
 
 ```sh
-codex mcp add neural-ui -- npx --yes neural-ui-mcp@0.2.3
-claude mcp add --transport stdio neural-ui -- npx --yes neural-ui-mcp@0.2.3
+codex mcp add neural-ui -- npx --yes neural-ui-mcp@0.2.4
+claude mcp add --transport stdio neural-ui -- npx --yes neural-ui-mcp@0.2.4
 ```
 
 Para una instalación local del tarball:
