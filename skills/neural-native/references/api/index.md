@@ -1,10 +1,10 @@
-# Public API — @neural-ui/native@0.1.0-beta.2
+# Public API — @neural-ui/native@0.1.0-beta.5
 
 Generated from the installed npm declarations, filtered by the reviewed upstream support policy. Read only the relevant entrypoint. Angular metadata and private implementation methods are excluded.
 
 | Entrypoint | Exports |
 | --- | ---: |
-| [@neural-ui/native](core.md) | 116 |
+| [@neural-ui/native](core.md) | 123 |
 | [@neural-ui/native/accordion](accordion.md) | 1 |
 | [@neural-ui/native/alert](alert.md) | 2 |
 | [@neural-ui/native/autocomplete](autocomplete.md) | 1 |
@@ -28,8 +28,9 @@ Generated from the installed npm declarations, filtered by the reviewed upstream
 | [@neural-ui/native/empty-state](empty-state.md) | 1 |
 | [@neural-ui/native/filter-bar](filter-bar.md) | 1 |
 | [@neural-ui/native/form-field](form-field.md) | 1 |
-| [@neural-ui/native/foundation](foundation.md) | 10 |
+| [@neural-ui/native/foundation](foundation.md) | 17 |
 | [@neural-ui/native/gallery](gallery.md) | 6 |
+| [@neural-ui/native/haptics](haptics.md) | 10 |
 | [@neural-ui/native/icon-button](icon-button.md) | 1 |
 | [@neural-ui/native/image-viewer](image-viewer.md) | 2 |
 | [@neural-ui/native/inline-editor](inline-editor.md) | 1 |

@@ -36,7 +36,7 @@ const nativeDocuments = [], nativeExamples = [];
 collect(resolve(root, 'skills/neural-native/references'), nativeDocuments, '.md', 'neural-native');
 collect(resolve(root, 'skills/neural-native/examples'), nativeExamples, '.ts', 'neural-native');
 const nativeApi = JSON.parse(readFileSync(resolve(root, 'evidence/native-api.json'), 'utf8'));
-if (nativeApi.package !== '@neural-ui/native' || nativeApi.version !== '0.1.0-beta.2') throw new Error('Unsupported Native catalogue version');
+if (nativeApi.package !== '@neural-ui/native' || nativeApi.version !== '0.1.0-beta.5') throw new Error('Unsupported Native catalogue version');
 const nativeCatalog = JSON.stringify({ schemaVersion: 1, api: nativeApi, documents: nativeDocuments, examples: nativeExamples }) + '\n';
 writeFileSync(resolve(pkg, 'data/native-catalog.json'), nativeCatalog);
 writeFileSync(resolve(pkg, 'data/native-sha256'), createHash('sha256').update(nativeCatalog).digest('hex') + '\n');

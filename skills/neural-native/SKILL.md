@@ -4,15 +4,15 @@ description: Build or debug native iOS and Android Angular interfaces with @neur
 license: MIT
 metadata:
   author: PedroMorenoTrujillo
-  version: "0.1.0"
-  neural-native-version: "0.1.0-beta.2"
-  angular-native-version: "0.18.2"
+  version: "0.1.1"
+  neural-native-version: "0.1.0-beta.5"
+  angular-native-version: "0.19.2"
   angular-version: "22.2.2"
 ---
 
 # Neural Native
 
-Build against the installed npm package, not a similarly named Web control. Read package.json and the lockfile before selecting APIs. This skill's reviewed baseline is **@neural-ui/native 0.1.0-beta.2 with Angular Native 0.18.2**. If the app differs, check its installed public declarations and describe the compatibility gap before changing dependencies.
+Build against the installed npm package, not a similarly named Web control. Read package.json and the lockfile before selecting APIs. This skill's reviewed baseline is **@neural-ui/native 0.1.0-beta.5 with Angular Native 0.19.2**. If the app differs, check its installed public declarations and describe the compatibility gap before changing dependencies.
 
 ## Essential decisions
 
@@ -33,6 +33,7 @@ Build against the installed npm package, not a similarly named Web control. Read
 | Modal content, slots or item templates | [Customization](references/customization.md) | [Overlay](examples/overlays.ts) |
 | Navigation state and screen composition | [Navigation](references/navigation.md) | [Navigation](examples/navigation.ts) |
 | Brand, light/dark or tokens | [Theming](references/theming.md), [token contract](references/api/tokens.md) | [Theme](examples/theme.ts) |
+| Haptic feedback or user preferences | [Haptics](references/haptics.md), [public adapter](references/api/haptics.md) | [Feedback preferences](examples/haptics.ts) |
 | Insets, touch, text scaling or localization | [Layout and accessibility](references/layout-accessibility.md) | Adapt the relevant example |
 | Upgrade or use an MCP client | [Versions and MCP](references/versioning.md) | — |
 
@@ -40,7 +41,7 @@ The examples are standalone Angular components. Import them into the existing na
 
 ## Optional MCP
 
-When the expanded Neural MCP is available, pass `library: "native"` on every tool call and pin `version: "0.1.0-beta.2"`. Discover exports with `list_components`, obtain the relevant `get_api` contract, then retrieve only the example/reference needed. The MCP defaults to **Web** when the library is omitted. Never interpret a Web result as a Native contract.
+When the expanded Neural MCP is available, pass `library: "native"` on every tool call and pin `version: "0.1.0-beta.5"`. Discover exports with `list_components`, obtain the relevant `get_api` contract, then retrieve only the example/reference needed. The MCP defaults to **Web** when the library is omitted. Never interpret a Web result as a Native contract.
 
 Use `validate_usage` for static feedback, then compile with strict Angular templates and exercise the interaction. Static success does not type-check expressions, execute code, inspect external templates, or prove native accessibility. Browser preview checks do not certify iOS/Android behavior.
 

@@ -1,6 +1,6 @@
 # @neural-ui/native
 
-Verified against @neural-ui/native@0.1.0-beta.2. Generated; do not edit.
+Verified against @neural-ui/native@0.1.0-beta.5. Generated; do not edit.
 
 Types below are package contracts, not complete application examples. Referenced Angular/internal declaration types do not authorize imports from internal entrypoints.
 
@@ -29,6 +29,18 @@ NEU_DARK_TOKENS: Readonly<NeuTokens>
 
 ```typescript
 NEU_FILE_PICKER: InjectionToken<NeuFilePicker>
+```
+
+## NEU_HAPTICS_DRIVER
+
+```typescript
+NEU_HAPTICS_DRIVER: InjectionToken<NeuHapticsDriver | null>
+```
+
+## NEU_HAPTICS_OPTIONS
+
+```typescript
+NEU_HAPTICS_OPTIONS: InjectionToken<NeuHapticsOptions>
 ```
 
 ## NEU_LIGHT_TOKENS
@@ -206,6 +218,7 @@ Selector: `neu-button`
 
 | Input | Required | Type |
 | --- | --- | --- |
+| haptic | no | `import("@angular/core").InputSignal<false \| NeuHapticFeedback>` |
 | label | yes | `import("@angular/core").InputSignal<string>` |
 | accessibilityLabel | no | `import("@angular/core").InputSignal<string>` |
 | variant | no | `import("@angular/core").InputSignal<NeuVariant>` |
@@ -373,6 +386,7 @@ Selector: `neu-checkbox`
 
 | Input | Required | Type |
 | --- | --- | --- |
+| haptic | no | `import("@angular/core").InputSignal<false \| NeuHapticFeedback>` |
 | label | yes | `import("@angular/core").InputSignal<string>` |
 | labelPosition | no | `import("@angular/core").InputSignal<"left" \| "right">` |
 | checked | no | `import("@angular/core").ModelSignal<boolean>` |
@@ -689,12 +703,54 @@ export interface NeuGalleryViewerLabels {
 }
 ```
 
+## NeuHapticFeedback
+
+```typescript
+export type NeuHapticFeedback = 'press' | 'selection' | NeuHapticImpact | 'success' | 'warning' | 'error';
+```
+
+## NeuHapticImpact
+
+```typescript
+export type NeuHapticImpact = 'light' | 'medium' | 'heavy' | 'soft' | 'rigid';
+```
+
+## NeuHaptics
+
+Supported imperative members:
+
+```typescript
+readonly enabled: import("@angular/core").WritableSignal<boolean>;
+get available(): boolean;
+play(feedback?: NeuHapticFeedback | false): boolean;
+```
+
+## NeuHapticsDriver
+
+```typescript
+export interface NeuHapticsDriver {
+    available(): boolean;
+    play(feedback: Exclude<NeuHapticFeedback, "press">): void | Promise<void>;
+}
+```
+
+## NeuHapticsOptions
+
+```typescript
+export interface NeuHapticsOptions {
+    enabled?: boolean;
+    minimumIntervalMs?: number;
+    pressStyle?: NeuHapticImpact;
+}
+```
+
 ## NeuIconButtonComponent
 
 Selector: `neu-icon-button`
 
 | Input | Required | Type |
 | --- | --- | --- |
+| haptic | no | `import("@angular/core").InputSignal<false \| NeuHapticFeedback>` |
 | label | yes | `import("@angular/core").InputSignal<string>` |
 | svg | yes | `import("@angular/core").InputSignal<string>` |
 | variant | no | `import("@angular/core").InputSignal<NeuVariant>` |
@@ -1202,6 +1258,7 @@ Selector: `neu-radio`
 
 | Input | Required | Type |
 | --- | --- | --- |
+| haptic | no | `import("@angular/core").InputSignal<false \| NeuHapticFeedback>` |
 | label | yes | `import("@angular/core").InputSignal<string>` |
 | options | no | `import("@angular/core").InputSignal<readonly NeuOption[]>` |
 | value | no | `import("@angular/core").ModelSignal<string>` |
@@ -1369,6 +1426,7 @@ Selector: `neu-slider`
 
 | Input | Required | Type |
 | --- | --- | --- |
+| haptic | no | `import("@angular/core").InputSignal<false \| NeuHapticFeedback>` |
 | label | yes | `import("@angular/core").InputSignal<string>` |
 | value | no | `import("@angular/core").ModelSignal<number>` |
 | min | no | `import("@angular/core").InputSignal<number>` |
@@ -1472,6 +1530,7 @@ Selector: `neu-switch`
 
 | Input | Required | Type |
 | --- | --- | --- |
+| haptic | no | `import("@angular/core").InputSignal<false \| NeuHapticFeedback>` |
 | label | yes | `import("@angular/core").InputSignal<string>` |
 | labelPosition | no | `import("@angular/core").InputSignal<"left" \| "right">` |
 | size | no | `import("@angular/core").InputSignal<NeuSize>` |
@@ -1754,7 +1813,7 @@ Selector: `neu-uploader`
 | chooseLabel | no | `import("@angular/core").InputSignal<string>` |
 | uploadLabel | no | `import("@angular/core").InputSignal<string>` |
 | removeLabel | no | `import("@angular/core").InputSignal<string>` |
-| stateLabels | no | `import("@angular/core").InputSignal<Readonly<Record<"selected" \| "uploading" \| "complete" \| "error", string>>>` |
+| stateLabels | no | `import("@angular/core").InputSignal<Readonly<Record<"error" \| "selected" \| "uploading" \| "complete", string>>>` |
 | upload | no | `import("@angular/core").InputSignal<NeuUpload \| undefined>` |
 
 | Output | Type |

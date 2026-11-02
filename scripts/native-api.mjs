@@ -9,6 +9,7 @@ const dir = path.join(root, 'node_modules/@neural-ui/native');
 const read = file => fs.readFileSync(file, 'utf8');
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const policy = { internalEntrypoints: [], internalDeclarations: [], publicMembers: {
+  NeuHaptics: ['enabled', 'available', 'play'],
   NeuThemeComponent: ['resolvedTokens'], NeuModalComponent: ['close'],
   NeuBottomSheetComponent: ['close'], NeuImageViewerComponent: ['close'],
   NeuStepperComponent: ['goTo'], NeuVirtualListComponent: ['scrollToIndex', 'scrollToTop'],
@@ -39,7 +40,7 @@ export function tokenDefaults(source) {
 
 export function nativeInventory() {
   const pkg = JSON.parse(read(path.join(dir, 'package.json')));
-  if (pkg.version !== '0.1.0-beta.2') throw Error('Review the Native version before regenerating');
+  if (pkg.version !== '0.1.0-beta.5') throw Error('Review the Native version before regenerating');
   const defaults = tokenDefaults(read(path.join(dir, 'dist/foundation/index.js')));
   const assets = Object.fromEntries(['dist/foundation/index.js', 'dist/foundation/index.d.ts'].map(file => [file, hash(read(path.join(dir, file)))]));
   const api = inventory(dir, { policy, inheritedBindings: true, tokens: [], assets });

@@ -1,0 +1,87 @@
+name: Publish MCP to npm
+on:
+  push:
+    tags: ['mcp-v*']
+permissions:
+  contents: read
+concurrency:
+  group: publish-mcp-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.15.0
+          cache: npm
+      - name: Verify tag, package and main ancestry
+        run: |
+          node scripts/release-mcp.mjs identity
+          git merge-base --is-ancestor HEAD origin/main
+      - run: npm ci --no-audit --no-fund
+      - run: npm ci --prefix packages/mcp --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: npm run verify
+      - run: npm run verify:native
+      - run: npm run verify:mcp
+      - name: Pack the verified MCP artifact
+        run: node scripts/release-mcp.mjs prepare
+      - uses: actions/upload-artifact@v7
+        with:
+          name: neural-mcp-npm
+          path: dist/mcp/release/*
+          if-no-files-found: error
+          retention-days: 7
+  publish:
+    needs: verify-release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.15.0
+          registry-url: https://registry.npmjs.org
+      - run: npm install --global npm@11.21.0
+      - uses: actions/download-artifact@v8
+        with:
+          name: neural-mcp-npm
+          path: dist/mcp/release
+      - name: Reverify the exact release artifact
+        id: release
+        run: node scripts/release-mcp.mjs verify
+      - name: Publish with npm Trusted Publishing
+        env:
+          TARBALL: ${{ steps.release.outputs.file }}
+          CHANNEL: ${{ steps.release.outputs.channel }}
+        run: npm publish "$TARBALL" --access public --tag "$CHANNEL" --provenance
+  verify-registry:
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.15.0
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v8
+        with:
+          name: neural-mcp-npm
+          path: dist/mcp
+      - name: Verify the public registry artifact and real stdio client
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            if npm run test:mcp:registry:current; then exit 0; fi
+            if [ "$attempt" -lt 6 ]; then sleep 20; fi
+          done
+          exit 1

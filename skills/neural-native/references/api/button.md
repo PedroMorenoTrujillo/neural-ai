@@ -1,6 +1,6 @@
 # @neural-ui/native/button
 
-Verified against @neural-ui/native@0.1.0-beta.2. Generated; do not edit.
+Verified against @neural-ui/native@0.1.0-beta.5. Generated; do not edit.
 
 Types below are package contracts, not complete application examples. Referenced Angular/internal declaration types do not authorize imports from internal entrypoints.
 
@@ -10,6 +10,7 @@ Selector: `neu-button`
 
 | Input | Required | Type |
 | --- | --- | --- |
+| haptic | no | `import("@angular/core").InputSignal<false \| NeuHapticFeedback>` |
 | label | yes | `import("@angular/core").InputSignal<string>` |
 | accessibilityLabel | no | `import("@angular/core").InputSignal<string>` |
 | variant | no | `import("@angular/core").InputSignal<NeuVariant>` |

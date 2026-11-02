@@ -33,7 +33,7 @@ const consumer = mkdtempSync(join(tmpdir(), 'neural-mcp-registry-'));
 let connection;
 async function assertNative(client) {
   if (!current) return;
-  const scope={library:'native',version:'0.1.0-beta.2'};
+  const scope={library:'native',version:'0.1.0-beta.5'};
   assert.ok((await call(client,'list_components',{...scope})).total>0);
   assert.equal((await call(client,'get_api',{...scope,entrypoint:'@neural-ui/native/button',symbol:'NeuButtonComponent'})).contract.selector,'neu-button');
   const docs=await call(client,'search_documentation',{...scope,query:'safe area'});

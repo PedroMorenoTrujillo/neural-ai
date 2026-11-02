@@ -6,11 +6,12 @@ import { NativeCollectionsExample } from '../../skills/neural-native/examples/co
 import { NativeNavigationExample } from '../../skills/neural-native/examples/navigation';
 import { NativeOverlaysExample } from '../../skills/neural-native/examples/overlays';
 import { NativeThemeExample } from '../../skills/neural-native/examples/theme';
+import { NativeHapticsExample } from '../../skills/neural-native/examples/haptics';
 
 @Component({
   selector: 'native-test-host',
   imports: [SafeAreaProvider, SafeAreaView, ScrollView, NeuThemeComponent,
-    NativeFormsExample, NativeCollectionsExample, NativeNavigationExample, NativeOverlaysExample, NativeThemeExample],
+    NativeFormsExample, NativeCollectionsExample, NativeNavigationExample, NativeOverlaysExample, NativeThemeExample, NativeHapticsExample],
   template: `
     <safe-area-provider>
       <neu-theme scheme="light">
@@ -21,6 +22,7 @@ import { NativeThemeExample } from '../../skills/neural-native/examples/theme';
               @case ('navigation') { <native-navigation-example /> }
               @case ('overlays') { <native-overlay-example /> }
               @case ('theme') { <native-theme-example /> }
+              @case ('haptics') { <native-haptics-example /> }
               @default { <native-profile-example /> }
             }
           </scroll-view>

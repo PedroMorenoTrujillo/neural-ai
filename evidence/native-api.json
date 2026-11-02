@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "@neural-ui/native",
-  "version": "0.1.0-beta.2",
+  "version": "0.1.0-beta.5",
   "entrypoints": {
     "@neural-ui/native": {
       "types": "./dist/index.d.ts",
@@ -26,6 +26,16 @@
           "name": "NEU_FILE_PICKER",
           "kind": "VariableDeclaration",
           "declaration": "NEU_FILE_PICKER: InjectionToken<NeuFilePicker>"
+        },
+        {
+          "name": "NEU_HAPTICS_DRIVER",
+          "kind": "VariableDeclaration",
+          "declaration": "NEU_HAPTICS_DRIVER: InjectionToken<NeuHapticsDriver | null>"
+        },
+        {
+          "name": "NEU_HAPTICS_OPTIONS",
+          "kind": "VariableDeclaration",
+          "declaration": "NEU_HAPTICS_OPTIONS: InjectionToken<NeuHapticsOptions>"
         },
         {
           "name": "NEU_LIGHT_TOKENS",
@@ -436,6 +446,12 @@
           "angularKind": "component",
           "selector": "neu-button",
           "inputs": [
+            {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
             {
               "name": "label",
               "alias": "label",
@@ -986,6 +1002,12 @@
           "angularKind": "component",
           "selector": "neu-checkbox",
           "inputs": [
+            {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
             {
               "name": "label",
               "alias": "label",
@@ -1823,11 +1845,46 @@
           "declaration": "export interface NeuGalleryViewerLabels {\n    readonly label?: string;\n    readonly closeLabel?: string;\n    readonly previousLabel?: string;\n    readonly nextLabel?: string;\n    readonly zoomLabel?: string;\n    readonly zoomOutLabel?: string;\n    readonly errorLabel?: string;\n}"
         },
         {
+          "name": "NeuHapticFeedback",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type NeuHapticFeedback = 'press' | 'selection' | NeuHapticImpact | 'success' | 'warning' | 'error';"
+        },
+        {
+          "name": "NeuHapticImpact",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type NeuHapticImpact = 'light' | 'medium' | 'heavy' | 'soft' | 'rigid';"
+        },
+        {
+          "name": "NeuHaptics",
+          "kind": "ClassDeclaration",
+          "members": [
+            "readonly enabled: import(\"@angular/core\").WritableSignal<boolean>;",
+            "get available(): boolean;",
+            "play(feedback?: NeuHapticFeedback | false): boolean;"
+          ]
+        },
+        {
+          "name": "NeuHapticsDriver",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuHapticsDriver {\n    available(): boolean;\n    play(feedback: Exclude<NeuHapticFeedback, \"press\">): void | Promise<void>;\n}"
+        },
+        {
+          "name": "NeuHapticsOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuHapticsOptions {\n    enabled?: boolean;\n    minimumIntervalMs?: number;\n    pressStyle?: NeuHapticImpact;\n}"
+        },
+        {
           "name": "NeuIconButtonComponent",
           "kind": "ClassDeclaration",
           "angularKind": "component",
           "selector": "neu-icon-button",
           "inputs": [
+            {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
             {
               "name": "label",
               "alias": "label",
@@ -3262,6 +3319,12 @@
           "selector": "neu-radio",
           "inputs": [
             {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
+            {
               "name": "label",
               "alias": "label",
               "required": true,
@@ -3719,6 +3782,12 @@
           "selector": "neu-slider",
           "inputs": [
             {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
+            {
               "name": "label",
               "alias": "label",
               "required": true,
@@ -4006,6 +4075,12 @@
           "angularKind": "component",
           "selector": "neu-switch",
           "inputs": [
+            {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
             {
               "name": "label",
               "alias": "label",
@@ -4738,7 +4813,7 @@
               "name": "stateLabels",
               "alias": "stateLabels",
               "required": false,
-              "type": "import(\"@angular/core\").InputSignal<Readonly<Record<\"selected\" | \"uploading\" | \"complete\" | \"error\", string>>>"
+              "type": "import(\"@angular/core\").InputSignal<Readonly<Record<\"error\" | \"selected\" | \"uploading\" | \"complete\", string>>>"
             },
             {
               "name": "upload",
@@ -5286,6 +5361,12 @@
           "angularKind": "component",
           "selector": "neu-button",
           "inputs": [
+            {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
             {
               "name": "label",
               "alias": "label",
@@ -5872,6 +5953,12 @@
           "angularKind": "component",
           "selector": "neu-checkbox",
           "inputs": [
+            {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
             {
               "name": "label",
               "alias": "label",
@@ -6625,7 +6712,7 @@
     },
     "@neural-ui/native/foundation": {
       "types": "./dist/foundation/index.d.ts",
-      "sha256": "13036cad60da5440bc7a7559aeccb811f4e2f16c01bc5d72934d776aee668fe6",
+      "sha256": "75500ce10ca61cd1e1ff88f59f325a981fc7d156deeff2ca40346699d60c7609",
       "symbols": [
         {
           "name": "NEU_CHECK_ICON",
@@ -6636,6 +6723,16 @@
           "name": "NEU_DARK_TOKENS",
           "kind": "VariableDeclaration",
           "declaration": "NEU_DARK_TOKENS: Readonly<NeuTokens>"
+        },
+        {
+          "name": "NEU_HAPTICS_DRIVER",
+          "kind": "VariableDeclaration",
+          "declaration": "NEU_HAPTICS_DRIVER: InjectionToken<NeuHapticsDriver | null>"
+        },
+        {
+          "name": "NEU_HAPTICS_OPTIONS",
+          "kind": "VariableDeclaration",
+          "declaration": "NEU_HAPTICS_OPTIONS: InjectionToken<NeuHapticsOptions>"
         },
         {
           "name": "NEU_LIGHT_TOKENS",
@@ -6656,6 +6753,35 @@
           "name": "NeuColorScheme",
           "kind": "TypeAliasDeclaration",
           "declaration": "export type NeuColorScheme = 'system' | 'light' | 'dark';"
+        },
+        {
+          "name": "NeuHapticFeedback",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type NeuHapticFeedback = 'press' | 'selection' | NeuHapticImpact | 'success' | 'warning' | 'error';"
+        },
+        {
+          "name": "NeuHapticImpact",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type NeuHapticImpact = 'light' | 'medium' | 'heavy' | 'soft' | 'rigid';"
+        },
+        {
+          "name": "NeuHaptics",
+          "kind": "ClassDeclaration",
+          "members": [
+            "readonly enabled: import(\"@angular/core\").WritableSignal<boolean>;",
+            "get available(): boolean;",
+            "play(feedback?: NeuHapticFeedback | false): boolean;"
+          ]
+        },
+        {
+          "name": "NeuHapticsDriver",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuHapticsDriver {\n    available(): boolean;\n    play(feedback: Exclude<NeuHapticFeedback, \"press\">): void | Promise<void>;\n}"
+        },
+        {
+          "name": "NeuHapticsOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuHapticsOptions {\n    enabled?: boolean;\n    minimumIntervalMs?: number;\n    pressStyle?: NeuHapticImpact;\n}"
         },
         {
           "name": "NeuSize",
@@ -6811,6 +6937,66 @@
         }
       ]
     },
+    "@neural-ui/native/haptics": {
+      "types": "./dist/haptics/index.d.ts",
+      "sha256": "401fe22b083895b314c1828337b7d254087d5624fd62fefe39a31be0fd09201f",
+      "symbols": [
+        {
+          "name": "NEU_HAPTICS_DRIVER",
+          "kind": "VariableDeclaration",
+          "declaration": "NEU_HAPTICS_DRIVER: InjectionToken<NeuHapticsDriver | null>"
+        },
+        {
+          "name": "NEU_HAPTICS_OPTIONS",
+          "kind": "VariableDeclaration",
+          "declaration": "NEU_HAPTICS_OPTIONS: InjectionToken<NeuHapticsOptions>"
+        },
+        {
+          "name": "NEU_NATIVE_HAPTICS",
+          "kind": "VariableDeclaration",
+          "declaration": "NEU_NATIVE_HAPTICS: InjectionToken<NeuNativeHaptics | null>"
+        },
+        {
+          "name": "NeuHapticFeedback",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type NeuHapticFeedback = 'press' | 'selection' | NeuHapticImpact | 'success' | 'warning' | 'error';"
+        },
+        {
+          "name": "NeuHapticImpact",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type NeuHapticImpact = 'light' | 'medium' | 'heavy' | 'soft' | 'rigid';"
+        },
+        {
+          "name": "NeuHaptics",
+          "kind": "ClassDeclaration",
+          "members": [
+            "readonly enabled: import(\"@angular/core\").WritableSignal<boolean>;",
+            "get available(): boolean;",
+            "play(feedback?: NeuHapticFeedback | false): boolean;"
+          ]
+        },
+        {
+          "name": "NeuHapticsDriver",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuHapticsDriver {\n    available(): boolean;\n    play(feedback: Exclude<NeuHapticFeedback, \"press\">): void | Promise<void>;\n}"
+        },
+        {
+          "name": "NeuHapticsOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuHapticsOptions {\n    enabled?: boolean;\n    minimumIntervalMs?: number;\n    pressStyle?: NeuHapticImpact;\n}"
+        },
+        {
+          "name": "NeuNativeHaptics",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuNativeHaptics {\n    impactAsync(style: NeuHapticImpact): Promise<void>;\n    notificationAsync(type: \"success\" | \"warning\" | \"error\"): Promise<void>;\n    selectionAsync(): Promise<void>;\n}"
+        },
+        {
+          "name": "provideNeuHaptics",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function provideNeuHaptics(options?: NeuHapticsOptions): EnvironmentProviders;"
+        }
+      ]
+    },
     "@neural-ui/native/icon-button": {
       "types": "./dist/icon-button/index.d.ts",
       "sha256": "00b6064424b83f52fb3e0713c3a1609c0be6ab205e60254467413abad57ec0af",
@@ -6821,6 +7007,12 @@
           "angularKind": "component",
           "selector": "neu-icon-button",
           "inputs": [
+            {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
             {
               "name": "label",
               "alias": "label",
@@ -8364,6 +8556,12 @@
           "selector": "neu-radio",
           "inputs": [
             {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
+            {
               "name": "label",
               "alias": "label",
               "required": true,
@@ -8846,6 +9044,12 @@
           "selector": "neu-slider",
           "inputs": [
             {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
+            {
               "name": "label",
               "alias": "label",
               "required": true,
@@ -9163,6 +9367,12 @@
           "angularKind": "component",
           "selector": "neu-switch",
           "inputs": [
+            {
+              "name": "haptic",
+              "alias": "haptic",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<false | NeuHapticFeedback>"
+            },
             {
               "name": "label",
               "alias": "label",
@@ -9960,7 +10170,7 @@
               "name": "stateLabels",
               "alias": "stateLabels",
               "required": false,
-              "type": "import(\"@angular/core\").InputSignal<Readonly<Record<\"selected\" | \"uploading\" | \"complete\" | \"error\", string>>>"
+              "type": "import(\"@angular/core\").InputSignal<Readonly<Record<\"error\" | \"selected\" | \"uploading\" | \"complete\", string>>>"
             },
             {
               "name": "upload",
@@ -10302,7 +10512,7 @@
     }
   ],
   "assets": {
-    "dist/foundation/index.js": "8e3eef0a637666b4994538d17ff4abec9ba71b93a4b089c36ce95e09798e48d7",
-    "dist/foundation/index.d.ts": "13036cad60da5440bc7a7559aeccb811f4e2f16c01bc5d72934d776aee668fe6"
+    "dist/foundation/index.js": "72b4ff3cc18a00dd2fb94ba592695514694d07ed884a5d9f0e1f8eefcb011eed",
+    "dist/foundation/index.d.ts": "75500ce10ca61cd1e1ff88f59f325a981fc7d156deeff2ca40346699d60c7609"
   }
 }

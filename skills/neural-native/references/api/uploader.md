@@ -1,6 +1,6 @@
 # @neural-ui/native/uploader
 
-Verified against @neural-ui/native@0.1.0-beta.2. Generated; do not edit.
+Verified against @neural-ui/native@0.1.0-beta.5. Generated; do not edit.
 
 Types below are package contracts, not complete application examples. Referenced Angular/internal declaration types do not authorize imports from internal entrypoints.
 
@@ -54,7 +54,7 @@ Selector: `neu-uploader`
 | chooseLabel | no | `import("@angular/core").InputSignal<string>` |
 | uploadLabel | no | `import("@angular/core").InputSignal<string>` |
 | removeLabel | no | `import("@angular/core").InputSignal<string>` |
-| stateLabels | no | `import("@angular/core").InputSignal<Readonly<Record<"selected" \| "uploading" \| "complete" \| "error", string>>>` |
+| stateLabels | no | `import("@angular/core").InputSignal<Readonly<Record<"error" \| "selected" \| "uploading" \| "complete", string>>>` |
 | upload | no | `import("@angular/core").InputSignal<NeuUpload \| undefined>` |
 
 | Output | Type |

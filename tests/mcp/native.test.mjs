@@ -9,7 +9,7 @@ import { tokenDefaults } from '../../scripts/native-api.mjs';
 const catalog = loadCatalog('native');
 test('Native catalogue has exact npm-derived bindings, tokens and canonical references', () => {
   assert.deepEqual(catalog.api, JSON.parse(readFileSync(root+'evidence/native-api.json')));
-  assert.equal(Object.keys(catalog.api.entrypoints).length,67);
+  assert.equal(Object.keys(catalog.api.entrypoints).length,68);
   assert.equal(catalog.api.tokens.length,28);
   for(const doc of [...catalog.documents,...catalog.examples]) assert.equal(doc.text,readFileSync(root+doc.source,'utf8'));
   const input=catalog.api.entrypoints['@neural-ui/native/input'].symbols.find(x=>x.name==='NeuInputComponent');
@@ -19,6 +19,17 @@ test('Native catalogue has exact npm-derived bindings, tokens and canonical refe
   assert.equal(components(catalog,'NeuButtonComponent').length,1);
   assert.equal(components(catalog,'NeuButtonComponent')[0].selector,'neu-button');
   assert(search(catalog,'safe area',3).every(x=>x.uri.startsWith('neural-native://docs/')));
+});
+test('Native haptics exposes the real optional adapter and service contract', () => {
+  const haptics = catalog.api.entrypoints['@neural-ui/native/haptics'];
+  assert(haptics.symbols.some(x => x.name === 'provideNeuHaptics'));
+  const service = haptics.symbols.find(x => x.name === 'NeuHaptics');
+  assert(service.members.some(x => x.includes('enabled')));
+  assert(service.members.some(x => x.includes('available')));
+  assert(service.members.some(x => x.includes('play(')));
+  const button = catalog.api.entrypoints['@neural-ui/native/button'].symbols.find(x => x.name === 'NeuButtonComponent');
+  assert(button.inputs.some(x => x.alias === 'haptic'));
+  assert(catalog.examples.some(x => x.id.endsWith('haptics')));
 });
 test('Native validator rejects Web APIs and events, includes inherited models and keeps form ownership explicit',()=>{
   const prefix="import { Component } from '@angular/core'; import { NeuButtonComponent } from '@neural-ui/native/button'; import { NeuInputComponent } from '@neural-ui/native/input';";
@@ -42,23 +53,25 @@ test('Native tokens are read as literals and never executed',()=>{
 test('real MCP client selects Native on every tool and keeps Web defaults isolated',{timeout:30000},async()=>{
   const {client,stderr}=await connect();
   try{
-    const scope={library:'native',version:'0.1.0-beta.2'};
+    const scope={library:'native',version:'0.1.0-beta.5'};
     const list=await call(client,'list_components',{...scope,query:'NeuButtonComponent'});
     assert.equal(list.total,1);
     assert.equal(list.items[0].entrypoint,'@neural-ui/native/button');
     const api=await call(client,'get_api',{...scope,entrypoint:'@neural-ui/native/input',symbol:'NeuInputComponent'});
     assert(api.contract.inputs.some(x=>x.alias==='value'));
+    const haptics=await call(client,'get_api',{...scope,entrypoint:'@neural-ui/native/haptics',symbol:'NeuHaptics'});
+    assert(haptics.contract.members.some(x=>x.includes('play(')));
     const docs=await call(client,'search_documentation',{...scope,query:'safe area'});
     const resource=await client.readResource({uri:docs.results[0].uri});
     assert(resource.contents[0].text.includes(docs.results[0].excerpt));
-    for(const id of ['forms','collections','navigation','overlays','theme']){
+    for(const id of ['forms','collections','navigation','overlays','theme','haptics']){
       const example=await call(client,'get_example',{...scope,id});
       const report=await call(client,'validate_usage',{...scope,source:example.text});
       assert.equal(report.valid,true,JSON.stringify(report));
       assert.equal(report.compilationChecked,false);
     }
     for(const args of [
-      {library:'native',version:'2.0.4'}, {library:'web',version:'0.1.0-beta.2'},
+      {library:'native',version:'2.0.4'}, {library:'web',version:'0.1.0-beta.5'},
       {library:'web',version:'2.0.1'},
       {library:'../../.env'}, {library:'native',version:'0.1.0-beta.999'},
     ])assert.equal((await client.callTool({name:'list_components',arguments:args})).isError,true);

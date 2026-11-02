@@ -1,5 +1,15 @@
 # Verificación de Neural AI
 
+## Native 0.1.1 y MCP 0.2.3
+
+La skill Native 0.1.1 utiliza el paquete npm **@neural-ui/native 0.1.0-beta.5**, Angular Native **0.19.2** y Angular **22.2.2**. Se han regenerado sus 68 entradas públicas y 28 tokens desde las declaraciones distribuidas, sin reutilizar contratos del catálogo Web.
+
+Incluye seis ejemplos compilados con plantillas estrictas. Los doce recorridos de navegador pasan en vertical y horizontal, incluida la preferencia háptica con un módulo no disponible. No se afirma que el navegador vibre ni que estas pruebas certifiquen dispositivos físicos.
+
+El MCP incorpora el adaptador opcional de háptica, los miembros públicos de NeuHaptics y el input por control. Pasan las 16 pruebas de protocolo y seguridad, incluidas peticiones reales al servicio y al ejemplo háptico desde un cliente SDK. También pasa la instalación aislada del tarball con la red bloqueada durante la ejecución. La auditoría de dependencias de producción del MCP no registra vulnerabilidades conocidas al verificarlo. Los ocho escenarios Web siguen pasando con Core 2.0.4.
+
+El flujo de publicación por tags comprueba versión, rama de procedencia e integridad del artefacto antes de usar OIDC. El permiso inicial del publicador en npm se configura por separado; añadir el workflow no equivale a autorizarlo en el registro. Las evidencias de publicaciones anteriores se conservan como registros históricos.
+
 ## Actualización Web 0.1.1 y MCP 0.2.1
 
 Baseline comprobado el 27 de octubre de 2026: **@neural-ui/core 2.0.3**, Angular/CDK/CLI 22.2.2 y TypeScript 6.0.3. Se han regenerado las referencias desde el paquete npm y verificado su SHA-512 y el commit de publicación `748b85a3b4e9a183b306eaa00cf64d4deb58de21`.

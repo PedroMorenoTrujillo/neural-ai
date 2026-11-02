@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 for (const viewport of [{width:390,height:844},{width:844,height:390}]) {
   test.describe(`${viewport.width}x${viewport.height}`, () => {
     test.use({viewport});
-    for (const example of ['forms','collections','navigation','overlays','theme']) {
+    for (const example of ['forms','collections','navigation','overlays','theme','haptics']) {
       test(example, async ({page}) => {
         const errors: string[] = [];
         page.on('pageerror', e => errors.push(e.message));
@@ -13,6 +13,15 @@ for (const viewport of [{width:390,height:844},{width:844,height:390}]) {
           await page.getByRole('checkbox', {name:'Send me product updates',exact:true}).click();
           await page.getByRole('button', {name:'Save profile',exact:true}).click();
           await expect(page.getByText('Saved locally: Grace Hopper',{exact:true})).toBeVisible();
+        } else if (example === 'haptics') {
+          const feedback = page.getByRole('button', { name: 'Test feedback', exact: true });
+          await expect(feedback).toBeDisabled();
+          await page.getByRole('switch', { name: 'Touch feedback', exact: true }).click();
+          await expect(feedback).toBeEnabled();
+          await feedback.click();
+          await expect(page.getByText('Native feedback is unavailable or disabled.', { exact: true })).toBeVisible();
+          await page.getByRole('switch', { name: 'Touch feedback', exact: true }).click();
+          await expect(feedback).toBeDisabled();
         } else if (example === 'collections') {
           await page.getByRole('textbox').fill('Grace');
           await page.getByText('Grace Hopper',{exact:true}).click();

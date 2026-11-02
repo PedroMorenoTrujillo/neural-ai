@@ -1,6 +1,6 @@
 # @neural-ui/native/foundation
 
-Verified against @neural-ui/native@0.1.0-beta.2. Generated; do not edit.
+Verified against @neural-ui/native@0.1.0-beta.5. Generated; do not edit.
 
 Types below are package contracts, not complete application examples. Referenced Angular/internal declaration types do not authorize imports from internal entrypoints.
 
@@ -14,6 +14,18 @@ NEU_CHECK_ICON = "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor
 
 ```typescript
 NEU_DARK_TOKENS: Readonly<NeuTokens>
+```
+
+## NEU_HAPTICS_DRIVER
+
+```typescript
+NEU_HAPTICS_DRIVER: InjectionToken<NeuHapticsDriver | null>
+```
+
+## NEU_HAPTICS_OPTIONS
+
+```typescript
+NEU_HAPTICS_OPTIONS: InjectionToken<NeuHapticsOptions>
 ```
 
 ## NEU_LIGHT_TOKENS
@@ -38,6 +50,47 @@ NEU_THEME: InjectionToken<Signal<Readonly<NeuTokens>>>
 
 ```typescript
 export type NeuColorScheme = 'system' | 'light' | 'dark';
+```
+
+## NeuHapticFeedback
+
+```typescript
+export type NeuHapticFeedback = 'press' | 'selection' | NeuHapticImpact | 'success' | 'warning' | 'error';
+```
+
+## NeuHapticImpact
+
+```typescript
+export type NeuHapticImpact = 'light' | 'medium' | 'heavy' | 'soft' | 'rigid';
+```
+
+## NeuHaptics
+
+Supported imperative members:
+
+```typescript
+readonly enabled: import("@angular/core").WritableSignal<boolean>;
+get available(): boolean;
+play(feedback?: NeuHapticFeedback | false): boolean;
+```
+
+## NeuHapticsDriver
+
+```typescript
+export interface NeuHapticsDriver {
+    available(): boolean;
+    play(feedback: Exclude<NeuHapticFeedback, "press">): void | Promise<void>;
+}
+```
+
+## NeuHapticsOptions
+
+```typescript
+export interface NeuHapticsOptions {
+    enabled?: boolean;
+    minimumIntervalMs?: number;
+    pressStyle?: NeuHapticImpact;
+}
 ```
 
 ## NeuSize
