@@ -6,6 +6,8 @@ Use native primitives and the app's safe-area shell. `SafeAreaProvider` supplies
 
 Give Neural buttons visible labels and icon actions useful accessible names through their declared inputs. Use native `text` for readable content. Keep selection visible without relying on color alone, and preserve reduced-motion behavior when styling transitions.
 
+Angular Native's `aria-live` and `accessibilityLiveRegion` announce updates on Android. iOS does not support those live regions: inject `Accessibility` from `@ng-native/device` and call `announce(message)` when an important application change is not conveyed by a focus change. Announce the change once rather than from every render. Verify spoken feedback with the platform screen reader; neither browser output nor a simulator screenshot proves it was spoken.
+
 Translate the component's exposed action/search/empty/error/close labels and date locale. Keep option IDs and stored values independent of language. Preserve prerelease names such as Beta/Alpha as product/version terms rather than translating a package version.
 
 Exercise each changed flow at a narrow width, both orientations, enlarged system text and light/dark themes. Check keyboard dismissal, scrolling, focus and return from overlays. Browser preview checks help catch clipping and action failures; they do not verify native VoiceOver/TalkBack announcements, touch exploration or native module availability. Report these as separate checks, with observed evidence rather than an accessibility certification.

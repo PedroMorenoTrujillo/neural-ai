@@ -1,0 +1,24 @@
+{
+  "scopes": [
+    "native"
+  ],
+  "frameworkVersionsChanged": false,
+  "updates": {
+    "native": {
+      "package": "@neural-ui/native",
+      "from": "0.1.0-beta.5",
+      "to": "0.1.0-beta.6",
+      "publication": "https://github.com/PedroMorenoTrujillo/neural-native/actions/runs/41841759962",
+      "api": {
+        "added": [],
+        "breaking": []
+      }
+    }
+  },
+  "manualFrameworkMigration": {
+    "from": "0.19.2",
+    "to": "0.21.0",
+    "scope": "Native development and browser-preview packages",
+    "note": "The updater preserved the manually reviewed framework baseline; frameworkVersionsChanged describes its own automatic changes."
+  }
+}
