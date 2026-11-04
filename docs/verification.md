@@ -1,5 +1,15 @@
 # Verificación de Neural AI
 
+## Native 0.1.2 y MCP 0.2.5
+
+La skill Native 0.1.2 usa el paquete publicado **@neural-ui/native 0.1.0-beta.6**, Angular Native **0.21.0** y Angular **22.2.2**. Se han verificado la integridad SHA-512 del tarball, el tag y el pipeline de publicación del commit `1f6bbd25e5b285e426a7353c2bd8faf86539201a`. La actualización del framework se ha revisado explícitamente; el sincronizador automático no decide migraciones de framework.
+
+Pasan las 68 entradas públicas, los 28 tokens, los seis ejemplos con plantillas estrictas y sus doce recorridos de navegador en vertical y horizontal. No se han añadido ni eliminado contratos públicos respecto a beta.5. Los 22 tests Node, los ocho escenarios Web con Core 2.0.4 y la instalación en un consumidor limpio también pasan.
+
+MCP 0.2.5 supera las 16 pruebas de protocolo y seguridad, la ejecución del paquete en un consumidor aislado con denegación de red y la auditoría de producción sin vulnerabilidades conocidas al comprobarla. La política de publicación conserva sus siete pruebas de autorización, procedencia y separación de versiones.
+
+La librería beta.6 se ha probado además en apps standalone: 68 comprobaciones en Android y 68 en el simulador iOS, con selección real de documentos, háptica nativa, ciclo de vida y orientación horizontal. Se han revisado 390 capturas claras, oscuras y horizontales. Estos recorridos pertenecen al laboratorio de la librería; las pruebas de la skill usan el host de navegador y no certifican dispositivos físicos ni lectores de pantalla.
+
 ## Native 0.1.1 y MCP 0.2.3
 
 La skill Native 0.1.1 utiliza el paquete npm **@neural-ui/native 0.1.0-beta.5**, Angular Native **0.19.2** y Angular **22.2.2**. Se han regenerado sus 68 entradas públicas y 28 tokens desde las declaraciones distribuidas, sin reutilizar contratos del catálogo Web.

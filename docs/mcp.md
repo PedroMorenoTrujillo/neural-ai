@@ -1,12 +1,12 @@
 # MCP local de Neural Web y Native
 
-## Versión actual: 0.2.3
+## Versión actual: 0.2.5
 
-MCP 0.2.3 actualiza Native a **@neural-ui/native 0.1.0-beta.5** y mantiene Web Core **2.0.4**. Incluye el proveedor de háptica opcional, el servicio y los inputs públicos por control. La skill Native 0.1.1 usa Angular Native 0.19.2; la skill Web continúa en 0.1.2. Para aplicaciones que mantengan Native beta.2, conserva MCP 0.2.2 en lugar de mezclar contratos.
+MCP 0.2.5 actualiza Native a **@neural-ui/native 0.1.0-beta.6**, alineada con Angular Native **0.21.0**, y mantiene Web Core **2.0.4**. La skill Native pasa a 0.1.2; la skill Web continúa en 0.1.2. Las APIs públicas y la háptica configurable se conservan. Para aplicaciones que mantengan Native beta.5, utiliza MCP 0.2.4; para beta.2, MCP 0.2.2. No mezcles contratos de versiones diferentes.
 
-La publicación automática se activa únicamente al subir un tag `mcp-vVERSION` coincidente con el paquete y el servidor. El flujo `.github/workflows/publish-mcp.yml` verifica ambos catálogos, ejemplos, cliente MCP, seguridad e integridad del tarball antes de publicar mediante npm OIDC. Requiere configurar una vez el publicador de confianza en npm para `PedroMorenoTrujillo/neural-ai`, archivo `publish-mcp.yml`, sin environment y con publicación directa permitida. No utiliza un token persistente.
+La [automatización de releases](automatic-releases.md) prepara cambios para revisión y solo publica después de superar la verificación de un push del propietario a `main`. Crea etiquetas independientes para las skills y el MCP y despacha `.github/workflows/publish-mcp.yml` sobre el tag inmutable `mcp-vVERSION`. El flujo verifica ambos catálogos, ejemplos, cliente MCP, seguridad e integridad del tarball antes de publicar mediante npm OIDC. El publicador de confianza vincula `PedroMorenoTrujillo/neural-ai` con `publish-mcp.yml`, sin environment y con permiso de publicación. No utiliza un token persistente.
 
-El commit del tag debe estar incluido en `main`. Solo `PedroMorenoTrujillo` puede iniciar o reintentar la publicación: lo comprueban los jobs y el script de release. Un PR externo o un fork puede aportar código, pero no publicar el paquete. Conceder permisos de escritura al repositorio permite modificar workflows y sigue siendo una decisión independiente del mantenedor.
+El commit del tag debe estar incluido en `main`. Solo el propietario puede iniciar o reintentar directamente una publicación. El bot de automatización necesita además un run padre verificado: mismo repositorio, commit y workflow, push del propietario a `main` y resultado satisfactorio. Un PR externo o un fork puede aportar código, pero no publicar el paquete. Conceder permisos de escritura al repositorio permite modificar workflows y sigue siendo una decisión independiente del mantenedor.
 
 `main` exige PR, el check `verify` actualizado y una revisión de CODEOWNERS. Los administradores conservan su excepción para que el único mantenedor pueda gestionar sus propios cambios. Abrir un PR no concede permisos de escritura.
 
@@ -14,7 +14,7 @@ El commit del tag debe estar incluido en `main`. Solo `PedroMorenoTrujillo` pued
 
 MCP 0.2.2 actualiza el catálogo Web a **@neural-ui/core 2.0.4** y conserva Native **0.1.0-beta.2**. Mantiene las cinco herramientas, los recursos y la selección explícita de biblioteca. Las llamadas que indiquen Web 2.0.3 o 2.0.1 se rechazan; conserva respectivamente MCP 0.2.1 o 0.2.0 para esos baselines anteriores.
 
-La [instalación actual](../packages/mcp/README.md) usa `npx --yes neural-ui-mcp@0.2.2`. La skill Web 0.1.2 y el MCP comparten las referencias regeneradas desde el paquete distribuido; Native conserva sus referencias verificadas. Los [resultados de verificación](verification.md#actualización-web-012-y-mcp-022) describen las pruebas y sus límites.
+En esa release, la instalación usaba `npx --yes neural-ui-mcp@0.2.2`. La skill Web 0.1.2 y el MCP compartían las referencias regeneradas desde el paquete distribuido; Native conservaba sus referencias verificadas. Consulta la [instalación actual](../packages/mcp/README.md) y los [resultados de verificación](verification.md).
 
 ## Registro de la publicación Web original: 0.1.0
 
