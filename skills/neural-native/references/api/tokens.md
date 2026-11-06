@@ -1,6 +1,6 @@
 # Native theme tokens
 
-Generated from @neural-ui/native@0.1.0-beta.6, NeuTokens and the literal light/dark defaults.
+Generated from @neural-ui/native@0.1.0-beta.7, NeuTokens and the literal light/dark defaults.
 Apply typed overrides through neu-theme. Optional semantic inks resolve from surfaces when not supplied; these are not the Web v2 CSS token catalogue.
 
 | Token | Type | Optional | Light default | Dark default |

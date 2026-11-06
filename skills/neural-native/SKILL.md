@@ -4,15 +4,15 @@ description: Build or debug native iOS and Android Angular interfaces with @neur
 license: MIT
 metadata:
   author: PedroMorenoTrujillo
-  version: "0.1.2"
-  neural-native-version: "0.1.0-beta.6"
-  angular-native-version: "0.21.0"
+  version: "0.1.3"
+  neural-native-version: "0.1.0-beta.7"
+  angular-native-version: "0.22.2"
   angular-version: "22.2.2"
 ---
 
 # Neural Native
 
-Build against the installed npm package, not a similarly named Web control. Read package.json and the lockfile before selecting APIs. This skill's reviewed baseline is **@neural-ui/native 0.1.0-beta.6 with Angular Native 0.21.0**. If the app differs, check its installed public declarations and describe the compatibility gap before changing dependencies.
+Build against the installed npm package, not a similarly named Web control. Read package.json and the lockfile before selecting APIs. This skill's reviewed baseline is **@neural-ui/native 0.1.0-beta.7 with Angular Native 0.22.2**. If the app differs, check its installed public declarations and describe the compatibility gap before changing dependencies.
 
 ## Essential decisions
 
@@ -41,7 +41,7 @@ The examples are standalone Angular components. Import them into the existing na
 
 ## Optional MCP
 
-When the expanded Neural MCP is available, pass `library: "native"` on every tool call and pin `version: "0.1.0-beta.6"`. Discover exports with `list_components`, obtain the relevant `get_api` contract, then retrieve only the example/reference needed. The MCP defaults to **Web** when the library is omitted. Never interpret a Web result as a Native contract.
+When the expanded Neural MCP is available, pass `library: "native"` on every tool call and pin `version: "0.1.0-beta.7"`. Discover exports with `list_components`, obtain the relevant `get_api` contract, then retrieve only the example/reference needed. The MCP defaults to **Web** when the library is omitted. Never interpret a Web result as a Native contract.
 
 Use `validate_usage` for static feedback, then compile with strict Angular templates and exercise the interaction. Static success does not type-check expressions, execute code, inspect external templates, or prove native accessibility. Browser preview checks do not certify iOS/Android behavior.
 

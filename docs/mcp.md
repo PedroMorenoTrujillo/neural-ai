@@ -1,8 +1,8 @@
 # MCP local de Neural Web y Native
 
-## Versión actual: 0.2.5
+## Versión actual: 0.2.6
 
-MCP 0.2.5 actualiza Native a **@neural-ui/native 0.1.0-beta.6**, alineada con Angular Native **0.21.0**, y mantiene Web Core **2.0.4**. La skill Native pasa a 0.1.2; la skill Web continúa en 0.1.2. Las APIs públicas y la háptica configurable se conservan. Para aplicaciones que mantengan Native beta.5, utiliza MCP 0.2.4; para beta.2, MCP 0.2.2. No mezcles contratos de versiones diferentes.
+MCP 0.2.6 actualiza Native a **@neural-ui/native 0.1.0-beta.7**, alineada con Angular Native **0.22.2**, y mantiene Web Core **2.0.4**. La skill Native pasa a 0.1.2; la skill Web continúa en 0.1.2. Las APIs públicas y la háptica configurable se conservan. Para aplicaciones que mantengan Native beta.5, utiliza MCP 0.2.4; para beta.2, MCP 0.2.2. No mezcles contratos de versiones diferentes.
 
 La [automatización de releases](automatic-releases.md) prepara cambios para revisión y solo publica después de superar la verificación de un push del propietario a `main`. Crea etiquetas independientes para las skills y el MCP y despacha `.github/workflows/publish-mcp.yml` sobre el tag inmutable `mcp-vVERSION`. El flujo verifica ambos catálogos, ejemplos, cliente MCP, seguridad e integridad del tarball antes de publicar mediante npm OIDC. El publicador de confianza vincula `PedroMorenoTrujillo/neural-ai` con `publish-mcp.yml`, sin environment y con permiso de publicación. No utiliza un token persistente.
 
