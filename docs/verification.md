@@ -1,5 +1,17 @@
 # Verificación de Neural AI
 
+## Native 0.1.3 y MCP 0.2.6
+
+La skill Native 0.1.3 usa **@neural-ui/native 0.1.0-beta.7**, Angular Native **0.22.2** y Angular **22.2.2**. Se han verificado el SHA-512 del paquete npm, el tag y el [pipeline de publicación del commit `279360579e42672d969f0bc3247435cf8a7ba33d`](https://github.com/PedroMorenoTrujillo/neural-native/actions/runs/42289074651). La migración del framework se ha revisado explícitamente; el sincronizador sigue sin decidirla automáticamente.
+
+Pasan las 68 entradas públicas, los 28 tokens, los seis ejemplos con plantillas estrictas y los doce recorridos nativos en el host de navegador, en vertical y horizontal. También pasan los 22 tests Node, los ocho escenarios Web con Core 2.0.4 y la instalación en un consumidor limpio. La API pública de Native se mantiene; beta.7 corrige el color nativo del placeholder de Input Mask e Input Tags al cambiar de tema.
+
+MCP 0.2.6 supera sus 16 pruebas de protocolo y seguridad, el paquete en un consumidor aislado sin acceso a red y la auditoría de dependencias de producción. Pasan además las siete pruebas de política de publicación y las verificaciones de enlaces y procedencia. La skill Web conserva su versión 0.1.2 y su base Core 2.0.4.
+
+La librería beta.7 ha superado 457 pruebas unitarias y, en aplicaciones standalone con Expo SDK 57 y React Native 0.86.3, 68 comprobaciones en Android y 68 en el simulador iOS. Se han revisado 406 capturas intencionales, incluidos los estados claros, oscuros, horizontales y la selección real de un documento con error y reintento de subida simulada. El archivo publicado y el candidato instalado en esas aplicaciones contienen los mismos 483 archivos, verificados byte por byte.
+
+Un consumidor adicional con la base de la plantilla actual —Expo SDK 58, React Native 0.88 y React 19.3— supera instalación estricta, compilación, 74 pruebas y bundles Android/iOS. Este último control no equivale a una batería de aplicaciones SDK 58 instaladas. Los recorridos del laboratorio tampoco certifican dispositivos físicos, vibración física ni lectores de pantalla; las pruebas de navegador de la skill se mantienen separadas de la evidencia nativa.
+
 ## Native 0.1.2 y MCP 0.2.5
 
 La skill Native 0.1.2 usa el paquete publicado **@neural-ui/native 0.1.0-beta.6**, Angular Native **0.21.0** y Angular **22.2.2**. Se han verificado la integridad SHA-512 del tarball, el tag y el pipeline de publicación del commit `1f6bbd25e5b285e426a7353c2bd8faf86539201a`. La actualización del framework se ha revisado explícitamente; el sincronizador automático no decide migraciones de framework.
