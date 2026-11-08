@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { connect, call, assertConsumer } from '../tests/mcp/helpers.mjs';
+import { connect, call, assertConsumer, assertChartsNative } from '../tests/mcp/helpers.mjs';
 import { NATIVE_VERSION } from './release-state.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -19,7 +19,7 @@ for (const file of packed.files) {
   assert.ok(/^(dist\/|data\/|README\.md$|LICENSE$|package\.json$)/.test(file.path), `Unexpected packed file: ${file.path}`);
   assert.ok(!/node_modules|\.env|package-lock/.test(file.path));
 }
-for (const path of ['dist/cli.js', 'dist/server.js', 'dist/server.d.ts', 'dist/usage-validator.mjs', 'data/catalog.json', 'data/sha256', 'data/native-catalog.json', 'data/native-sha256', 'README.md', 'LICENSE']) {
+for (const path of ['dist/cli.js', 'dist/server.js', 'dist/server.d.ts', 'dist/usage-validator.mjs', 'data/catalog.json', 'data/sha256', 'data/native-catalog.json', 'data/native-sha256', 'data/charts-native-catalog.json', 'data/charts-native-sha256', 'README.md', 'LICENSE']) {
   assert.ok(packed.files.some(file => file.path === path), `Missing ${path}`);
 }
 const archive = join(target, packed.filename);
@@ -48,6 +48,7 @@ try {
     assert.equal((await call(client, 'validate_usage', { ...nativeScope, source: example.text })).valid, true);
   }
   assert.ok((await client.readResource({ uri: 'neural-native://docs/references/forms' })).contents[0].text.length > 0);
+  await assertChartsNative(client);
   assert.equal(connection.stderr(), '');
   await client.close();
   connection = undefined;

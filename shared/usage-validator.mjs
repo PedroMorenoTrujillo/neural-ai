@@ -12,7 +12,9 @@ export function analyzeSource(text, api, filename = 'example.ts') {
   const available = new Map();
   const componentNames = new Set();
   let hasFormField = false;
-  const isNative = api.package === '@neural-ui/native';
+  const isCharts = api.package === '@neural-charts/native';
+  const isNative = api.package === '@neural-ui/native' || isCharts;
+  const ownsSelector = tag => isCharts ? /^(?:neu-c-|nc-chart)/.test(tag) : tag.startsWith('neu-');
   function entryFor(specifier) {
     if (!isNative && /neural.*native|neural-native/.test(specifier)) errors.push(`Neural Native import forbidden: ${specifier}`);
     if (isNative && (specifier === '@neural-ui/core' || specifier.startsWith('@neural-ui/core/'))) errors.push(`Neural Web import forbidden in Native: ${specifier}`);
@@ -51,7 +53,8 @@ export function analyzeSource(text, api, filename = 'example.ts') {
         for (const attribute of [...(element.attributes ?? []),...(element.inputs ?? [])]) selector.addAttribute(attribute.name,typeof attribute.value==='string' ? attribute.value : '');
         const matches = [];
         matcher.match(selector,(_selector,contract)=>matches.push(contract));
-        if (tag.startsWith('neu-') && !matches.length) errors.push(`Unknown or unimported Neural selector: ${tag}`);
+        const chartTemplate = isCharts && tag === 'ng-template' && element.attributes?.some(attribute => attribute.name === 'neuChartTooltip');
+        if ((ownsSelector(tag) || chartTemplate) && !matches.length) errors.push(`Unknown or unimported Neural selector: ${chartTemplate ? 'neuChartTooltip' : tag}`);
         if (matches.length) {
           const inputs = new Set(matches.flatMap(contract=>contract.inputs.map(b=>b.alias)));
           const outputs = new Set(matches.flatMap(contract=>contract.outputs.map(b=>b.alias)));

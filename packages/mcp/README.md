@@ -1,18 +1,18 @@
 # neural-ui-mcp
 
-Servidor MCP oficial de Neural Web y Native, local y de solo lectura. La actualización **0.2.6** incorpora **@neural-ui/native 0.1.0-beta.7**, incluida su háptica opcional, mediante `library: "native"`. Native está alineada con Angular Native **0.22.2**. Web mantiene **@neural-ui/core 2.0.4** como catálogo predeterminado. Licencia MIT. Node **22.22.3 o posterior**.
+Servidor MCP oficial de Neural UI v2, Neural Native y Neural Charts Native. Es local y de solo lectura. La versión **0.3.0** añade **@neural-charts/native 0.1.0-beta.3** con `library: "charts-native"`. Conserva **@neural-ui/native 0.1.0-beta.7** con `library: "native"` y **@neural-ui/core 2.0.4** con `library: "web"` como catálogo predeterminado. Licencia MIT. Node **22.22.3 o posterior**.
 
-[neural-ui-mcp@0.2.6](https://www.npmjs.com/package/neural-ui-mcp) incluye ambos catálogos. La versión anterior 0.1.0 solo cubre Web. No requiere backend, cuenta, claves, conexión de red durante la ejecución ni servicios de IA. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
+[neural-ui-mcp@0.3.0](https://www.npmjs.com/package/neural-ui-mcp) incluye los tres catálogos. La versión anterior 0.1.0 solo cubre Web. No requiere backend, cuenta, claves, conexión de red durante la ejecución ni servicios de IA. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
 
 ## Instalar desde npm
 
-La misma instalación sirve para Web y Native. Selecciona Native explícitamente al llamar a las herramientas.
+La misma instalación sirve para los tres catálogos. Selecciona `native` para los componentes de Neural Native y `charts-native` para gráficas nativas.
 
 ```sh
-npx --yes neural-ui-mcp@0.2.6
+npx --yes neural-ui-mcp@0.3.0
 ```
 
-El proceso espera mensajes MCP en stdin. Para instalarlo como dependencia de tu proyecto usa `npm install --save-dev --save-exact neural-ui-mcp@0.2.6`. La instalación, el binario y el arranque con npx se comprueban con un cliente MCP real. [Publicaciones y artefactos verificados](https://github.com/PedroMorenoTrujillo/neural-ai/releases).
+El proceso espera mensajes MCP en stdin. Para instalarlo como dependencia de tu proyecto usa `npm install --save-dev --save-exact neural-ui-mcp@0.3.0`. La instalación, el binario y el arranque con npx se comprueban con un cliente MCP real. [Publicaciones y artefactos verificados](https://github.com/PedroMorenoTrujillo/neural-ai/releases).
 
 ## Instalar el tarball verificado
 
@@ -22,7 +22,7 @@ Desde una copia del repositorio [Neural AI](https://github.com/PedroMorenoTrujil
 npm ci
 npm ci --prefix packages/mcp
 npm run verify:mcp
-npm install --prefix /ruta/absoluta/neural-mcp-local ./dist/mcp/neural-ui-mcp-0.2.6.tgz
+npm install --prefix /ruta/absoluta/neural-mcp-local ./dist/mcp/neural-ui-mcp-0.3.0.tgz
 ```
 
 El último comando instala el paquete local preparado por las pruebas. Comprueba su SHA-256 con `dist/mcp/SHA256SUMS`. También puedes ejecutar directamente `node /ruta/absoluta/neural-ai/packages/mcp/dist/cli.js` después de compilarlo. El proceso espera a un cliente en stdin.
@@ -34,8 +34,8 @@ Usa un Node compatible disponible para el cliente.
 Para usar directamente la versión publicada:
 
 ```sh
-codex mcp add neural-ui -- npx --yes neural-ui-mcp@0.2.6
-claude mcp add --transport stdio neural-ui -- npx --yes neural-ui-mcp@0.2.6
+codex mcp add neural-ui -- npx --yes neural-ui-mcp@0.3.0
+claude mcp add --transport stdio neural-ui -- npx --yes neural-ui-mcp@0.3.0
 ```
 
 Para una instalación local del tarball:
@@ -75,7 +75,7 @@ Sintaxis contrastada con [Codex MCP](https://developers.openai.com/codex/mcp/) y
 | `list_components` | `query?`, `kind?`, `offset?`, `limit?` | Selector, clase e import público; hasta 50 resultados por página |
 | `get_api` | `entrypoint`, `symbol?` | Exports o contrato completo, hash y ubicación de tipos |
 | `search_documentation` | `query`, `limit?` | Búsqueda local, hasta 10 fragmentos y URI de la referencia completa |
-| `get_example` | `id`: forms, table, navigation, overlays, theme | Fuente del ejemplo validado |
+| `get_example` | `id` del ejemplo en el catálogo seleccionado | Fuente del ejemplo validado |
 | `validate_usage` | `source`, `filename?` | Errores y advertencias estáticas; `compilationChecked: false` |
 
 Todas aceptan `library: "web" | "native"` (predeterminado `web`) y una versión opcional que debe coincidir con el catálogo: Web `2.0.4`, Native `0.1.0-beta.7`. Las respuestas conservan `{ version, data }`, datos estructurados y texto JSON equivalente. Los errores de mezcla de catálogo o versión se rechazan; no hay conversión implícita. Para proyectos fijados a Core 2.0.3, conserva MCP 0.2.1 y la skill Web 0.1.1; para Core 2.0.1, conserva MCP 0.2.0 y la skill Web 0.1.0 hasta actualizar su baseline. La validación detecta imports internos, símbolos desconocidos, inputs/outputs inexistentes, inputs requeridos ausentes y propietarios de formulario en conflicto, dentro del alcance descrito abajo.
@@ -92,6 +92,16 @@ Recursos fijos: `neural-ui://docs/references/forms`, el resto de referencias baj
 
 Native usa el espacio separado `neural-native://docs/references/forms` y `neural-native://examples/examples/forms`. La búsqueda de una biblioteca no devuelve documentos de la otra. Todos los URI Web existentes se conservan.
 
+## Neural Charts Native
+
+Usa `library: "charts-native"` y `version: "0.1.0-beta.3"`. Los tres puntos de entrada son `@neural-charts/native`, `@neural-charts/native/plan` y `@neural-charts/native/interaction`.
+
+- `get_api` consulta componentes y tipos como `NativeDataChart`, `NativeChartOptions` y `NativeHeatmapData`.
+- `get_example` admite `line`, `customization`, `heatmap`, `panels` y `drilldown`.
+- `search_documentation` devuelve recursos bajo `neural-charts-native://docs/`.
+
+La skill está en `skills/neural-charts-native` dentro del [repositorio de Neural AI](https://github.com/PedroMorenoTrujillo/neural-ai). Consulta la [documentación pública](https://charts-native.neuralui.org/) para ver la integración y las demos.
+
 ## Límites y seguridad
 
 - Solo texto y recursos empaquetados. No lee proyectos, `.env`, rutas o URL suministradas; no importa ni ejecuta código enviado. No abre puertos, solicita roots, hace sampling ni escribe archivos durante la ejecución.
@@ -103,6 +113,6 @@ Native usa el espacio separado `neural-native://docs/references/forms` y `neural
 
 ## Mantenimiento
 
-Fuentes únicas: `evidence/api.json` y `evidence/native-api.json`, las referencias/ejemplos de cada skill y `shared/usage-validator.mjs`. `npm run build:mcp` comprueba ambos snapshots y genera los catálogos empaquetados con hashes separados. La skill Web 0.1.2 conserva su alcance; la skill Native 0.1.3 mantiene su catálogo separado. Para actualizar Neural, revisa primero la extracción y los ejemplos, después reconstruye y verifica el MCP. No cambies silenciosamente la versión del catálogo.
+Los catálogos se construyen con `evidence/api.json`, `evidence/native-api.json` y `evidence/charts-native-api.json`, las referencias y ejemplos de cada skill y `shared/usage-validator.mjs`. `npm run verify:mcp` comprueba los tres catálogos y verifica los hashes del paquete. La skill Web 0.1.2 conserva su alcance; la skill Native 0.1.3 mantiene su catálogo separado. Para actualizar Neural, revisa primero la extracción y los ejemplos, después reconstruye y verifica el MCP. No cambies silenciosamente la versión del catálogo.
 
 Arquitectura, pruebas y publicación: [docs/mcp.md](https://github.com/PedroMorenoTrujillo/neural-ai/blob/main/docs/mcp.md).

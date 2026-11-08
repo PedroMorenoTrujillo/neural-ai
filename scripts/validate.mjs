@@ -80,7 +80,9 @@ export function validateRepository() {
     if (!/\.(md|ts|scss)$/.test(file)) continue;
     const text = fs.readFileSync(file,'utf8');
     if (file.endsWith('.md')) errors.push(...localLinks(file,text).map(e=>`${path.relative(root,file)}: ${e}`));
-    if (file.endsWith('.ts') && !file.includes('/skills/neural-native/') && (file.includes('/examples/')||file.includes('/integration/src/'))) errors.push(...validateSource(text,api,file).map(e=>`${path.relative(root,file)}: ${e}`));
+    const webExample = file.startsWith(path.join(skillDir,'examples') + path.sep)
+      || file.startsWith(path.join(root,'tests/integration/src') + path.sep);
+    if (file.endsWith('.ts') && webExample) errors.push(...validateSource(text,api,file).map(e=>`${path.relative(root,file)}: ${e}`));
     if (file.startsWith(skillDir) && !file.includes('/api/')) {
       errors.push(...validateAuthored(text,version,knownTokens).map(error=>`${file}: ${error}`));
     }

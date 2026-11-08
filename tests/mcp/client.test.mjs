@@ -1,7 +1,7 @@
 import { WEB_VERSION, MCP_VERSION } from '../../scripts/release-state.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { connect, call } from './helpers.mjs';
+import { connect, call, assertChartsNative } from './helpers.mjs';
 
 test('official MCP SDK client interoperates over real stdio: all tools and resources', { timeout: 30000 }, async () => {
   const { client, stderr } = await connect();
@@ -41,6 +41,7 @@ export class LocalizedDialog { readonly open = signal(true); }` });
     const resources = await client.listResources();
     assert.equal(resources.resources.filter(item => item.uri.startsWith('neural-ui://')).length, 112);
     assert.ok(resources.resources.some(item => item.uri === 'neural-native://docs/references/forms'));
+    await assertChartsNative(client);
     assert.equal(stderr(), '');
   } finally { await client.close(); }
 });

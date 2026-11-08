@@ -51,6 +51,7 @@ jobs:
       - run: npm run check:sources
       - run: node scripts/package.mjs
       - run: npm run package:native
+      - run: npm run package:charts-native
       - uses: actions/upload-artifact@v4
         with:
           name: neural-ui-mcp-verified
@@ -63,6 +64,7 @@ jobs:
             dist/neural-ui-*.tar.gz
             dist/SHA256SUMS
             dist/native-skill/
+            dist/charts-native-skill/
           if-no-files-found: error
           retention-days: 14
       - uses: actions/upload-artifact@v4
