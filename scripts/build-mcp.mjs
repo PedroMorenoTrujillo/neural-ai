@@ -3,7 +3,7 @@ import { resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { WEB_VERSION, NATIVE_VERSION } from './release-state.mjs';
+import { WEB_VERSION, NATIVE_VERSION, CHARTS_VERSION } from './release-state.mjs';
 import { generateMcpVersions } from './generate-mcp-versions.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -43,10 +43,18 @@ if (nativeApi.package !== '@neural-ui/native' || nativeApi.version !== NATIVE_VE
 const nativeCatalog = JSON.stringify({ schemaVersion: 1, api: nativeApi, documents: nativeDocuments, examples: nativeExamples }) + '\n';
 writeFileSync(resolve(pkg, 'data/native-catalog.json'), nativeCatalog);
 writeFileSync(resolve(pkg, 'data/native-sha256'), createHash('sha256').update(nativeCatalog).digest('hex') + '\n');
+const chartsDocuments = [], chartsExamples = [];
+collect(resolve(root, 'skills/neural-charts-native/references'), chartsDocuments, '.md', 'neural-charts-native');
+collect(resolve(root, 'skills/neural-charts-native/examples'), chartsExamples, '.ts', 'neural-charts-native');
+const chartsApi = JSON.parse(readFileSync(resolve(root, 'evidence/charts-native-api.json'), 'utf8'));
+if (chartsApi.package !== '@neural-charts/native' || chartsApi.version !== CHARTS_VERSION) throw new Error('Unsupported Charts Native catalogue version');
+const chartsCatalog = JSON.stringify({ schemaVersion: 1, api: chartsApi, documents: chartsDocuments, examples: chartsExamples }) + '\n';
+writeFileSync(resolve(pkg, 'data/charts-native-catalog.json'), chartsCatalog);
+writeFileSync(resolve(pkg, 'data/charts-native-sha256'), createHash('sha256').update(chartsCatalog).digest('hex') + '\n');
 copyFileSync(resolve(root, 'shared/usage-validator.mjs'), resolve(pkg, 'src/usage-validator.mjs'));
 copyFileSync(resolve(root, 'LICENSE'), resolve(pkg, 'LICENSE'));
 rmSync(resolve(pkg, 'dist'), { recursive: true, force: true });
 execFileSync(process.execPath, [resolve(root, 'node_modules/typescript/bin/tsc'), '-p', resolve(pkg, 'tsconfig.json')], { stdio: 'inherit' });
 copyFileSync(resolve(root, 'shared/usage-validator.mjs'), resolve(pkg, 'dist/usage-validator.mjs'));
 chmodSync(resolve(pkg, 'dist/cli.js'), 0o755);
-console.log(`MCP built: ${Object.keys(api.entrypoints).length} entrypoints, ${documents.length} references, ${examples.length} examples`);
+console.log(`MCP built for Web, Native and Charts Native (${chartsExamples.length} chart examples)`);

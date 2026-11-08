@@ -1,16 +1,26 @@
 # Neural AI
 
-Skills oficiales de **Neural UI v2 Web** y **Neural Native**, con contratos verificables y un MCP compartido. La skill Web **0.1.2** usa **@neural-ui/core 2.0.4**. La skill Native 0.1.3 está verificada contra **@neural-ui/native 0.1.0-beta.7**, Angular Native 0.22.2 y Angular 22.2.2. Licencia MIT.
+Skills oficiales de **Neural UI v2 Web**, **Neural Native** y **Neural Charts Native**, con contratos verificables y un MCP compartido. La skill Web **0.1.2** usa **@neural-ui/core 2.0.4**. La skill Native 0.1.3 está verificada contra **@neural-ui/native 0.1.0-beta.7**, Angular Native 0.22.2 y Angular 22.2.2. La skill Charts Native **0.1.0** usa **@neural-charts/native 0.1.0-beta.3**. Licencia MIT.
 
-Dos skills especializadas, referencias bajo demanda y ejemplos ejecutables. El [servidor MCP local opcional](packages/mcp/README.md) se distribuye como [neural-ui-mcp@0.2.6 en npm](https://www.npmjs.com/package/neural-ui-mcp), con catálogos Web y Native separados. Sin backend de producto, hosting, Supabase ni servicio de IA de pago obligatorio. La instalación de las skills se hace desde GitHub y no necesita el MCP. La aplicación consumidora sí instala Neural y sus peers.
+Tres skills especializadas, referencias bajo demanda y ejemplos compilables. El [servidor MCP local opcional](packages/mcp/README.md) se distribuye como [neural-ui-mcp@0.3.0 en npm](https://www.npmjs.com/package/neural-ui-mcp) y mantiene los tres catálogos separados. Las skills se instalan desde GitHub y el proyecto consumidor instala su librería y sus peers.
+
+## Neural Charts Native
+
+La [skill neural-charts-native](skills/neural-charts-native/SKILL.md) cubre datos y opciones tipados, personalización, mapas de calor, paneles coordinados, navegación por niveles y accesibilidad. Sus cinco ejemplos se comprueban con plantillas Angular estrictas. [Documentación y demos](https://charts-native.neuralui.org/)
+
+```sh
+npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/neural-charts-native-v0.1.0/skills/neural-charts-native --skill neural-charts-native --agent codex claude-code --copy --yes
+```
+
+También puedes descargar la skill desde [GitHub Releases](https://github.com/PedroMorenoTrujillo/neural-ai/releases) y copiar su carpeta completa a `.agents/skills` o `.claude/skills`. En el MCP selecciona `library: "charts-native"`.
 
 La skill también está disponible en [Skills.sh](https://www.skills.sh/pedromorenotrujillo/neural-ai/neural-ui). Consulta el [informe de distribución](docs/distribution.md) para la instalación con su CLI, la prueba en Angular limpio y el estado real de los directorios.
 
-El MCP requiere Node 22.22.3 o posterior y se puede iniciar con `npx --yes neural-ui-mcp@0.2.6`. Es un proceso stdio para conectar desde un cliente MCP; consulta su [configuración para Codex y Claude Code](packages/mcp/README.md#conectar-codex-y-claude-code).
+El MCP requiere Node 22.22.3 o posterior y se puede iniciar con `npx --yes neural-ui-mcp@0.3.0`. Es un proceso stdio para conectar desde un cliente MCP. Consulta su [configuración para Codex y Claude Code](packages/mcp/README.md#conectar-codex-y-claude-code).
 
 ## Ampliación Native
 
-La skill [neural-native](skills/neural-native/SKILL.md) tiene su propia versión 0.1.3, disponible en [releases](https://github.com/PedroMorenoTrujillo/neural-ai/releases). El MCP compartido **0.2.6** sirve Web y Native; su versión anterior 0.1.0 sigue siendo exclusivamente Web.
+La skill [neural-native](skills/neural-native/SKILL.md) tiene su propia versión 0.1.3, disponible en [releases](https://github.com/PedroMorenoTrujillo/neural-ai/releases). Selecciona su catálogo con `library: "native"` en el MCP compartido.
 
 - La skill Native contiene referencias derivadas de 68 entrypoints npm, los 28 tokens públicos con valores claros/oscuros y seis ejemplos reales: formularios, colecciones, navegación, overlays, temas y háptica.
 - El MCP mantiene las cinco herramientas y los URI Web. Todas admiten `library: "native"` y la versión Native explícita; omitir `library` conserva Web como predeterminado. No intercambia contratos entre productos.

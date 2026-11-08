@@ -20,17 +20,27 @@ export interface Catalog {
   examples: Document[];
 }
 
-export type Library = 'web' | 'native';
+export type Library = keyof typeof LIBRARY_VERSIONS;
+const catalogSources = {
+  web: { file: '', package: '@neural-ui/core', scheme: 'neural-ui' },
+  native: { file: 'native-', package: '@neural-ui/native', scheme: 'neural-native' },
+  'charts-native': { file: 'charts-native-', package: '@neural-charts/native', scheme: 'neural-charts-native' },
+} as const;
+export function catalogScheme(catalog: Catalog): string {
+  const source = Object.values(catalogSources).find(source => source.package === catalog.api.package);
+  if (!source) throw new Error('Unsupported catalogue');
+  return source.scheme;
+}
 export function loadCatalog(library: Library = 'web'): Catalog {
-  if (library !== 'web' && library !== 'native') throw new Error('Unsupported library');
+  if (!Object.hasOwn(catalogSources, library)) throw new Error('Unsupported library');
+  const source = catalogSources[library];
   // Fixed package-relative paths only. Tool arguments never reach the filesystem.
-  const bytes = readFileSync(new URL(library === 'native' ? '../data/native-catalog.json' : '../data/catalog.json', import.meta.url));
-  const expected = readFileSync(new URL(library === 'native' ? '../data/native-sha256' : '../data/sha256', import.meta.url), 'utf8').trim();
+  const bytes = readFileSync(new URL(`../data/${source.file}catalog.json`, import.meta.url));
+  const expected = readFileSync(new URL(`../data/${source.file}sha256`, import.meta.url), 'utf8').trim();
   if (createHash('sha256').update(bytes).digest('hex') !== expected) throw new Error('Catalogue integrity check failed');
   const data = JSON.parse(bytes.toString()) as Catalog;
-  const pkg = library === 'native' ? '@neural-ui/native' : '@neural-ui/core';
   const version = LIBRARY_VERSIONS[library];
-  if (data.schemaVersion !== 1 || data.api.package !== pkg || data.api.version !== version) {
+  if (data.schemaVersion !== 1 || data.api.package !== source.package || data.api.version !== version) {
     throw new Error('Unsupported catalogue');
   }
   return data;
@@ -49,6 +59,7 @@ export function components(catalog: Catalog, query = '', kind = 'all') {
 export function search(catalog: Catalog, query: string, limit = 5) {
   const words = [...new Set(query.toLowerCase().match(/[\p{L}\p{N}_-]+/gu) ?? [])];
   if (!words.length) return [];
+  const scheme = catalogScheme(catalog);
   return catalog.documents.flatMap(doc => {
     // Split on headings outside fenced code blocks, preserving complete examples.
     const chunks: { heading: string; text: string }[] = [];
@@ -72,7 +83,7 @@ export function search(catalog: Catalog, query: string, limit = 5) {
       const positions = words.map(word => body.indexOf(word)).filter(index => index >= 0);
       const start = Math.max(0, Math.min(...positions) - 160);
       return { id: doc.id, source: doc.source, heading: chunk.heading, score,
-        uri: `${catalog.api.package === '@neural-ui/native' ? 'neural-native' : 'neural-ui'}://docs/${doc.id}`, excerpt: chunk.text.slice(start, start + 1800) };
+        uri: `${scheme}://docs/${doc.id}`, excerpt: chunk.text.slice(start, start + 1800) };
     });
   }).filter(hit => hit.score > 0).sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, limit);
 }
