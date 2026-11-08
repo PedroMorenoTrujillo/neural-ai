@@ -11,6 +11,15 @@ const report = [];
 // Optional historical directory citation, not an installation/API source. Keep
 // its blocked status visible without failing the release of our own packages.
 const optionalDiscoveryUrl = 'https://skillsmp.com/docs/faq';
+function githubApiUrl(url) {
+  if (url.hostname !== 'github.com') return;
+  const [owner, repo, kind, ref, ...file] = url.pathname.split('/').filter(Boolean).map(decodeURIComponent);
+  if (!owner || !repo) return;
+  const base = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
+  if (!kind) return base;
+  if (kind === 'releases' && !ref) return base + '/releases?per_page=1';
+  if (kind === 'blob' && ref && file.length) return base + '/contents/' + file.map(encodeURIComponent).join('/') + '?ref=' + encodeURIComponent(ref);
+}
 const queue = [...urls].sort();
 await Promise.all(Array.from({length:4},async () => {
   while (queue.length) {
@@ -25,6 +34,14 @@ await Promise.all(Array.from({length:4},async () => {
           lastError=undefined; break;
         }
         const parsed = new URL(url);
+        const apiUrl = response.status >= 500 ? githubApiUrl(parsed) : undefined;
+        if (apiUrl) {
+          const checked = await fetch(apiUrl,{signal:AbortSignal.timeout(20000)});
+          await checked.body?.cancel();
+          if (!checked.ok) throw Error(`GitHub web returned ${response.status} and API returned ${checked.status}`);
+          report.push({url,status:response.status,verification:'github-api',apiUrl,verifiedStatus:checked.status});
+          lastError = undefined; break;
+        }
         const packagePath = /^\/package\/((?:@[^/]+\/)?[^/]+)\/?$/.exec(parsed.pathname);
         if (response.status===403 && parsed.hostname==='www.npmjs.com' && packagePath) {
           // npm's website can block automated clients. Verify this exact package
