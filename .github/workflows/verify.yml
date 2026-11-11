@@ -6,6 +6,10 @@ on:
   pull_request:
   workflow_dispatch:
     inputs:
+      verify_published_skill:
+        description: Verify the Web skill installed from its published GitHub tag
+        type: boolean
+        default: false
       verify_published_mcp:
         description: Verify the currently published MCP archive, clean install and npx client
         type: boolean
@@ -46,7 +50,12 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.verify_published_mcp
         run: npm run test:mcp:registry:current
       - run: npm run test:mcp:registry
-      - run: npm run test:clean-install
+      - name: Install the Web skill from the current checkout
+        if: github.ref_type != 'tag'
+        run: npm run test:clean-install -- --local
+      - name: Install the Web skill from its published tag
+        if: github.ref_type == 'tag' || (github.event_name == 'workflow_dispatch' && inputs.verify_published_skill)
+        run: npm run test:clean-install
       - run: npm run check:links
       - run: npm run check:sources
       - run: node scripts/package.mjs
