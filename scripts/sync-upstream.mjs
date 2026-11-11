@@ -1,14 +1,15 @@
 import assert from 'node:assert/strict';
-import { appendFileSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, copyFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
+import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { selectUpstream, verifyProducer, apiDiff } from './upstream-release-policy.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const json = file => JSON.parse(readFileSync(resolve(root, file), 'utf8'));
 const write = (file, value) => writeFileSync(resolve(root, file), JSON.stringify(value, null, 2) + '\n');
-const npm = args => execFileSync('npm', args, { cwd: root, stdio: 'inherit' });
+const npm = (args, cwd = root) => execFileSync('npm', args, { cwd, stdio: 'inherit' });
 const node = args => execFileSync(process.execPath, args, { cwd: root, stdio: 'inherit' });
 const pkg = json('package.json');
 const beforeFramework = Object.fromEntries(Object.entries(pkg.devDependencies).filter(([name]) => /^@angular\/|^@ng-native\//.test(name)));
@@ -16,6 +17,18 @@ const definitions = {
   web: { name: '@neural-ui/core', repo: 'PedroMorenoTrujillo/neural-ui-workspace', path: 'projects/ui-core/package.json', sources: 'evidence/sources.json', api: 'evidence/api.json', skill: 'skills/neural-ui/SKILL.md' },
   native: { name: '@neural-ui/native', repo: 'PedroMorenoTrujillo/neural-native', path: 'packages/native/package.json', sources: 'evidence/native-sources.json', api: 'evidence/native-api.json', skill: 'skills/neural-native/SKILL.md' },
 };
+function syncWebConsumer(version) {
+  const temporary = mkdtempSync(resolve(tmpdir(), 'neural-ai-consumer-lock-'));
+  const files = ['package.json', 'package-lock.json'];
+  const fixture = file => resolve(root, 'tests/distribution', `consumer-${file}`);
+  try {
+    for (const file of files) copyFileSync(fixture(file), resolve(temporary, file));
+    npm(['install', '--save-exact', '--package-lock-only', '--ignore-scripts', '--strict-peer-deps', '--no-audit', '--no-fund', `@neural-ui/core@${version}`], temporary);
+    for (const file of files) copyFileSync(resolve(temporary, file), fixture(file));
+  } finally {
+    rmSync(temporary, { recursive: true, force: true });
+  }
+}
 async function get(url, github = false) {
   const response = await fetch(url, { headers: github && process.env.GH_TOKEN ? { Authorization: `Bearer ${process.env.GH_TOKEN}` } : {}, signal: AbortSignal.timeout(30_000) });
   assert.ok(response.ok, `${new URL(url).pathname}: HTTP ${response.status}`);
@@ -71,7 +84,12 @@ for (const scope of changed) {
   const nextSkill = patch(oldSkill);
   text = text.replace(/^  version:.*$/m, `  version: "${nextSkill}"`).replaceAll(old, next);
   writeFileSync(resolve(root, definition.skill), text);
-  if (scope === 'web') npm(['version', nextSkill, '--no-git-tag-version', '--ignore-scripts']);
+  if (scope === 'web') {
+    const installation = resolve(root, 'skills/neural-ui/references/installation.md');
+    writeFileSync(installation, readFileSync(installation, 'utf8').replaceAll(old, next));
+    syncWebConsumer(next);
+    npm(['version', nextSkill, '--no-git-tag-version', '--ignore-scripts']);
+  }
   write(definition.sources, evidence[scope].record);
   npm(['run', scope === 'web' ? 'api:generate' : 'api:native:generate']);
 }
