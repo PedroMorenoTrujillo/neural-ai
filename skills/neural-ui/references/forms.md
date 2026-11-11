@@ -14,6 +14,8 @@ For disabled and readonly behavior, check Angular's Signal Forms schema rules an
 
 For Select, use typed optionLabel/optionValue accessors and an explicit mode. Single mode emits a scalar or null; multiple mode uses a readonly value array. Preserve the application's domain identity and compareWith rules when objects are used. Do not copy v1 optionLabel strings into function-based APIs without checking the current declaration.
 
+For a compact [Number Input](api/number-input.md), use `size="sm"` with `layout="stacked"`. Starting in Core 2.0.6, the default visible frame is 36 px high and the control reserves at least 50 px of height to accommodate the two stepper buttons. Each button has a separate hit area at least 24 px high. Leave that space available when aligning the control with adjacent actions in an inline editor.
+
 For a custom native input in a Neural form shell, connect label and input IDs using NeuFormFieldComponent's forId and the native input id. The shell does not turn an arbitrary control into a Signal Forms control.
 
 Sources: [Neural v2 Signal Forms](https://ui.neuralui.org/v2/en/foundations/signal-forms), [Angular Signal Forms](https://angular.dev/guide/forms/signals/overview).

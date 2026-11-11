@@ -1,6 +1,6 @@
 # @neural-ui/core/scroll-top
 
-Verified against @neural-ui/core@2.0.4. Generated; do not edit.
+Verified against @neural-ui/core@2.0.6. Generated; do not edit.
 
 Types below are package contracts, not complete application examples. Referenced Angular/internal declaration types do not authorize imports from internal entrypoints.
 
