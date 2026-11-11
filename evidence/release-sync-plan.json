@@ -1,14 +1,14 @@
 {
   "scopes": [
-    "native"
+    "web"
   ],
   "frameworkVersionsChanged": false,
   "updates": {
-    "native": {
-      "package": "@neural-ui/native",
-      "from": "0.1.0-beta.6",
-      "to": "0.1.0-beta.7",
-      "publication": "https://github.com/PedroMorenoTrujillo/neural-native/actions/runs/42289074651",
+    "web": {
+      "package": "@neural-ui/core",
+      "from": "2.0.4",
+      "to": "2.0.5",
+      "publication": "https://github.com/PedroMorenoTrujillo/neural-ui-workspace/actions/runs/43074997401",
       "api": {
         "added": [],
         "breaking": []
