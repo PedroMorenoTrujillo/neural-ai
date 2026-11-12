@@ -1,6 +1,6 @@
 # Public design tokens
 
-Generated from @neural-ui/core@2.0.6/token-manifest.json.
+Generated from @neural-ui/core@2.0.7/token-manifest.json.
 
 | Token | Category | Default |
 | --- | --- | --- |

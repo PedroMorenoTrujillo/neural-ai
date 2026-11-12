@@ -6,9 +6,9 @@
   "updates": {
     "web": {
       "package": "@neural-ui/core",
-      "from": "2.0.4",
-      "to": "2.0.6",
-      "publication": "https://github.com/PedroMorenoTrujillo/neural-ui-workspace/actions/runs/43086619942",
+      "from": "2.0.6",
+      "to": "2.0.7",
+      "publication": "https://github.com/PedroMorenoTrujillo/neural-ui-workspace/actions/runs/43168526373",
       "api": {
         "added": [],
         "breaking": []

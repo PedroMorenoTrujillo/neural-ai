@@ -14,7 +14,8 @@ const branch = `codex/sync-published-${process.env.GITHUB_RUN_ID}`;
 run('git', ['switch', '-c', branch]);
 run('git', ['config', 'user.name', 'github-actions[bot]']);
 run('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com']);
-run('git', ['add', 'package.json', 'package-lock.json', 'packages/mcp/package.json', 'packages/mcp/package-lock.json', 'packages/mcp/src/release-versions.ts', 'skills', 'evidence']);
+run('git', ['add', 'package.json', 'package-lock.json', 'packages/mcp/package.json', 'packages/mcp/package-lock.json', 'packages/mcp/src/release-versions.ts', 'skills', 'evidence',
+  'tests/distribution/consumer-package.json', 'tests/distribution/consumer-package-lock.json']);
 run('git', ['commit', '-m', 'chore: sync published Neural baselines']);
 run('git', ['push', 'origin', `HEAD:refs/heads/${branch}`]);
 const body = resolve(process.env.RUNNER_TEMP || '/tmp', 'neural-upstream-pr.md');
