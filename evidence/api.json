@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "@neural-ui/core",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "entrypoints": {
     "@neural-ui/core": {
       "types": "./types/neural-ui-core.d.ts",

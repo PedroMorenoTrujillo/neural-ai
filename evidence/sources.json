@@ -2,22 +2,22 @@
   "schemaVersion": 1,
   "package": {
     "name": "@neural-ui/core",
-    "version": "2.0.6",
-    "tarball": "https://registry.npmjs.org/@neural-ui/core/-/core-2.0.6.tgz",
-    "integrity": "sha512-RdbrSY25/y/XVX9Xj5j3zsBi4nOdHELPqSNShpFICpmvYQDwS5i+onDCbR5tCQ2BBObZcjyOttvZXVKbkbi15w==",
-    "shasum": "5a21fc3e628f1a82e08a97a78490ce17e8752dd9"
+    "version": "2.0.7",
+    "tarball": "https://registry.npmjs.org/@neural-ui/core/-/core-2.0.7.tgz",
+    "integrity": "sha512-70Wz90Y5x3DPG/oOjnIx/URFbkTFqkx+ufSApLl1mV8ogo40AZIZiwt1ZKNIll6/OkDzxl7xQjiHmYa58ROpbA==",
+    "shasum": "9020f08f9064aac47d80243699d3b94ff4897a6b"
   },
   "source": {
     "repository": "https://github.com/PedroMorenoTrujillo/neural-ui-workspace",
-    "commit": "e3392dd8e04c434f9d991e25fa3c18367d3dbb66",
-    "version": "2.0.6"
+    "commit": "c617f4a57b66c2b4c6e3c3bbb8c791a5064399e7",
+    "version": "2.0.7"
   },
-  "verifiedOn": "2026-11-11",
+  "verifiedOn": "2026-11-12",
   "documentation": "https://ui.neuralui.org/v2/",
   "agentSpecifications": [
     "https://developers.openai.com/codex/skills/",
     "https://code.claude.com/docs/en/skills",
     "https://agentskills.io/specification"
   ],
-  "publicationRun": "43086619942"
+  "publicationRun": "43168526373"
 }
