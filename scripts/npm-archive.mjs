@@ -16,3 +16,11 @@ export async function fetchNpmArchive(url, { method = 'GET', attempts = 1, delay
   }
   return null;
 }
+
+export async function isNpmArchiveReady(url, publishedAt) {
+  if (await fetchNpmArchive(url, { method: 'HEAD' })) return true;
+  const releaseAge = Date.now() - Date.parse(publishedAt);
+  // New metadata can precede the actual download. An old missing archive is an error.
+  if (releaseAge >= 0 && releaseAge < 30 * 60_000) return false;
+  throw Error(`Published npm archive is missing: ${new URL(url).pathname}`);
+}

@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { selectUpstream, verifyProducer, apiDiff, pinnedFrameworkConflicts } from './upstream-release-policy.mjs';
-import { fetchNpmArchive } from './npm-archive.mjs';
+import { fetchNpmArchive, isNpmArchiveReady } from './npm-archive.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const json = file => JSON.parse(readFileSync(resolve(root, file), 'utf8'));
@@ -40,7 +40,8 @@ const concurrency = 4;
 const metadata = await Promise.all(scopes.map(async scope => {
   const definition = definitions[scope];
   const packument = await (await get(`https://registry.npmjs.org/${encodeURIComponent(definition.name)}`)).json();
-  return [scope, selectUpstream(scope, packument, pkg.devDependencies[definition.name])];
+  const release = selectUpstream(scope, packument, pkg.devDependencies[definition.name]);
+  return [scope, { ...release, publishedAt: packument.time?.[release.version] }];
 }));
 const selected = Object.fromEntries(metadata);
 const changed = [];
@@ -51,7 +52,7 @@ for (const scope of scopes) {
   let pendingReason;
   if (conflicts.length) {
     pendingReason = `requires a framework update: ${conflicts.join(', ')}`;
-  } else if (!(await fetchNpmArchive(target.dist.tarball, { method: 'HEAD' }))) {
+  } else if (!(await isNpmArchiveReady(target.dist.tarball, target.publishedAt))) {
     pendingReason = 'the npm archive is still pending';
   }
   if (pendingReason) {
