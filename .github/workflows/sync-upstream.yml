@@ -31,10 +31,11 @@ jobs:
         id: upstream
         run: node scripts/sync-upstream.mjs --detect
       - name: Prepare API evidence without changing Angular or Angular Native
+        id: apply
         if: steps.upstream.outputs.changed == 'true'
         run: |
           test "$(gh pr list --state open --search 'in:title chore: sync published Neural baselines' --json number --jq length)" = 0 || exit 0
           node scripts/sync-upstream.mjs --apply
       - name: Open an owner-reviewed update and run its verification
-        if: steps.upstream.outputs.changed == 'true'
+        if: steps.apply.outputs.changed == 'true'
         run: node scripts/open-upstream-pr.mjs
