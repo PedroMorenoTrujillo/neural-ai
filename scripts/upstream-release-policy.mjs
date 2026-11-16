@@ -1,9 +1,20 @@
 import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 
+const pinnedVersionPattern = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/;
+
 export function pinnedVersion(value) {
-  assert.match(value || '', /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/);
+  assert.match(value || '', pinnedVersionPattern);
   return value;
+}
+
+export function pinnedFrameworkConflicts(framework, peers = {}) {
+  return Object.entries(framework).flatMap(([name, current]) => {
+    const required = peers[name];
+    return typeof required === 'string' && pinnedVersionPattern.test(required) && current !== required
+      ? [`${name} ${required} (installed ${current})`]
+      : [];
+  });
 }
 export function compareVersions(a, b) {
   pinnedVersion(a); pinnedVersion(b);

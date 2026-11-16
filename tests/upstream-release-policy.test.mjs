@@ -1,6 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { selectUpstream, verifyProducer, compareVersions, apiDiff } from '../scripts/upstream-release-policy.mjs';
+import { selectUpstream, verifyProducer, compareVersions, apiDiff, pinnedFrameworkConflicts } from '../scripts/upstream-release-policy.mjs';
+
+test('an unaligned pinned Native peer is reported before attempting to install', () => {
+  const framework = { '@angular/core': '22.2.2', '@ng-native/components': '0.21.0' };
+  assert.deepEqual(pinnedFrameworkConflicts(framework, {
+    '@angular/core': '>=22.2.0 <23',
+    '@ng-native/components': '0.22.2',
+  }), ['@ng-native/components 0.22.2 (installed 0.21.0)']);
+  assert.deepEqual(pinnedFrameworkConflicts(framework, { '@ng-native/components': '0.21.0' }), []);
+  assert.deepEqual(pinnedFrameworkConflicts(framework), []);
+});
 
 const owner = 'PedroMorenoTrujillo';
 function pack(name, versions, tags) {

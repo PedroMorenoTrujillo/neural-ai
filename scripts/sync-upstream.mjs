@@ -4,7 +4,8 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
-import { selectUpstream, verifyProducer, apiDiff } from './upstream-release-policy.mjs';
+import { selectUpstream, verifyProducer, apiDiff, pinnedFrameworkConflicts } from './upstream-release-policy.mjs';
+import { fetchNpmArchive, isNpmArchiveReady } from './npm-archive.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const json = file => JSON.parse(readFileSync(resolve(root, file), 'utf8'));
@@ -39,10 +40,29 @@ const concurrency = 4;
 const metadata = await Promise.all(scopes.map(async scope => {
   const definition = definitions[scope];
   const packument = await (await get(`https://registry.npmjs.org/${encodeURIComponent(definition.name)}`)).json();
-  return [scope, selectUpstream(scope, packument, pkg.devDependencies[definition.name])];
+  const release = selectUpstream(scope, packument, pkg.devDependencies[definition.name]);
+  return [scope, { ...release, publishedAt: packument.time?.[release.version] }];
 }));
 const selected = Object.fromEntries(metadata);
-const changed = scopes.filter(scope => selected[scope].version !== pkg.devDependencies[definitions[scope].name]);
+const changed = [];
+for (const scope of scopes) {
+  const target = selected[scope];
+  if (target.version === pkg.devDependencies[definitions[scope].name]) continue;
+  const conflicts = pinnedFrameworkConflicts(beforeFramework, target.peerDependencies);
+  let pendingReason;
+  if (conflicts.length) {
+    pendingReason = `requires a framework update: ${conflicts.join(', ')}`;
+  } else if (!(await isNpmArchiveReady(target.dist.tarball, target.publishedAt))) {
+    pendingReason = 'the npm archive is still pending';
+  }
+  if (pendingReason) {
+    const message = `${scope} ${target.version} is pending: ${pendingReason}.`;
+    console.log(`::notice::${message}`);
+    if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${message}\n`);
+  } else {
+    changed.push(scope);
+  }
+}
 if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `changed=${changed.length > 0}\nweb=${selected.web.version}\nnative=${selected.native.version}\n`);
 console.log(`Published baselines: Web ${selected.web.version}; Native ${selected.native.version}; changed=${changed.join(',') || 'none'} (network concurrency bounded to ${concurrency})`);
 if (process.argv.includes('--detect') || !changed.length) process.exit(0);
@@ -59,7 +79,9 @@ for (const scope of changed) {
   verifyProducer(producer, definition.repo, target.version, object.sha);
   const source = await (await get(`https://raw.githubusercontent.com/${definition.repo}/${object.sha}/${definition.path}`)).json();
   assert.equal(source.name, definition.name); assert.equal(source.version, target.version);
-  const bytes = Buffer.from(await (await get(target.dist.tarball)).arrayBuffer());
+  const archiveResponse = await fetchNpmArchive(target.dist.tarball, { attempts: 20 });
+  assert.ok(archiveResponse, `Npm archive for ${definition.name}@${target.version} is still unavailable after retries`);
+  const bytes = Buffer.from(await archiveResponse.arrayBuffer());
   assert.equal('sha512-' + createHash('sha512').update(bytes).digest('base64'), target.dist.integrity);
   const record = json(definition.sources);
   record.package = { name: definition.name, version: target.version, tarball: target.dist.tarball, integrity: target.dist.integrity, shasum: target.dist.shasum };
