@@ -1,11 +1,11 @@
 # Installation and configuration
 
-Baseline: @neural-ui/core **2.0.8**, Angular/CDK **22**. Inspect the application's existing versions before installing. Do not use a floating latest tag for this verified baseline.
+Baseline: @neural-ui/core **2.0.9**, Angular/CDK **22**. Inspect the application's existing versions before installing. Do not use a floating latest tag for this verified baseline.
 
 In an existing Angular 22 application:
 
 ```sh
-npm install @neural-ui/core@2.0.8 @angular/cdk@22
+npm install @neural-ui/core@2.0.9 @angular/cdk@22
 npm ls @neural-ui/core @angular/core @angular/common @angular/forms @angular/router @angular/cdk
 ```
 
