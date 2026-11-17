@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "@neural-ui/core",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "entrypoints": {
     "@neural-ui/core": {
       "types": "./types/neural-ui-core.d.ts",
@@ -9254,7 +9254,7 @@
     },
     "@neural-ui/core/select": {
       "types": "./types/neural-ui-core-select.d.ts",
-      "sha256": "10f7db1414db4dae1fa993124ea760753baf3638f5c672ef366841042b8c72bb",
+      "sha256": "a7c4a20a4f05d9707dbcf16162f3dd92db4510af16745105170b2b0d1b79a73d",
       "symbols": [
         {
           "name": "NeuOptionAccessor",
