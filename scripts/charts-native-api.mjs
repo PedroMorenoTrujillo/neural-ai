@@ -14,14 +14,15 @@ const output = join(root, 'evidence/charts-native-api.json');
 const repo = 'git+https://github.com/PedroMorenoTrujillo/neural-charts-native-library.git';
 const policy = { internalEntrypoints: [], internalDeclarations: [], publicMembers: {}, publicImperativeMembers: {} };
 const angular = '22.2.3';
+const framework = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).devDependencies['@ng-native/components'];
 const tarball = process.argv.find(argument => argument.startsWith('--tarball='))?.slice('--tarball='.length);
 const args = [tarball ? resolve(tarball) : `${name}@${CHARTS_VERSION}`, ...['common', 'compiler', 'compiler-cli', 'core'].map(pkg => `@angular/${pkg}@${angular}`),
-  '@ng-native/components@0.19.1', '@ng-native/platform@0.19.1', 'typescript@6.0.3'];
+  `@ng-native/components@${framework}`, `@ng-native/platform@${framework}`, 'typescript@6.0.3'];
 
 const temporary = mkdtempSync(join(tmpdir(), 'neural-charts-native-api-'));
 try {
   writeFileSync(join(temporary, 'package.json'), '{"type":"module","private":true}\n');
-  execFileSync('npm', ['install', '--ignore-scripts', '--legacy-peer-deps', '--no-audit', '--no-fund', '--registry=' + registry, ...args],
+  execFileSync('npm', ['install', '--ignore-scripts', '--strict-peer-deps', '--no-audit', '--no-fund', '--registry=' + registry, ...args],
     { cwd: temporary, stdio: 'pipe', timeout: 120_000 });
   const pkgDir = join(temporary, 'node_modules', name);
   const manifest = JSON.parse(readFileSync(join(pkgDir, 'package.json'), 'utf8'));

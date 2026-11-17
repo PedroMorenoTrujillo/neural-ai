@@ -1,4 +1,4 @@
-# Public API — @neural-ui/native@0.1.0-beta.7
+# Public API — @neural-ui/native@0.1.0-beta.8
 
 Generated from the installed npm declarations, filtered by the reviewed upstream support policy. Read only the relevant entrypoint. Angular metadata and private implementation methods are excluded.
 
