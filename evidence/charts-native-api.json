@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "@neural-charts/native",
-  "version": "0.1.0-beta.6",
+  "version": "0.1.0-beta.7",
   "entrypoints": {
     "@neural-charts/native": {
       "types": "./native/index.d.ts",

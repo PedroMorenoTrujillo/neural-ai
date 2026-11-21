@@ -15,14 +15,24 @@ const repo = 'git+https://github.com/PedroMorenoTrujillo/neural-charts-native-li
 const policy = { internalEntrypoints: [], internalDeclarations: [], publicMembers: {}, publicImperativeMembers: {} };
 const angular = '22.2.3';
 const framework = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).devDependencies['@ng-native/components'];
+// This is a native application consumer, not an Angular-only declaration shim.
+// Keep the tested Expo 58 host graph together: unconstrained optional peers can
+// otherwise select Reanimated 4.8/Worklets 0.14 beside the SDK 58 0.13 baseline.
+const nativeHost = {
+  expo: '58.0.21', react: '19.3.0', 'react-dom': '19.3.0', 'react-native': '0.88.1',
+  'react-native-gesture-handler': '3.3.0', 'react-native-reanimated': '4.7.1',
+  'react-native-worklets': '0.13.0', 'react-native-svg': '15.15.4',
+  'expo-device': '58.0.5', 'expo-battery': '58.0.3', 'expo-haptics': '58.0.7',
+};
 const tarball = process.argv.find(argument => argument.startsWith('--tarball='))?.slice('--tarball='.length);
 const args = [tarball ? resolve(tarball) : `${name}@${CHARTS_VERSION}`, ...['common', 'compiler', 'compiler-cli', 'core'].map(pkg => `@angular/${pkg}@${angular}`),
-  `@ng-native/components@${framework}`, `@ng-native/platform@${framework}`, 'typescript@6.0.3'];
+  `@ng-native/components@${framework}`, `@ng-native/platform@${framework}`,
+  ...Object.entries(nativeHost).map(([name,version])=>`${name}@${version}`), 'typescript@6.0.3'];
 
 const temporary = mkdtempSync(join(tmpdir(), 'neural-charts-native-api-'));
 try {
   writeFileSync(join(temporary, 'package.json'), '{"type":"module","private":true}\n');
-  execFileSync('npm', ['install', '--ignore-scripts', '--strict-peer-deps', '--no-audit', '--no-fund', '--registry=' + registry, ...args],
+  execFileSync('npm', ['install', '--prefer-online', '--ignore-scripts', '--strict-peer-deps', '--no-audit', '--no-fund', '--registry=' + registry, ...args],
     { cwd: temporary, stdio: 'pipe', timeout: 120_000 });
   const pkgDir = join(temporary, 'node_modules', name);
   const manifest = JSON.parse(readFileSync(join(pkgDir, 'package.json'), 'utf8'));
