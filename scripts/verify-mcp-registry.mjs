@@ -22,7 +22,11 @@ assert.equal(metadata.name, name);
 assert.equal(metadata.version, version);
 const url = new URL(metadata.dist.tarball);
 assert.equal(url.origin, new URL(registry).origin);
-const archiveResponse = await fetch(url, { signal: AbortSignal.timeout(30000) });
+// A newly published tarball can retain a negative CDN entry even when its
+// metadata is already public. Bypass that cache without changing the registry
+// origin or relaxing the authorized SHA-256/SHA-512 checks below.
+url.searchParams.set('verify', String(Date.now()));
+const archiveResponse = await fetch(url, { headers: {'cache-control': 'no-cache'}, signal: AbortSignal.timeout(30000) });
 assert.equal(archiveResponse.status, 200);
 const bytes = Buffer.from(await archiveResponse.arrayBuffer());
 const sha256 = createHash('sha256').update(bytes).digest('hex');

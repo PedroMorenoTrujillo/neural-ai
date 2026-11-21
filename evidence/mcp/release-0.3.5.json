@@ -1,0 +1,9 @@
+{
+  "tag": "mcp-v0.3.5",
+  "version": "0.3.5",
+  "channel": "latest",
+  "name": "neural-ui-mcp",
+  "file": "neural-ui-mcp-0.3.5.tgz",
+  "sha256": "af3d348798f839c49dc894700cd4141a0b81d22a9294fd4efd49f64ee90cf04f",
+  "commit": "6d09e9be9939469a4b3d4e1aeb8c7db6b7c7c862"
+}
