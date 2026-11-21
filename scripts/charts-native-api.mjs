@@ -4,7 +4,7 @@ import { copyFileSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFile
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { inventory, root } from './api.mjs';
-import { CHARTS_VERSION } from './release-state.mjs';
+import { CHARTS_VERSION, NATIVE_VERSION } from './release-state.mjs';
 import { localLinks, validateSkill, validateSource } from './validate.mjs';
 
 const name = '@neural-charts/native';
@@ -13,26 +13,29 @@ const skill = join(root, 'skills/neural-charts-native');
 const output = join(root, 'evidence/charts-native-api.json');
 const repo = 'git+https://github.com/PedroMorenoTrujillo/neural-charts-native-library.git';
 const policy = { internalEntrypoints: [], internalDeclarations: [], publicMembers: {}, publicImperativeMembers: {} };
-const angular = '22.2.3';
 const framework = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).devDependencies['@ng-native/components'];
-// This is a native application consumer, not an Angular-only declaration shim.
-// Keep the tested Expo 58 host graph together: unconstrained optional peers can
-// otherwise select Reanimated 4.8/Worklets 0.14 beside the SDK 58 0.13 baseline.
-const nativeHost = {
-  expo: '58.0.21', react: '19.3.0', 'react-dom': '19.3.0', 'react-native': '0.88.1',
-  'react-native-gesture-handler': '3.3.0', 'react-native-reanimated': '4.7.1',
-  'react-native-worklets': '0.13.0', 'react-native-svg': '15.15.4',
-  'expo-device': '58.0.5', 'expo-battery': '58.0.3', 'expo-haptics': '58.0.7',
-};
+// Use the locked graph of the tested native application. Resolving a new Expo
+// host here lets unrelated optional web peers change between local and CI runs.
+const fixture = join(root, 'tests/charts-native-consumer');
+const host = JSON.parse(readFileSync(join(fixture, 'package.json'), 'utf8'));
+assert.equal(host.dependencies[name], CHARTS_VERSION, 'Refresh the Charts consumer baseline');
+assert.equal(host.dependencies['@neural-ui/native'], NATIVE_VERSION, 'Refresh the joint Native baseline');
+for (const [name, version] of Object.entries(host.dependencies).filter(([name]) => name.startsWith('@ng-native/'))) assert.equal(version, framework, name);
 const tarball = process.argv.find(argument => argument.startsWith('--tarball='))?.slice('--tarball='.length);
-const args = [tarball ? resolve(tarball) : `${name}@${CHARTS_VERSION}`, ...['common', 'compiler', 'compiler-cli', 'core'].map(pkg => `@angular/${pkg}@${angular}`),
-  `@ng-native/components@${framework}`, `@ng-native/platform@${framework}`,
-  ...Object.entries(nativeHost).map(([name,version])=>`${name}@${version}`), 'typescript@6.0.3'];
 
 const temporary = mkdtempSync(join(tmpdir(), 'neural-charts-native-api-'));
 try {
-  writeFileSync(join(temporary, 'package.json'), '{"type":"module","private":true}\n');
-  execFileSync('npm', ['install', '--prefer-online', '--ignore-scripts', '--strict-peer-deps', '--no-audit', '--no-fund', '--registry=' + registry, ...args],
+  copyFileSync(join(fixture, 'package.json'), join(temporary, 'package.json'));
+  copyFileSync(join(fixture, 'package-lock.json'), join(temporary, 'package-lock.json'));
+  if (tarball) {
+    const candidate = {...host, dependencies: {...host.dependencies, [name]: 'file:' + resolve(tarball)}};
+    const lock = JSON.parse(readFileSync(join(temporary, 'package-lock.json'), 'utf8'));
+    lock.packages[''].dependencies = candidate.dependencies;
+    delete lock.packages['node_modules/' + name];
+    writeFileSync(join(temporary, 'package.json'), JSON.stringify(candidate, null, 2) + '\n');
+    writeFileSync(join(temporary, 'package-lock.json'), JSON.stringify(lock, null, 2) + '\n');
+  }
+  execFileSync('npm', [tarball ? 'install' : 'ci', '--prefer-online', '--ignore-scripts', '--strict-peer-deps', '--no-audit', '--no-fund', '--registry=' + registry],
     { cwd: temporary, stdio: 'pipe', timeout: 120_000 });
   const pkgDir = join(temporary, 'node_modules', name);
   const manifest = JSON.parse(readFileSync(join(pkgDir, 'package.json'), 'utf8'));
