@@ -1,5 +1,17 @@
 # Verificación de Neural AI
 
+## Angular Native 0.25.0 · skills Native 0.1.5 y Charts Native 0.1.2 · MCP 0.3.5
+
+La base verificada del 21 de noviembre de 2026 es **@neural-ui/native 0.1.0-beta.9**, **@neural-charts/native 0.1.0-beta.7** y **Angular Native 0.25.0**. Web conserva Core 2.0.8 y su versión independiente de skill. Las declaraciones públicas de las dos bibliotecas nativas no cambian respecto a la base anterior. La actualización incluye el montaje web con Angular 22.3; Charts corrige además el aviso de anchuras de Variwide cuando se ocultan todas sus series.
+
+Native supera 68 comprobaciones en un APK Android instalado y otras 68 en la app del simulador iOS. Charts supera las 62 familias y los recorridos ampliados en Android, más los 90 métodos XCTest en iOS. La rampa Android tiene 26 escenarios renderizados y diez rechazos previstos por límites de etiquetas o geometría. No se confunden esos rechazos con gráficas dibujadas. La app conjunta se prueba con Angular 22.3.0 y Expo SDK 58; el catálogo completo de controles mantiene su base Expo SDK 57 comprobada.
+
+Los 483 archivos publicados de Native y los 508 de Charts son idénticos, byte por byte, a los paquetes candidatos instalados en esas apps. Se verifican las integridades del registro, los commits y los pipelines de [Native beta.9](https://github.com/PedroMorenoTrujillo/neural-native/actions/runs/44869433533) y [Charts beta.7](https://github.com/PedroMorenoTrujillo/neural-charts-native-library/actions/runs/44870200073). Los consumidores normales usan npm y resolución estricta de peers; no se parchean módulos instalados ni se enlazan fuentes locales.
+
+Las referencias se regeneran desde los paquetes publicados. Pasan los ejemplos Angular estrictos, los doce recorridos de navegador de la skill Native y las pruebas de la candidata MCP 0.3.5 con un cliente real por stdio, aislamiento de catálogos, denegación de red y verificación del paquete. La auditoría de sus dependencias de producción no encuentra vulnerabilidades conocidas. Las skills también superan el validador portátil de Codex.
+
+Los resultados nativos corresponden a emuladores y simuladores. No certifican hardware físico, vibración física, lectores de pantalla ni rendimiento sostenido. Las pruebas de navegador de las skills y del showcase se mantienen separadas de la aceptación de las apps instaladas.
+
 ## Native 0.1.3 y MCP 0.2.6
 
 La skill Native 0.1.3 usa **@neural-ui/native 0.1.0-beta.7**, Angular Native **0.22.2** y Angular **22.2.2**. Se han verificado el SHA-512 del paquete npm, el tag y el [pipeline de publicación del commit `279360579e42672d969f0bc3247435cf8a7ba33d`](https://github.com/PedroMorenoTrujillo/neural-native/actions/runs/42289074651). La migración del framework se ha revisado explícitamente; el sincronizador sigue sin decidirla automáticamente.

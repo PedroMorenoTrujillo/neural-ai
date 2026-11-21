@@ -1,6 +1,6 @@
 # @neural-ui/native/chip
 
-Verified against @neural-ui/native@0.1.0-beta.8. Generated; do not edit.
+Verified against @neural-ui/native@0.1.0-beta.9. Generated; do not edit.
 
 Types below are package contracts, not complete application examples. Referenced Angular/internal declaration types do not authorize imports from internal entrypoints.
 
