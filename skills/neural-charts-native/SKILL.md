@@ -3,14 +3,14 @@ name: neural-charts-native
 description: Integrate and troubleshoot @neural-charts/native charts in Angular Native apps for iOS and Android. Use for typed chart data and options, tooltips, labels, legends, point colours, coordinated panels, drilldown and accessibility. Neural UI controls and browser chart renderers have separate APIs.
 license: MIT
 metadata:
-  version: "0.1.2"
-  library-version: "0.1.0-beta.7"
-  compatibility: "Angular 22, Angular Native 0.25.0 and an Expo 58 app configured with the Angular Native Metro preset."
+  version: "0.1.3"
+  library-version: "0.1.0-beta.8"
+  compatibility: "Angular 22, Angular Native 0.27.0 and an Expo 58 app configured with the Angular Native Metro preset."
 ---
 
 # Neural Charts Native
 
-The examples and MCP catalogue use `@neural-charts/native@0.1.0-beta.7` with Core `0.1.3` and Angular Native `0.25.0`. Neural Native `0.1.0-beta.9` shares that framework and SVG baseline. Check the installed package and peer versions before generating code. For another release, use its exported declarations and its documentation.
+The examples and MCP catalogue use `@neural-charts/native@0.1.0-beta.8` with Core `0.1.3` and Angular Native `0.27.0`. Neural Native `0.1.0-beta.10` shares that framework and SVG baseline. Check the installed package and peer versions before generating code. For another release, use its exported declarations and its documentation.
 
 1. Identify the chart family and the data shape it accepts. Read the [official chart catalog](https://charts-native.neuralui.org/docs/catalog) for that family. Use the public `Native…Data` type and `NativeChartOptions<'family'>` so unsupported options fail at compile time.
 2. In a native standalone screen, import `NativeDataChart`, add it to the component's `imports` and bind `data` and `options` to `<neu-c-chart>`. Keep stable IDs for series and points across updates. Preserve a known zero as `0` and use `null` only where the data contract accepts an unknown value.
@@ -26,4 +26,4 @@ The examples and MCP catalogue use `@neural-charts/native@0.1.0-beta.7` with Cor
 
 ## MCP
 
-In the shared `neural-ui-mcp`, pass `library: "charts-native"` and `version: "0.1.0-beta.7"`. Start with `list_components` or `search_documentation`. Use `get_api` for the exact declaration, `get_example` for a complete screen and `validate_usage` for static checks of inline source. Type-check and run the screen after static validation.
+In the shared `neural-ui-mcp`, pass `library: "charts-native"` and `version: "0.1.0-beta.8"`. Start with `list_components` or `search_documentation`. Use `get_api` for the exact declaration, `get_example` for a complete screen and `validate_usage` for static checks of inline source. Type-check and run the screen after static validation.
