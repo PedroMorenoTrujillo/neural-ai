@@ -3,9 +3,20 @@ import assert from 'node:assert/strict';
 import { Client } from '@modelcontextprotocol/client';
 import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
 import { fileURLToPath } from 'node:url';
+import { readdirSync } from 'node:fs';
+import { join, relative, sep } from 'node:path';
 
 export const root = fileURLToPath(new URL('../../', import.meta.url));
 export const cli = fileURLToPath(new URL('../../packages/mcp/dist/cli.js', import.meta.url));
+
+export function webSkillSources(directory, extension) {
+  const source = join(root, 'skills', 'neural-ui', directory);
+  return readdirSync(source, { recursive: true, withFileTypes: true })
+    .filter(entry => entry.isFile() && entry.name.endsWith(extension))
+    .map(entry => relative(root, join(entry.parentPath, entry.name)).split(sep).join('/'))
+    .sort();
+}
+
 export async function connect(path = cli, options = {}) {
   const client = new Client({ name: 'neural-ai-verification', version: '0.1.0' }, { versionNegotiation: { mode: 'auto' } });
   const transport = new StdioClientTransport({ command: process.execPath, args: [path], stderr: 'pipe', ...options });

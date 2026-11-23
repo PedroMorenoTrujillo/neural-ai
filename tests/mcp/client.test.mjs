@@ -1,7 +1,7 @@
 import { WEB_VERSION, MCP_VERSION } from '../../scripts/release-state.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { connect, call, assertChartsNative } from './helpers.mjs';
+import { connect, call, assertChartsNative, webSkillSources } from './helpers.mjs';
 
 test('official MCP SDK client interoperates over real stdio: all tools and resources', { timeout: 30000 }, async () => {
   const { client, stderr } = await connect();
@@ -27,6 +27,8 @@ export class LocalizedDialog { readonly open = signal(true); }` });
     assert.equal(localizedDialog.valid, true);
     const exports = await call(client, 'get_api', { entrypoint: '@neural-ui/core/button' });
     assert.ok(exports.exports.some(item => item.name === 'NeuButtonTone'));
+    const mention = await call(client, 'get_api', { entrypoint: '@neural-ui/core/mention', symbol: 'NeuMentionComponent' });
+    assert.equal(mention.contract.selector, 'neu-mention');
     const docs = await call(client, 'search_documentation', { query: 'Signal Forms', limit: 3 });
     assert.ok(docs.results.length > 0);
     const resource = await client.readResource({ uri: docs.results[0].uri });
@@ -39,7 +41,13 @@ export class LocalizedDialog { readonly open = signal(true); }` });
       assert.ok(report.templatesChecked > 0);
     }
     const resources = await client.listResources();
-    assert.equal(resources.resources.filter(item => item.uri.startsWith('neural-ui://')).length, 112);
+    const webResources = resources.resources.map(item => item.uri).filter(uri => uri.startsWith('neural-ui://'));
+    const skillPrefix = 'skills/neural-ui/';
+    const expectedWebResources = [
+      ...webSkillSources('references', '.md').map(path => 'neural-ui://docs/' + path.slice(skillPrefix.length, -3)),
+      ...webSkillSources('examples', '.ts').map(path => 'neural-ui://examples/' + path.slice(skillPrefix.length, -3)),
+    ];
+    assert.deepEqual(webResources.sort(), expectedWebResources.sort());
     assert.ok(resources.resources.some(item => item.uri === 'neural-native://docs/references/forms'));
     await assertChartsNative(client);
     assert.equal(stderr(), '');

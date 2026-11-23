@@ -3,13 +3,13 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { loadCatalog, components, search } from '../../packages/mcp/dist/catalog.js';
 import { analyzeSource } from '../../shared/usage-validator.mjs';
-import { root } from './helpers.mjs';
+import { root, webSkillSources } from './helpers.mjs';
 
 const catalog = loadCatalog();
 test('packaged catalogue equals the canonical API and every reference/example', () => {
   assert.deepEqual(catalog.api, JSON.parse(readFileSync(root + 'evidence/api.json', 'utf8')));
-  assert.equal(catalog.documents.length, 107);
-  assert.equal(catalog.examples.length, 5);
+  assert.deepEqual(catalog.documents.map(doc => doc.source).sort(), webSkillSources('references', '.md'));
+  assert.deepEqual(catalog.examples.map(example => example.source).sort(), webSkillSources('examples', '.ts'));
   for (const doc of [...catalog.documents, ...catalog.examples]) assert.equal(doc.text, readFileSync(root + doc.source, 'utf8'));
   assert.equal(readFileSync(root + 'shared/usage-validator.mjs', 'utf8'), readFileSync(root + 'packages/mcp/dist/usage-validator.mjs', 'utf8'));
 });

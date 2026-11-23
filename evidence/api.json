@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "@neural-ui/core",
-  "version": "2.0.8",
+  "version": "2.1.0",
   "entrypoints": {
     "@neural-ui/core": {
       "types": "./types/neural-ui-core.d.ts",
@@ -4084,6 +4084,79 @@
         }
       ]
     },
+    "@neural-ui/core/filter-builder": {
+      "types": "./types/neural-ui-core-filter-builder.d.ts",
+      "sha256": "9b03cbc2631c22f52f3d78b21e729e33264a1d47ec6fdb8329fbd67afb628774",
+      "symbols": [
+        {
+          "name": "NeuFilterBuilderComponent",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "neu-filter-builder",
+          "inputs": [
+            {
+              "name": "fields",
+              "alias": "fields",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<readonly NeuFilterBuilderField<F>[]>"
+            },
+            {
+              "name": "value",
+              "alias": "value",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<NeuFilterExpression<F> | null>"
+            },
+            {
+              "name": "readonly",
+              "alias": "readonly",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            },
+            {
+              "name": "commit",
+              "alias": "commit",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<\"explicit\" | \"immediate\">"
+            },
+            {
+              "name": "labels",
+              "alias": "labels",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<Partial<NeuFilterBuilderLabels>>"
+            },
+            {
+              "name": "editor",
+              "alias": "editor",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<TemplateRef<NeuFilterBuilderEditorContext<F>> | null>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "valueChange",
+              "alias": "valueChange",
+              "type": "import(\"@angular/core\").OutputEmitterRef<NeuFilterExpression<F> | null>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuFilterBuilderEditorContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "interface NeuFilterBuilderEditorContext<F extends string> {\n    readonly $implicit: NeuFilterConstraint<F>;\n    readonly field: NeuFilterBuilderField<F> | undefined;\n    readonly readonly: boolean;\n    readonly setValue: (value: unknown) => void;\n}"
+        },
+        {
+          "name": "NeuFilterBuilderField",
+          "kind": "InterfaceDeclaration",
+          "declaration": "interface NeuFilterBuilderField<F extends string> {\n    readonly field: F;\n    readonly label: string;\n    readonly rules?: readonly NeuFilterConstraint<F>[\"rule\"][];\n    readonly type?: \"text\" | \"number\";\n}"
+        },
+        {
+          "name": "NeuFilterBuilderLabels",
+          "kind": "InterfaceDeclaration",
+          "declaration": "interface NeuFilterBuilderLabels {\n    readonly root: string;\n    readonly group: string;\n    readonly operator: string;\n    readonly all: string;\n    readonly any: string;\n    readonly field: string;\n    readonly rule: string;\n    readonly value: string;\n    readonly addCondition: string;\n    readonly addGroup: string;\n    readonly remove: string;\n    readonly reset: string;\n    readonly apply: string;\n    readonly invalidValue: string;\n    readonly rules: Record<NeuFilterConstraint<string>[\"rule\"], string>;\n}"
+        }
+      ]
+    },
     "@neural-ui/core/focus-trap": {
       "types": "./types/neural-ui-core-focus-trap.d.ts",
       "sha256": "f7d7cd21dba97d49d5dc498760b1a4febd830401e01fd6c877482b964fbdb12f",
@@ -6883,6 +6956,96 @@
         }
       ]
     },
+    "@neural-ui/core/mention": {
+      "types": "./types/neural-ui-core-mention.d.ts",
+      "sha256": "2bedb5c035154939acb60c6d3c703ed63f7b054a9a8c03673a2d2c559e4879af",
+      "symbols": [
+        {
+          "name": "NeuMentionComponent",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "neu-mention",
+          "inputs": [
+            {
+              "name": "value",
+              "alias": "value",
+              "required": false,
+              "type": "import(\"@angular/core\").ModelSignal<string>"
+            },
+            {
+              "name": "label",
+              "alias": "label",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "suggestions",
+              "alias": "suggestions",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<readonly NeuMentionSuggestion[]>"
+            },
+            {
+              "name": "suggestionsLabel",
+              "alias": "suggestionsLabel",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "disabled",
+              "alias": "disabled",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            },
+            {
+              "name": "readonly",
+              "alias": "readonly",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            },
+            {
+              "name": "required",
+              "alias": "required",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            },
+            {
+              "name": "invalid",
+              "alias": "invalid",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "value",
+              "alias": "valueChange",
+              "type": "import(\"@angular/core\").ModelSignal<string>"
+            },
+            {
+              "name": "queryChange",
+              "alias": "queryChange",
+              "type": "import(\"@angular/core\").OutputEmitterRef<string | null>"
+            },
+            {
+              "name": "suggestionSelected",
+              "alias": "suggestionSelected",
+              "type": "import(\"@angular/core\").OutputEmitterRef<NeuMentionSuggestion>"
+            },
+            {
+              "name": "touch",
+              "alias": "touch",
+              "type": "import(\"@angular/core\").OutputEmitterRef<void>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuMentionSuggestion",
+          "kind": "InterfaceDeclaration",
+          "declaration": "interface NeuMentionSuggestion {\n    readonly value: string;\n    readonly label: string;\n}"
+        }
+      ]
+    },
     "@neural-ui/core/menu": {
       "types": "./types/neural-ui-core-menu.d.ts",
       "sha256": "b43178efbe0495a846659e3b0710aebba6bac3f50065af49bdc6f9b4036eed5a",
@@ -8167,6 +8330,120 @@
         }
       ]
     },
+    "@neural-ui/core/phone-input": {
+      "types": "./types/neural-ui-core-phone-input.d.ts",
+      "sha256": "b88f57dad2e411430fccf805ce611b7ffa03c59256ea44f75b861094ecf36ba8",
+      "symbols": [
+        {
+          "name": "createNeuPhoneInputValue",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function createNeuPhoneInputValue(raw: string, region: NeuPhoneRegion): NeuPhoneInputValue | null;"
+        },
+        {
+          "name": "NeuPhoneInputComponent",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "neu-phone-input",
+          "inputs": [
+            {
+              "name": "value",
+              "alias": "value",
+              "required": false,
+              "type": "import(\"@angular/core\").ModelSignal<NeuPhoneInputValue | null>"
+            },
+            {
+              "name": "defaultRegion",
+              "alias": "defaultRegion",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<import(\"libphonenumber-js/max\").CountryCode>"
+            },
+            {
+              "name": "label",
+              "alias": "label",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "name",
+              "alias": "name",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "hint",
+              "alias": "hint",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "errorMessage",
+              "alias": "errorMessage",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "disabled",
+              "alias": "disabled",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            },
+            {
+              "name": "readonly",
+              "alias": "readonly",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            },
+            {
+              "name": "hidden",
+              "alias": "hidden",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            },
+            {
+              "name": "invalid",
+              "alias": "invalid",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            },
+            {
+              "name": "required",
+              "alias": "required",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            },
+            {
+              "name": "errors",
+              "alias": "errors",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<readonly ValidationError.WithOptionalFieldTree[]>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "value",
+              "alias": "valueChange",
+              "type": "import(\"@angular/core\").ModelSignal<NeuPhoneInputValue | null>"
+            },
+            {
+              "name": "touch",
+              "alias": "touch",
+              "type": "import(\"@angular/core\").OutputEmitterRef<void>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuPhoneInputValue",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuPhoneInputValue {\n    readonly region: NeuPhoneRegion;\n    readonly raw: string;\n    readonly e164: string | null;\n}"
+        },
+        {
+          "name": "NeuPhoneRegion",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type NeuPhoneRegion = CountryCode;"
+        }
+      ]
+    },
     "@neural-ui/core/pick-list": {
       "types": "./types/neural-ui-core-pick-list.d.ts",
       "sha256": "8a8d619319cac710614737e8ef4faafd01e634586b353db8576b8467f58ade4a",
@@ -9187,6 +9464,88 @@
         }
       ]
     },
+    "@neural-ui/core/scheduler": {
+      "types": "./types/neural-ui-core-scheduler.d.ts",
+      "sha256": "0a1d76b975f4927c8ed36ba9aa2f425eb033ccc5a8e85bb832db15d690765dc0",
+      "symbols": [
+        {
+          "name": "Draft",
+          "kind": "InterfaceDeclaration",
+          "declaration": "interface Draft {\n    readonly id: string | null;\n    readonly originalStart: number | null;\n    readonly title: string;\n    readonly start: string;\n    readonly duration: number;\n}"
+        },
+        {
+          "name": "NeuSchedulerComponent",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "neu-scheduler",
+          "inputs": [
+            {
+              "name": "date",
+              "alias": "date",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "timeZone",
+              "alias": "timeZone",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "view",
+              "alias": "view",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<NeuSchedulerView>"
+            },
+            {
+              "name": "events",
+              "alias": "events",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<readonly NeuSchedulerEvent[]>"
+            },
+            {
+              "name": "readonly",
+              "alias": "readonly",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "dateChange",
+              "alias": "dateChange",
+              "type": "import(\"@angular/core\").OutputEmitterRef<string>"
+            },
+            {
+              "name": "viewChange",
+              "alias": "viewChange",
+              "type": "import(\"@angular/core\").OutputEmitterRef<NeuSchedulerView>"
+            },
+            {
+              "name": "eventChange",
+              "alias": "eventChange",
+              "type": "import(\"@angular/core\").OutputEmitterRef<NeuSchedulerEventProposal>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuSchedulerEvent",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuSchedulerEvent {\n    readonly id: string;\n    readonly title: string;\n    readonly start: number;\n    readonly end: number;\n}"
+        },
+        {
+          "name": "NeuSchedulerEventProposal",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type NeuSchedulerEventProposal = {\n    readonly kind: 'create';\n    readonly event: Omit<NeuSchedulerEvent, 'id'>;\n} | {\n    readonly kind: 'update';\n    readonly id: string;\n    readonly event: Omit<NeuSchedulerEvent, 'id'>;\n};"
+        },
+        {
+          "name": "NeuSchedulerView",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type NeuSchedulerView = 'day' | 'week';"
+        }
+      ]
+    },
     "@neural-ui/core/scroll-top": {
       "types": "./types/neural-ui-core-scroll-top.d.ts",
       "sha256": "de710c4c87d074d072c8264bd1cf9600105fe697d8773cdd43d0cad75bb201ac",
@@ -9254,7 +9613,7 @@
     },
     "@neural-ui/core/select": {
       "types": "./types/neural-ui-core-select.d.ts",
-      "sha256": "10f7db1414db4dae1fa993124ea760753baf3638f5c672ef366841042b8c72bb",
+      "sha256": "3b7b65e6add330006b27109242a6457bd594a9cc50536ba317cb16d3f2cc9108",
       "symbols": [
         {
           "name": "NeuOptionAccessor",
@@ -12360,7 +12719,7 @@
     },
     "@neural-ui/core/testing": {
       "types": "./types/neural-ui-core-testing.d.ts",
-      "sha256": "076a6036e76a06708510a5d938d7bd579a305cd7bed92dcf2bff5d18b695ecad",
+      "sha256": "edc34774abc6f3c45dac3cc79653ca6fa0f7a86f877a51f64b3a2c14f43a6c6e",
       "symbols": [
         {
           "name": "captureNeuHydrationSnapshot",
@@ -12474,6 +12833,11 @@
           ]
         },
         {
+          "name": "NeuMenuHarness",
+          "kind": "ClassDeclaration",
+          "members": []
+        },
+        {
           "name": "NeuSelectHarness",
           "kind": "ClassDeclaration",
           "members": [
@@ -12508,9 +12872,24 @@
           ]
         },
         {
+          "name": "NeuTabsHarness",
+          "kind": "ClassDeclaration",
+          "members": []
+        },
+        {
           "name": "NeuTextHarnessFilters",
           "kind": "InterfaceDeclaration",
           "declaration": "export interface NeuTextHarnessFilters extends BaseHarnessFilters {\n    text?: string | RegExp;\n}"
+        },
+        {
+          "name": "NeuTreeSelectHarness",
+          "kind": "ClassDeclaration",
+          "members": []
+        },
+        {
+          "name": "NeuTreeTableHarness",
+          "kind": "ClassDeclaration",
+          "members": []
         }
       ]
     },
@@ -13221,6 +13600,66 @@
           "name": "NeuTooltipPosition",
           "kind": "TypeAliasDeclaration",
           "declaration": "type NeuTooltipPosition = 'top' | 'bottom' | 'left' | 'right';"
+        }
+      ]
+    },
+    "@neural-ui/core/tour": {
+      "types": "./types/neural-ui-core-tour.d.ts",
+      "sha256": "c2625d8e126ee7cddb9d5a3a0e37e651539a36efe29c43338c8e0aba916088c5",
+      "symbols": [
+        {
+          "name": "NeuTourComponent",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "neu-tour",
+          "inputs": [
+            {
+              "name": "steps",
+              "alias": "steps",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<readonly NeuTourStep[]>"
+            },
+            {
+              "name": "index",
+              "alias": "index",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<number>"
+            },
+            {
+              "name": "open",
+              "alias": "open",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<boolean>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "indexChange",
+              "alias": "indexChange",
+              "type": "import(\"@angular/core\").OutputEmitterRef<number>"
+            },
+            {
+              "name": "dismissed",
+              "alias": "dismissed",
+              "type": "import(\"@angular/core\").OutputEmitterRef<void>"
+            },
+            {
+              "name": "completed",
+              "alias": "completed",
+              "type": "import(\"@angular/core\").OutputEmitterRef<void>"
+            },
+            {
+              "name": "targetMissing",
+              "alias": "targetMissing",
+              "type": "import(\"@angular/core\").OutputEmitterRef<string>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuTourStep",
+          "kind": "InterfaceDeclaration",
+          "declaration": "interface NeuTourStep {\n    readonly title: string;\n    readonly description: string;\n    readonly targetId: string;\n}"
         }
       ]
     },

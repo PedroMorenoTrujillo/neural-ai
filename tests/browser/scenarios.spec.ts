@@ -43,7 +43,8 @@ test('Select single writes the scalar model and supports keyboard dismissal', as
 });
 
 test('Table accepts sort and selection proposals in application state', async ({ page }) => {
-  await page.getByRole('columnheader', { name: /Customer/ }).click();
+  await page.getByRole('columnheader', { name: /Customer/ })
+    .getByRole('button', { name: /^Sort Customer;/ }).click();
   await expect(page.getByTestId('table-sort')).toHaveText('asc');
   const rows = page.locator('neu-table tbody tr');
   await expect(rows.first()).toContainText('Ana');

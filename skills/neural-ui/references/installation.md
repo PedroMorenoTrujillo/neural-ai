@@ -1,15 +1,17 @@
 # Installation and configuration
 
-Baseline: @neural-ui/core **2.0.8**, Angular/CDK **22**. Inspect the application's existing versions before installing. Do not use a floating latest tag for this verified baseline.
+Baseline: @neural-ui/core **2.1.0**, Angular/CDK **22**. Inspect the application's existing versions before installing. Do not use a floating latest tag for this verified baseline.
 
 In an existing Angular 22 application:
 
 ```sh
-npm install @neural-ui/core@2.0.8 @angular/cdk@22
+npm install @neural-ui/core@2.1.0 @angular/cdk@22
 npm ls @neural-ui/core @angular/core @angular/common @angular/forms @angular/router @angular/cdk
 ```
 
 The published peers also require @schematics/angular and @angular-devkit/schematics in the 22.x range; these normally come with Angular CLI. Respect the package peer ranges and use compatible Angular packages. Never resolve conflicts with --force or --legacy-peer-deps. The repository's integration fixture pins all Angular packages to 22.2.2 and TypeScript to 6.0.3; that is the tested toolchain, not a promise about every 22.x release.
+
+Install `libphonenumber-js@^1.13.16` in applications that import Phone Input from `@neural-ui/core/phone-input`. Core declares it as an optional peer because the other components can be used without it.
 
 Load the global stylesheet once in the Angular build's global SCSS:
 

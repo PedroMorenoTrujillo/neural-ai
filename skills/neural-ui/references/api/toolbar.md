@@ -1,6 +1,6 @@
 # @neural-ui/core/toolbar
 
-Verified against @neural-ui/core@2.0.8. Generated; do not edit.
+Verified against @neural-ui/core@2.1.0. Generated; do not edit.
 
 Types below are package contracts, not complete application examples. Referenced Angular/internal declaration types do not authorize imports from internal entrypoints.
 
