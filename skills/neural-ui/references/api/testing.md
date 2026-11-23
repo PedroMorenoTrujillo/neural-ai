@@ -1,6 +1,6 @@
 # @neural-ui/core/testing
 
-Verified against @neural-ui/core@2.0.8. Generated; do not edit.
+Verified against @neural-ui/core@2.1.0. Generated; do not edit.
 
 Types below are package contracts, not complete application examples. Referenced Angular/internal declaration types do not authorize imports from internal entrypoints.
 
@@ -146,6 +146,8 @@ focus(): Promise<void>;
 blur(): Promise<void>;
 ```
 
+## NeuMenuHarness
+
 ## NeuSelectHarness
 
 Supported imperative members:
@@ -183,6 +185,8 @@ getHeaderTexts(): Promise<string[]>;
 getCellText(row: number, column: number): Promise<string>;
 ```
 
+## NeuTabsHarness
+
 ## NeuTextHarnessFilters
 
 ```typescript
@@ -190,4 +194,8 @@ export interface NeuTextHarnessFilters extends BaseHarnessFilters {
     text?: string | RegExp;
 }
 ```
+
+## NeuTreeSelectHarness
+
+## NeuTreeTableHarness
 

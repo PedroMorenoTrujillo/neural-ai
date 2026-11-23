@@ -1,32 +1,26 @@
 {
   "scopes": [
-    "native",
-    "charts-native"
+    "web"
   ],
-  "frameworkVersionsChanged": true,
-  "framework": {
-    "from": "0.23.0",
-    "to": "0.25.0",
-    "review": "Manual migration, strict consumers and complete Android/iOS native acceptance."
-  },
+  "frameworkVersionsChanged": false,
   "updates": {
-    "native": {
-      "package": "@neural-ui/native",
-      "from": "0.1.0-beta.8",
-      "to": "0.1.0-beta.9",
-      "publication": "https://github.com/PedroMorenoTrujillo/neural-native/actions/runs/44869433533",
+    "web": {
+      "package": "@neural-ui/core",
+      "from": "2.0.8",
+      "to": "2.1.0",
+      "publication": "https://github.com/PedroMorenoTrujillo/neural-ui-workspace/actions/runs/45159365644",
       "api": {
-        "added": [],
-        "breaking": []
-      }
-    },
-    "charts-native": {
-      "package": "@neural-charts/native",
-      "from": "0.1.0-beta.6",
-      "to": "0.1.0-beta.7",
-      "publication": "https://github.com/PedroMorenoTrujillo/neural-charts-native-library/actions/runs/44870200073",
-      "api": {
-        "added": [],
+        "added": [
+          "New entrypoint @neural-ui/core/filter-builder",
+          "New entrypoint @neural-ui/core/mention",
+          "New entrypoint @neural-ui/core/phone-input",
+          "New entrypoint @neural-ui/core/scheduler",
+          "New export @neural-ui/core/testing#NeuMenuHarness",
+          "New export @neural-ui/core/testing#NeuTabsHarness",
+          "New export @neural-ui/core/testing#NeuTreeSelectHarness",
+          "New export @neural-ui/core/testing#NeuTreeTableHarness",
+          "New entrypoint @neural-ui/core/tour"
+        ],
         "breaking": []
       }
     }

@@ -1,4 +1,4 @@
-# Public API — @neural-ui/core@2.0.8
+# Public API — @neural-ui/core@2.1.0
 
 Generated from the installed npm declarations, filtered by the reviewed upstream support policy. Read only the relevant entrypoint. Angular metadata and private implementation methods are excluded.
 
@@ -38,6 +38,7 @@ Generated from the installed npm declarations, filtered by the reviewed upstream
 | [@neural-ui/core/drag-drop](drag-drop.md) | 16 |
 | [@neural-ui/core/empty-state](empty-state.md) | 3 |
 | [@neural-ui/core/filter-bar](filter-bar.md) | 2 |
+| [@neural-ui/core/filter-builder](filter-builder.md) | 4 |
 | [@neural-ui/core/focus-trap](focus-trap.md) | 1 |
 | [@neural-ui/core/form-field](form-field.md) | 3 |
 | [@neural-ui/core/foundation](foundation.md) | 25 |
@@ -53,6 +54,7 @@ Generated from the installed npm declarations, filtered by the reviewed upstream
 | [@neural-ui/core/knob](knob.md) | 1 |
 | [@neural-ui/core/listbox](listbox.md) | 32 |
 | [@neural-ui/core/mega-menu](mega-menu.md) | 15 |
+| [@neural-ui/core/mention](mention.md) | 2 |
 | [@neural-ui/core/menu](menu.md) | 6 |
 | [@neural-ui/core/meter-group](meter-group.md) | 2 |
 | [@neural-ui/core/modal](modal.md) | 5 |
@@ -63,6 +65,7 @@ Generated from the installed npm declarations, filtered by the reviewed upstream
 | [@neural-ui/core/pagination](pagination.md) | 2 |
 | [@neural-ui/core/panel](panel.md) | 5 |
 | [@neural-ui/core/password](password.md) | 1 |
+| [@neural-ui/core/phone-input](phone-input.md) | 4 |
 | [@neural-ui/core/pick-list](pick-list.md) | 16 |
 | [@neural-ui/core/popover](popover.md) | 3 |
 | [@neural-ui/core/progress-bar](progress-bar.md) | 2 |
@@ -70,6 +73,7 @@ Generated from the installed npm declarations, filtered by the reviewed upstream
 | [@neural-ui/core/rating](rating.md) | 1 |
 | [@neural-ui/core/rich-text-editor](rich-text-editor.md) | 5 |
 | [@neural-ui/core/ripple](ripple.md) | 1 |
+| [@neural-ui/core/scheduler](scheduler.md) | 5 |
 | [@neural-ui/core/scroll-top](scroll-top.md) | 4 |
 | [@neural-ui/core/select](select.md) | 36 |
 | [@neural-ui/core/sidebar](sidebar.md) | 1 |
@@ -86,7 +90,7 @@ Generated from the installed npm declarations, filtered by the reviewed upstream
 | [@neural-ui/core/tabs](tabs.md) | 6 |
 | [@neural-ui/core/tag](tag.md) | 4 |
 | [@neural-ui/core/terminal](terminal.md) | 4 |
-| [@neural-ui/core/testing](testing.md) | 19 |
+| [@neural-ui/core/testing](testing.md) | 23 |
 | [@neural-ui/core/textarea](textarea.md) | 1 |
 | [@neural-ui/core/timeline](timeline.md) | 8 |
 | [@neural-ui/core/timeline-grid](timeline-grid.md) | 6 |
@@ -94,6 +98,7 @@ Generated from the installed npm declarations, filtered by the reviewed upstream
 | [@neural-ui/core/toggle-button-group](toggle-button-group.md) | 8 |
 | [@neural-ui/core/toolbar](toolbar.md) | 5 |
 | [@neural-ui/core/tooltip](tooltip.md) | 2 |
+| [@neural-ui/core/tour](tour.md) | 2 |
 | [@neural-ui/core/tree](tree.md) | 33 |
 | [@neural-ui/core/tree-select](tree-select.md) | 16 |
 | [@neural-ui/core/tree-table](tree-table.md) | 99 |
