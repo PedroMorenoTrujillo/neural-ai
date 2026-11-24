@@ -1,34 +1,16 @@
 {
   "scopes": [
-    "native",
     "charts-native"
   ],
   "frameworkVersionsChanged": false,
   "updates": {
-    "native": {
-      "package": "@neural-ui/native",
-      "from": "0.1.0-beta.10",
-      "to": "0.1.0-beta.11",
-      "publication": "https://github.com/PedroMorenoTrujillo/neural-native/actions/runs/45344149340",
-      "api": {
-        "added": [
-          "New export @neural-ui/native#NeuSectionListComponent",
-          "New export @neural-ui/native#NeuSectionListSection",
-          "New export @neural-ui/native#NeuSectionListSelection",
-          "New entrypoint @neural-ui/native/section-list"
-        ],
-        "breaking": []
-      }
-    },
     "charts-native": {
       "package": "@neural-charts/native",
-      "from": "0.1.0-beta.8",
-      "to": "0.1.0-beta.10",
-      "publication": "https://github.com/PedroMorenoTrujillo/neural-charts-native-library/actions/runs/45344149383",
+      "from": "0.1.0-beta.10",
+      "to": "0.1.0-beta.11",
+      "publication": "https://github.com/PedroMorenoTrujillo/neural-charts-native-library/actions/runs/45361285558",
       "api": {
-        "added": [
-          "New export @neural-charts/native#NativeChartNavigator"
-        ],
+        "added": [],
         "breaking": []
       }
     }

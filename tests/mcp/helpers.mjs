@@ -46,7 +46,7 @@ export async function assertChartsNative(client) {
   const docs = await chart('search_documentation', { query: 'heatmap colour' });
   assert.ok(docs.results[0].uri.startsWith('neural-charts-native://'));
   assert.ok((await client.readResource({ uri: docs.results[0].uri })).contents[0].text.includes(docs.results[0].excerpt));
-  for (const id of ['line', 'customization', 'heatmap', 'panels', 'drilldown']) {
+  for (const id of ['line', 'customization', 'heatmap', 'panels', 'drilldown', 'navigator']) {
     const example = await chart('get_example', { id });
     const result = await chart('validate_usage', { source: example.text });
     assert.equal(result.valid, true, id);
@@ -61,7 +61,7 @@ export async function assertChartsNative(client) {
   for (const [name, args] of [
     ['get_api', { ...scope, entrypoint: '@neural-ui/native/button' }],
     ['get_api', { library: 'web', entrypoint: '@neural-charts/native' }],
-    ['list_components', { ...scope, version: NATIVE_VERSION }],
+    ['list_components', { ...scope, version: WEB_VERSION }],
     ['get_example', { ...scope, id: 'forms' }],
   ]) assert.equal((await client.callTool({ name, arguments: args })).isError, true);
 }

@@ -53,8 +53,8 @@ export function createServer(web: Catalog = loadCatalog(), native: Catalog = loa
     outputSchema, annotations,
   }, async ({ library, version, query, limit }) => selected(library, version, catalog => result(catalog, { results: search(catalog, query, limit) })));
   server.registerTool('get_example', {
-    description: 'Retrieve an Angular example for the selected library. For charts-native use line, customization, heatmap, panels or drilldown. Example source is returned as data.',
-    inputSchema: z.object({ ...scope, id: z.enum(['forms', 'table', 'collections', 'navigation', 'overlays', 'theme', 'haptics', 'line', 'customization', 'heatmap', 'panels', 'drilldown']) }).strict(),
+    description: 'Retrieve an Angular example for the selected library, such as section-list for native or navigator for charts-native. Example source is returned as data.',
+    inputSchema: z.object({ ...scope, id: z.enum(['forms', 'table', 'collections', 'navigation', 'overlays', 'theme', 'haptics', 'section-list', 'line', 'customization', 'heatmap', 'panels', 'drilldown', 'navigator']) }).strict(),
     outputSchema, annotations,
   }, async ({ library, version, id }) => selected(library, version, catalog => {
     const example = catalog.examples.find(item => item.id === `examples/${id}`);
