@@ -1,13 +1,13 @@
 # Installation and renderer boundary
 
-Reviewed: Neural Native `0.1.0-beta.10`, Angular Native `0.27.0`, Angular `22.2.2`, TypeScript `6.0.3`. Use the app's generated tooling and lockfile.
+Reviewed: Neural Native `0.1.0-beta.11`, Angular Native `0.27.0`, Angular `22.2.2`, TypeScript `6.0.3`. Use the app's generated tooling and lockfile.
 
 For a new app, follow the official template:
 
 ```sh
 npx create-expo-app@latest my-neural-app --template @ng-native/template@0.27.0
 cd my-neural-app
-npm install --save-exact @neural-ui/native@0.1.0-beta.10
+npm install --save-exact @neural-ui/native@0.1.0-beta.11
 ```
 
 In an existing compatible app only the last command is needed. Keep `@ng-native/components`, `device`, `fabric`, `icons` and the app's other framework packages aligned to the same compatible release. The package requires `react-native-svg` 15.15.4. Its published README's tested application baseline is Expo 57.0.27 / React Native 0.86.3; additional native modules must exist in the Expo/runtime or development build.

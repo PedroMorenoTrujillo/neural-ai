@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "package": "@neural-charts/native",
-  "version": "0.1.0-beta.8",
+  "version": "0.1.0-beta.10",
   "entrypoints": {
     "@neural-charts/native": {
       "types": "./native/index.d.ts",
-      "sha256": "db8d335feb60be41afee9e5f805a1b080ec61d98efa6ed46d01a064dca0aa003",
+      "sha256": "e492c25ca56e2cbbec21a37e9e97ee1e9974122c3371abc634d43f667441e70d",
       "symbols": [
         {
           "name": "CHART_INPUT_BRIDGE",
@@ -618,6 +618,28 @@
           "name": "NativeChartLegendLabelContext",
           "kind": "TypeAliasDeclaration",
           "declaration": "export type NativeChartLegendLabelContext = NativeLegendItem & Readonly<{\n    text: string;\n}>;"
+        },
+        {
+          "name": "NativeChartNavigator",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "neu-c-navigator, nc-chart-navigator",
+          "inputs": [
+            {
+              "name": "chart",
+              "alias": "chart",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<NavigatorChart>"
+            },
+            {
+              "name": "seriesId",
+              "alias": "seriesId",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string | undefined>"
+            }
+          ],
+          "outputs": [],
+          "members": []
         },
         {
           "name": "NativeChartOptionGroups",

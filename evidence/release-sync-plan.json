@@ -3,30 +3,32 @@
     "native",
     "charts-native"
   ],
-  "frameworkVersionsChanged": true,
-  "framework": {
-    "from": "0.25.0",
-    "to": "0.27.0",
-    "review": "Manual update and standalone Android/iOS acceptance"
-  },
+  "frameworkVersionsChanged": false,
   "updates": {
     "native": {
       "package": "@neural-ui/native",
-      "from": "0.1.0-beta.9",
-      "to": "0.1.0-beta.10",
-      "publication": "https://github.com/PedroMorenoTrujillo/neural-native/actions/runs/45291235002",
+      "from": "0.1.0-beta.10",
+      "to": "0.1.0-beta.11",
+      "publication": "https://github.com/PedroMorenoTrujillo/neural-native/actions/runs/45344149340",
       "api": {
-        "added": [],
+        "added": [
+          "New export @neural-ui/native#NeuSectionListComponent",
+          "New export @neural-ui/native#NeuSectionListSection",
+          "New export @neural-ui/native#NeuSectionListSelection",
+          "New entrypoint @neural-ui/native/section-list"
+        ],
         "breaking": []
       }
     },
     "charts-native": {
       "package": "@neural-charts/native",
-      "from": "0.1.0-beta.7",
-      "to": "0.1.0-beta.8",
-      "publication": "https://github.com/PedroMorenoTrujillo/neural-charts-native-library/actions/runs/45292086229",
+      "from": "0.1.0-beta.8",
+      "to": "0.1.0-beta.10",
+      "publication": "https://github.com/PedroMorenoTrujillo/neural-charts-native-library/actions/runs/45344149383",
       "api": {
-        "added": [],
+        "added": [
+          "New export @neural-charts/native#NativeChartNavigator"
+        ],
         "breaking": []
       }
     }

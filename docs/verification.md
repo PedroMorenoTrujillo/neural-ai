@@ -1,5 +1,11 @@
 # Verificación de Neural AI
 
+## Listas y selector de rango · skills Native 0.1.7 y Charts Native 0.1.4 · MCP 0.3.8
+
+Los catálogos fijan `@neural-ui/native@0.1.0-beta.11` y `@neural-charts/native@0.1.0-beta.10`. Los dos usan Angular Native 0.27.0. Charts Native conserva `@neural-charts/core@0.1.3`.
+
+Los ejemplos incluyen una Section List con refresco controlado y un selector de rango conectado a un gráfico de líneas tipado. El consumidor conjunto comprueba la resolución de los paquetes y compila ambos controles con Angular en modo estricto. Cada biblioteca también se verificó por separado en los laboratorios de Android e iOS.
+
 ## Angular Native 0.27.0 · skills Native 0.1.6 y Charts Native 0.1.3 · MCP 0.3.7
 
 Base de los catálogos nativos: **@neural-ui/native 0.1.0-beta.10**, **@neural-charts/native 0.1.0-beta.8** y **Angular Native 0.27.0**. El catálogo web usa Core 2.1.0.

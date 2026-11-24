@@ -22,6 +22,8 @@ Set `colorAxis.scale` to a continuous scale with stops or a set of ordered value
 
 Use `NativeChartPanels` and `NativeChartPanelsData` for a group of supported charts. Give each panel its own ID and data. Link series visibility or X viewports explicitly where needed. Each panel keeps its own axes and units.
 
+For a numeric or time line chart, enable its X viewport and pass its template reference to `<neu-c-navigator [chart]="chart" />`. The chart applies the selected window when the drag ends. The reset control restores the full X domain and keeps any Y zoom. [See the typed example](../examples/navigator.ts).
+
 Use `NativeChartDrilldown` with `NativeChartDrilldownData` for hierarchical navigation. Set a root node and explicit datum-to-node links. Listen to `navigationChange` for the selected node and trail. [Component API](https://charts-native.neuralui.org/docs/api)
 
 ## Verify touch and accessibility

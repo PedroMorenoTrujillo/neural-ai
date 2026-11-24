@@ -57,7 +57,7 @@
     "@angular/ssr": "22.2.2",
     "@modelcontextprotocol/client": "2.3.1",
     "@neural-ui/core": "2.1.0",
-    "@neural-ui/native": "0.1.0-beta.10",
+    "@neural-ui/native": "0.1.0-beta.11",
     "@ng-native/components": "0.27.0",
     "@ng-native/device": "0.27.0",
     "@ng-native/fabric": "0.27.0",

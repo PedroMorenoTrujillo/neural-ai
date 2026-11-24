@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "package": {
     "name": "@neural-ui/native",
-    "version": "0.1.0-beta.10",
-    "tarball": "https://registry.npmjs.org/@neural-ui/native/-/native-0.1.0-beta.10.tgz",
-    "integrity": "sha512-QyXYOW3UchdeQwaIlFWrp7id5R+Tsb6xIhZ7RnErp+taUOjuqaMBeGUvVifgbb4wMte0OyVmCkBBDk7fT8eXeQ==",
-    "shasum": "4361fc854bbceab499794f4cccc8ed1a771d7b07"
+    "version": "0.1.0-beta.11",
+    "tarball": "https://registry.npmjs.org/@neural-ui/native/-/native-0.1.0-beta.11.tgz",
+    "integrity": "sha512-VYDyspweVr711ykR6nt3x4Q4ZEMfaBS3LHah64cL+zo5Xsgj/ruWDeqw11Zi30NqFeKmJ7OZn9jHSEUOHvOymw==",
+    "shasum": "36f8e387e84c051cf43c854d9bd1337973e951fc"
   },
   "source": {
     "repository": "https://github.com/PedroMorenoTrujillo/neural-native",
-    "commit": "6618b881d14f05078102e25601cf78517d3b37c9"
+    "commit": "a6d11800f130ad37087472b6305d0ff78a5bf9f4"
   },
   "framework": {
     "angular": "22.2.2",
@@ -17,5 +17,5 @@
   },
   "documentation": "https://native.neuralui.org/en/installation",
   "verifiedOn": "2026-11-24",
-  "publicationRun": "45291235002"
+  "publicationRun": "45344149340"
 }
