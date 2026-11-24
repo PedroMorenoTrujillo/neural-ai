@@ -1,10 +1,10 @@
-# Public API — @neural-ui/native@0.1.0-beta.10
+# Public API — @neural-ui/native@0.1.0-beta.11
 
 Generated from the installed npm declarations, filtered by the reviewed upstream support policy. Read only the relevant entrypoint. Angular metadata and private implementation methods are excluded.
 
 | Entrypoint | Exports |
 | --- | ---: |
-| [@neural-ui/native](core.md) | 123 |
+| [@neural-ui/native](core.md) | 126 |
 | [@neural-ui/native/accordion](accordion.md) | 1 |
 | [@neural-ui/native/alert](alert.md) | 2 |
 | [@neural-ui/native/autocomplete](autocomplete.md) | 1 |
@@ -52,6 +52,7 @@ Generated from the installed npm declarations, filtered by the reviewed upstream
 | [@neural-ui/native/progress-bar](progress-bar.md) | 1 |
 | [@neural-ui/native/radio](radio.md) | 1 |
 | [@neural-ui/native/rating](rating.md) | 1 |
+| [@neural-ui/native/section-list](section-list.md) | 3 |
 | [@neural-ui/native/select](select.md) | 5 |
 | [@neural-ui/native/sidebar](sidebar.md) | 1 |
 | [@neural-ui/native/skeleton](skeleton.md) | 3 |

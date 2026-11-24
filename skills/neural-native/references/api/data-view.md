@@ -1,6 +1,6 @@
 # @neural-ui/native/data-view
 
-Verified against @neural-ui/native@0.1.0-beta.10. Generated; do not edit.
+Verified against @neural-ui/native@0.1.0-beta.11. Generated; do not edit.
 
 Types below are package contracts, not complete application examples. Referenced Angular/internal declaration types do not authorize imports from internal entrypoints.
 
@@ -12,6 +12,7 @@ Selector: `neu-data-view`
 | --- | --- | --- |
 | items | no | `import("@angular/core").InputSignal<readonly NeuOption[]>` |
 | itemTemplate | no | `import("@angular/core").InputSignal<TemplateRef<NeuDataViewItemContext> \| undefined>` |
+| virtualHeight | no | `import("@angular/core").InputSignal<number \| undefined>` |
 | query | no | `import("@angular/core").ModelSignal<string>` |
 | descending | no | `import("@angular/core").ModelSignal<boolean>` |
 | loading | no | `import("@angular/core").InputSignalWithTransform<boolean, unknown>` |

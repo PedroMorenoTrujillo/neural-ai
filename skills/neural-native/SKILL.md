@@ -4,15 +4,15 @@ description: Build or debug native iOS and Android Angular interfaces with @neur
 license: MIT
 metadata:
   author: PedroMorenoTrujillo
-  version: "0.1.6"
-  neural-native-version: "0.1.0-beta.10"
+  version: "0.1.7"
+  neural-native-version: "0.1.0-beta.11"
   angular-native-version: "0.27.0"
   angular-version: "22.2.2"
 ---
 
 # Neural Native
 
-Build against the installed npm package, not a similarly named Web control. Read package.json and the lockfile before selecting APIs. This skill's reviewed baseline is **@neural-ui/native 0.1.0-beta.10 with Angular Native 0.27.0**. If the app differs, check its installed public declarations and describe the compatibility gap before changing dependencies.
+Build against the installed npm package, not a similarly named Web control. Read package.json and the lockfile before selecting APIs. This skill's reviewed baseline is **@neural-ui/native 0.1.0-beta.11 with Angular Native 0.27.0**. If the app differs, check its installed public declarations and describe the compatibility gap before changing dependencies.
 
 ## Essential decisions
 
@@ -30,6 +30,7 @@ Build against the installed npm package, not a similarly named Web control. Read
 | Start an app or align dependencies | [Installation](references/installation.md) | [Profile form](examples/forms.ts) |
 | Inputs, validation or selection | [Forms and state](references/forms.md) | [Profile form](examples/forms.ts) |
 | Discover a component or import | [Components](references/components.md), then [API index](references/api/index.md) | [Collections](examples/collections.ts) |
+| Group a feed and refresh it | [Section List](references/api/section-list.md) | [Activity list](examples/section-list.ts) |
 | Modal content, slots or item templates | [Customization](references/customization.md) | [Overlay](examples/overlays.ts) |
 | Navigation state and screen composition | [Navigation](references/navigation.md) | [Navigation](examples/navigation.ts) |
 | Brand, light/dark or tokens | [Theming](references/theming.md), [token contract](references/api/tokens.md) | [Theme](examples/theme.ts) |
@@ -41,7 +42,7 @@ The examples are standalone Angular components. Import them into the existing na
 
 ## Optional MCP
 
-When the expanded Neural MCP is available, pass `library: "native"` on every tool call and pin `version: "0.1.0-beta.10"`. Discover exports with `list_components`, obtain the relevant `get_api` contract, then retrieve only the example/reference needed. The MCP defaults to **Web** when the library is omitted. Never interpret a Web result as a Native contract.
+When the expanded Neural MCP is available, pass `library: "native"` on every tool call and pin `version: "0.1.0-beta.11"`. Discover exports with `list_components`, obtain the relevant `get_api` contract, then retrieve only the example/reference needed. The MCP defaults to **Web** when the library is omitted. Never interpret a Web result as a Native contract.
 
 Use `validate_usage` for static feedback, then compile with strict Angular templates and exercise the interaction. Static success does not type-check expressions, execute code, inspect external templates, or prove native accessibility. Browser preview checks do not certify iOS/Android behavior.
 

@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "package": "@neural-ui/native",
-  "version": "0.1.0-beta.10",
+  "version": "0.1.0-beta.11",
   "entrypoints": {
     "@neural-ui/native": {
       "types": "./dist/index.d.ts",
-      "sha256": "5b19365dec13edadd0d640fd1b9bdb49d3623437d2bda6c77e173c20b22b63c6",
+      "sha256": "42f7c5bdeace97d0f8cb175b5fa9754a41f87f18d7bc241d06c090132b3e2d73",
       "symbols": [
         {
           "name": "formatMask",
@@ -1320,6 +1320,12 @@
               "alias": "itemTemplate",
               "required": false,
               "type": "import(\"@angular/core\").InputSignal<TemplateRef<NeuDataViewItemContext> | undefined>"
+            },
+            {
+              "name": "virtualHeight",
+              "alias": "virtualHeight",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<number | undefined>"
             },
             {
               "name": "query",
@@ -3449,6 +3455,103 @@
             }
           ],
           "members": []
+        },
+        {
+          "name": "NeuSectionListComponent",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "neu-section-list",
+          "inputs": [
+            {
+              "name": "sections",
+              "alias": "sections",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<readonly NeuSectionListSection[]>"
+            },
+            {
+              "name": "height",
+              "alias": "height",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<number>"
+            },
+            {
+              "name": "itemHeight",
+              "alias": "itemHeight",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<number | undefined>"
+            },
+            {
+              "name": "headerHeight",
+              "alias": "headerHeight",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<number | undefined>"
+            },
+            {
+              "name": "stickyHeaders",
+              "alias": "stickyHeaders",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignalWithTransform<boolean, unknown>"
+            },
+            {
+              "name": "loading",
+              "alias": "loading",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignalWithTransform<boolean, unknown>"
+            },
+            {
+              "name": "error",
+              "alias": "error",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "emptyLabel",
+              "alias": "emptyLabel",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "refreshEnabled",
+              "alias": "refreshEnabled",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignalWithTransform<boolean, unknown>"
+            },
+            {
+              "name": "refreshing",
+              "alias": "refreshing",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignalWithTransform<boolean, unknown>"
+            },
+            {
+              "name": "refreshLabel",
+              "alias": "refreshLabel",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "selected",
+              "alias": "selected",
+              "type": "import(\"@angular/core\").OutputEmitterRef<NeuSectionListSelection>"
+            },
+            {
+              "name": "refresh",
+              "alias": "refresh",
+              "type": "import(\"@angular/core\").OutputEmitterRef<void>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuSectionListSection",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuSectionListSection {\n    readonly key: string;\n    readonly title: string;\n    readonly data: readonly NeuOption[];\n}"
+        },
+        {
+          "name": "NeuSectionListSelection",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuSectionListSelection {\n    readonly sectionKey: string;\n    readonly itemId: string;\n}"
         },
         {
           "name": "NeuSelectComponent",
@@ -6292,6 +6395,12 @@
               "type": "import(\"@angular/core\").InputSignal<TemplateRef<NeuDataViewItemContext> | undefined>"
             },
             {
+              "name": "virtualHeight",
+              "alias": "virtualHeight",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<number | undefined>"
+            },
+            {
               "name": "query",
               "alias": "query",
               "required": false,
@@ -8692,6 +8801,109 @@
             }
           ],
           "members": []
+        }
+      ]
+    },
+    "@neural-ui/native/section-list": {
+      "types": "./dist/section-list/index.d.ts",
+      "sha256": "7390a200aeca6b0f6d985a39fb24ec90412f5aa216d6dc25011e68a70d0d99c4",
+      "symbols": [
+        {
+          "name": "NeuSectionListComponent",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "neu-section-list",
+          "inputs": [
+            {
+              "name": "sections",
+              "alias": "sections",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<readonly NeuSectionListSection[]>"
+            },
+            {
+              "name": "height",
+              "alias": "height",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<number>"
+            },
+            {
+              "name": "itemHeight",
+              "alias": "itemHeight",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<number | undefined>"
+            },
+            {
+              "name": "headerHeight",
+              "alias": "headerHeight",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<number | undefined>"
+            },
+            {
+              "name": "stickyHeaders",
+              "alias": "stickyHeaders",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignalWithTransform<boolean, unknown>"
+            },
+            {
+              "name": "loading",
+              "alias": "loading",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignalWithTransform<boolean, unknown>"
+            },
+            {
+              "name": "error",
+              "alias": "error",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "emptyLabel",
+              "alias": "emptyLabel",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "refreshEnabled",
+              "alias": "refreshEnabled",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignalWithTransform<boolean, unknown>"
+            },
+            {
+              "name": "refreshing",
+              "alias": "refreshing",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignalWithTransform<boolean, unknown>"
+            },
+            {
+              "name": "refreshLabel",
+              "alias": "refreshLabel",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "selected",
+              "alias": "selected",
+              "type": "import(\"@angular/core\").OutputEmitterRef<NeuSectionListSelection>"
+            },
+            {
+              "name": "refresh",
+              "alias": "refresh",
+              "type": "import(\"@angular/core\").OutputEmitterRef<void>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuSectionListSection",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuSectionListSection {\n    readonly key: string;\n    readonly title: string;\n    readonly data: readonly NeuOption[];\n}"
+        },
+        {
+          "name": "NeuSectionListSelection",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface NeuSectionListSelection {\n    readonly sectionKey: string;\n    readonly itemId: string;\n}"
         }
       ]
     },

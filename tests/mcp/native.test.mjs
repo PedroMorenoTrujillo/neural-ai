@@ -10,7 +10,7 @@ import { tokenDefaults } from '../../scripts/native-api.mjs';
 const catalog = loadCatalog('native');
 test('Native catalogue has exact npm-derived bindings, tokens and canonical references', () => {
   assert.deepEqual(catalog.api, JSON.parse(readFileSync(root+'evidence/native-api.json')));
-  assert.equal(Object.keys(catalog.api.entrypoints).length,68);
+  assert.equal(Object.keys(catalog.api.entrypoints).length,69);
   assert.equal(catalog.api.tokens.length,28);
   for(const doc of [...catalog.documents,...catalog.examples]) assert.equal(doc.text,readFileSync(root+doc.source,'utf8'));
   const input=catalog.api.entrypoints['@neural-ui/native/input'].symbols.find(x=>x.name==='NeuInputComponent');
@@ -19,6 +19,12 @@ test('Native catalogue has exact npm-derived bindings, tokens and canonical refe
   assert(!input.members.some(x=>x.includes('activate')||x.includes('ɵ')));
   assert.equal(components(catalog,'NeuButtonComponent').length,1);
   assert.equal(components(catalog,'NeuButtonComponent')[0].selector,'neu-button');
+  const sectionList=catalog.api.entrypoints['@neural-ui/native/section-list'].symbols.find(x=>x.name==='NeuSectionListComponent');
+  assert.equal(sectionList.selector,'neu-section-list');
+  assert(sectionList.inputs.some(x=>x.alias==='refreshing'));
+  assert(sectionList.outputs.some(x=>x.alias==='refresh'));
+  const dataView=catalog.api.entrypoints['@neural-ui/native/data-view'].symbols.find(x=>x.name==='NeuDataViewComponent');
+  assert(dataView.inputs.some(x=>x.alias==='virtualHeight'));
   assert(search(catalog,'safe area',3).every(x=>x.uri.startsWith('neural-native://docs/')));
 });
 test('Native haptics exposes the real optional adapter and service contract', () => {
