@@ -1,5 +1,9 @@
 # Verificación de Neural AI
 
+## Charts Core 0.1.5 · skill Charts Native 0.1.5 · MCP 0.3.9
+
+El catálogo de Charts Native usa `@neural-charts/native@0.1.0-beta.11` con `@neural-charts/core@0.1.5` y Angular Native 0.27.0. El consumidor conjunto instala ambas bibliotecas Native desde npm y compila los ejemplos de Charts con Angular en modo estricto. Las pruebas del laboratorio verificaron selección táctil, zoom y selector de rango en Android e iOS.
+
 ## Listas y selector de rango · skills Native 0.1.7 y Charts Native 0.1.4 · MCP 0.3.8
 
 Los catálogos fijan `@neural-ui/native@0.1.0-beta.11` y `@neural-charts/native@0.1.0-beta.10`. Los dos usan Angular Native 0.27.0. Charts Native conserva `@neural-charts/core@0.1.3`.

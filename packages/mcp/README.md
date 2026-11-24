@@ -1,6 +1,6 @@
 # neural-ui-mcp
 
-Servidor MCP oficial de Neural UI v2, Neural Native y Neural Charts Native. Es local y de solo lectura. La versión **0.3.8** contiene **@neural-charts/native 0.1.0-beta.10** con `library: "charts-native"`. Conserva **@neural-ui/native 0.1.0-beta.11** con `library: "native"` y **@neural-ui/core 2.1.0** con `library: "web"` como catálogo predeterminado. Licencia MIT. Node **22.22.3 o posterior**.
+Servidor MCP oficial de Neural UI v2, Neural Native y Neural Charts Native. Es local y de solo lectura. La versión **0.3.9** contiene **@neural-charts/native 0.1.0-beta.11** con `library: "charts-native"`. Conserva **@neural-ui/native 0.1.0-beta.11** con `library: "native"` y **@neural-ui/core 2.1.0** con `library: "web"` como catálogo predeterminado. Licencia MIT. Node **22.22.3 o posterior**.
 
 [neural-ui-mcp@0.3.5](https://www.npmjs.com/package/neural-ui-mcp) incluye los tres catálogos. La versión anterior 0.1.0 solo cubre Web. No requiere backend, cuenta, claves, conexión de red durante la ejecución ni servicios de IA. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
 
@@ -78,7 +78,7 @@ Sintaxis contrastada con [Codex MCP](https://developers.openai.com/codex/mcp/) y
 | `get_example` | `id` del ejemplo en el catálogo seleccionado | Fuente del ejemplo validado |
 | `validate_usage` | `source`, `filename?` | Errores y advertencias estáticas; `compilationChecked: false` |
 
-Los métodos de catálogo aceptan `library: "web" | "native" | "charts-native"` (predeterminado `web`) y una versión opcional que debe coincidir con el catálogo: Web `2.1.0`, Native `0.1.0-beta.11` y Charts Native `0.1.0-beta.10`. Las respuestas conservan `{ version, data }`, datos estructurados y texto JSON equivalente. Los errores de mezcla de catálogo o versión se rechazan; no hay conversión implícita. Para proyectos fijados a Core 2.0.3, conserva MCP 0.2.1 y la skill Web 0.1.1; para Core 2.0.1, conserva MCP 0.2.0 y la skill Web 0.1.0 hasta actualizar su baseline. La validación detecta imports internos, símbolos desconocidos, inputs/outputs inexistentes, inputs requeridos ausentes y propietarios de formulario en conflicto, dentro del alcance descrito abajo.
+Los métodos de catálogo aceptan `library: "web" | "native" | "charts-native"` (predeterminado `web`) y una versión opcional que debe coincidir con el catálogo: Web `2.1.0`, Native `0.1.0-beta.11` y Charts Native `0.1.0-beta.11`. Las respuestas conservan `{ version, data }`, datos estructurados y texto JSON equivalente. Los errores de mezcla de catálogo o versión se rechazan; no hay conversión implícita. Para proyectos fijados a Core 2.0.3, conserva MCP 0.2.1 y la skill Web 0.1.1; para Core 2.0.1, conserva MCP 0.2.0 y la skill Web 0.1.0 hasta actualizar su baseline. La validación detecta imports internos, símbolos desconocidos, inputs/outputs inexistentes, inputs requeridos ausentes y propietarios de formulario en conflicto, dentro del alcance descrito abajo.
 
 Ejemplo de argumentos para `get_api`:
 
@@ -94,7 +94,7 @@ Native usa el espacio separado `neural-native://docs/references/forms` y `neural
 
 ## Neural Charts Native
 
-Usa `library: "charts-native"` y `version: "0.1.0-beta.10"`. Los tres puntos de entrada son `@neural-charts/native`, `@neural-charts/native/plan` y `@neural-charts/native/interaction`.
+Usa `library: "charts-native"` y `version: "0.1.0-beta.11"`. Los tres puntos de entrada son `@neural-charts/native`, `@neural-charts/native/plan` y `@neural-charts/native/interaction`.
 
 - `get_api` consulta componentes y tipos como `NativeDataChart`, `NativeChartNavigator` y `NativeChartOptions`.
 - `get_example` admite `line`, `navigator`, `customization`, `heatmap`, `panels` y `drilldown`.

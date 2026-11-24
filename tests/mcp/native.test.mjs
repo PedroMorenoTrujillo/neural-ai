@@ -71,7 +71,7 @@ test('real MCP client selects Native on every tool and keeps Web defaults isolat
     const docs=await call(client,'search_documentation',{...scope,query:'safe area'});
     const resource=await client.readResource({uri:docs.results[0].uri});
     assert(resource.contents[0].text.includes(docs.results[0].excerpt));
-    for(const id of ['forms','collections','navigation','overlays','theme','haptics']){
+    for(const id of ['forms','collections','navigation','overlays','theme','haptics','section-list']){
       const example=await call(client,'get_example',{...scope,id});
       const report=await call(client,'validate_usage',{...scope,source:example.text});
       assert.equal(report.valid,true,JSON.stringify(report));
