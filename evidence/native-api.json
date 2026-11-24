@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "@neural-ui/native",
-  "version": "0.1.0-beta.9",
+  "version": "0.1.0-beta.10",
   "entrypoints": {
     "@neural-ui/native": {
       "types": "./dist/index.d.ts",

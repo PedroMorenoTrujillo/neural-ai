@@ -1,5 +1,11 @@
 # Verificación de Neural AI
 
+## Angular Native 0.27.0 · skills Native 0.1.6 y Charts Native 0.1.3 · MCP 0.3.7
+
+Base de los catálogos nativos: **@neural-ui/native 0.1.0-beta.10**, **@neural-charts/native 0.1.0-beta.8** y **Angular Native 0.27.0**. El catálogo web usa Core 2.1.0.
+
+Los laboratorios ejecutaron ambos paquetes en aplicaciones Android e iOS instaladas en emuladores y simuladores. Verificamos que el código, las declaraciones y los recursos distribuidos coinciden con las candidatas y registramos la procedencia de los paquetes publicados en [Native](https://github.com/PedroMorenoTrujillo/neural-native/actions/runs/45291235002) y [Charts Native](https://github.com/PedroMorenoTrujillo/neural-charts-native-library/actions/runs/45292086229).
+
 ## Angular Native 0.25.0 · skills Native 0.1.5 y Charts Native 0.1.2 · MCP 0.3.5
 
 La base verificada del 21 de noviembre de 2026 es **@neural-ui/native 0.1.0-beta.9**, **@neural-charts/native 0.1.0-beta.7** y **Angular Native 0.25.0**. Web conserva Core 2.0.8 y su versión independiente de skill. Las declaraciones públicas de las dos bibliotecas nativas no cambian respecto a la base anterior. La actualización incluye el montaje web con Angular 22.3; Charts corrige además el aviso de anchuras de Variwide cuando se ocultan todas sus series.

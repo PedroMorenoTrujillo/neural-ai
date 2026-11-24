@@ -1,7 +1,7 @@
 # Locked Charts Native consumer
 
 This fixture preserves the dependency graph used by the tested standalone app:
-Angular 22.3.0, Angular Native 0.25.0, Expo 58.0.21, React Native 0.88.1,
+Angular 22.3.0, Angular Native 0.27.0, Expo 58.0.21, React Native 0.88.1,
 React 19.3.0, Charts Native beta.7, Neural Native beta.9 and Core 0.1.3.
 
 The API verifier copies it into a disposable directory and runs strict `npm ci`
