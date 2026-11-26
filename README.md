@@ -1,15 +1,15 @@
 # Neural AI
 
-Skills oficiales de **Neural UI v2 Web**, **Neural Native** y **Neural Charts Native**, con contratos verificables y un MCP compartido. La skill Web **0.1.6** usa **@neural-ui/core 2.1.0**. La skill Native 0.1.7 está verificada contra **@neural-ui/native 0.1.0-beta.11**, Angular Native 0.27.0 y Angular 22.2.2. La skill Charts Native **0.1.5** usa **@neural-charts/native 0.1.0-beta.11** con Charts Core **0.1.5**. Licencia MIT.
+Skills oficiales de **Neural UI v2 Web**, **Neural Native** y **Neural Charts Native**, con contratos verificables y un MCP compartido. La skill Web **0.1.6** usa **@neural-ui/core 2.1.0**. La skill Native 0.1.8 está verificada contra **@neural-ui/native 0.1.0-beta.13**, Angular Native 0.29.0 y Angular 22.2.2. La skill Charts Native **0.1.6** usa **@neural-charts/native 0.1.0-beta.14** con Charts Core **0.1.5**. Licencia MIT.
 
-Tres skills especializadas, referencias bajo demanda y ejemplos compilables. El [servidor MCP local opcional](packages/mcp/README.md) se distribuye como [neural-ui-mcp@0.3.5 en npm](https://www.npmjs.com/package/neural-ui-mcp) y mantiene los tres catálogos separados. Las skills se instalan desde GitHub y el proyecto consumidor instala su librería y sus peers.
+Tres skills especializadas, referencias bajo demanda y ejemplos compilables. El [servidor MCP local opcional](packages/mcp/README.md) se distribuye como [neural-ui-mcp en npm](https://www.npmjs.com/package/neural-ui-mcp) y mantiene los tres catálogos separados. Las skills se instalan desde GitHub y el proyecto consumidor instala su librería y sus peers.
 
 ## Neural Charts Native
 
-La [skill neural-charts-native](skills/neural-charts-native/SKILL.md) cubre datos y opciones tipados, personalización, mapas de calor, paneles coordinados, navegación por niveles y accesibilidad. Sus cinco ejemplos se comprueban con plantillas Angular estrictas. [Documentación y demos](https://charts-native.neuralui.org/)
+La [skill neural-charts-native](skills/neural-charts-native/SKILL.md) cubre datos y opciones tipados, personalización, mapas de calor, paneles coordinados, navegación por niveles y accesibilidad. Sus seis ejemplos se comprueban con plantillas Angular estrictas. [Documentación y demos](https://charts-native.neuralui.org/)
 
 ```sh
-npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/neural-charts-native-v0.1.5/skills/neural-charts-native --skill neural-charts-native --agent codex claude-code --copy --yes
+npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/neural-charts-native-v0.1.6/skills/neural-charts-native --skill neural-charts-native --agent codex claude-code --copy --yes
 ```
 
 También puedes descargar la skill desde [GitHub Releases](https://github.com/PedroMorenoTrujillo/neural-ai/releases) y copiar su carpeta completa a `.agents/skills` o `.claude/skills`. En el MCP selecciona `library: "charts-native"`.
@@ -20,7 +20,7 @@ El MCP requiere Node 22.22.3 o posterior y se puede iniciar con `npx --yes neura
 
 ## Ampliación Native
 
-La skill [neural-native](skills/neural-native/SKILL.md) tiene su propia versión 0.1.7, disponible en [releases](https://github.com/PedroMorenoTrujillo/neural-ai/releases). Selecciona su catálogo con `library: "native"` en el MCP compartido.
+La skill [neural-native](skills/neural-native/SKILL.md) tiene su propia versión 0.1.8, disponible en [releases](https://github.com/PedroMorenoTrujillo/neural-ai/releases). Selecciona su catálogo con `library: "native"` en el MCP compartido.
 
 - La skill Native contiene referencias derivadas de 69 entrypoints npm, los 28 tokens públicos con valores claros/oscuros y siete ejemplos compilados de formularios, colecciones, listas agrupadas, navegación, overlays, temas y háptica.
 - El MCP mantiene las cinco herramientas y los URI Web. Todas admiten `library: "native"` y la versión Native explícita; omitir `library` conserva Web como predeterminado. No intercambia contratos entre productos.
@@ -29,7 +29,7 @@ La skill [neural-native](skills/neural-native/SKILL.md) tiene su propia versión
 Para instalar Native desde su etiqueta, ejecuta desde tu aplicación:
 
 ```sh
-npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/neural-native-v0.1.7/skills/neural-native --skill neural-native --agent codex claude-code --copy --yes
+npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/neural-native-v0.1.8/skills/neural-native --skill neural-native --agent codex claude-code --copy --yes
 ```
 
 También puedes descargar el archivo de la release o copiar **toda** la carpeta `skills/neural-native` a `.agents/skills/neural-native` (Codex) o `.claude/skills/neural-native` (Claude Code), sin sobrescribir una copia existente. Invócala con `$neural-native` o `/neural-native` según el cliente. El paquete es autocontenido; el MCP es opcional.
@@ -43,14 +43,14 @@ npm run verify:native
 npm run verify:mcp
 ```
 
-Los ejemplos se importan directamente desde la carpeta de la skill y se compilan con plantillas Angular estrictas. Sus doce recorridos de navegador cubren las seis composiciones en vertical y horizontal. Las pruebas del cliente MCP comprueban herramientas, recursos, versiones y rechazo de cruces Web/Native. Las instrucciones Web siguientes corresponden a la release v0.1.5; las etiquetas anteriores conservan sus catálogos originales.
+Los ejemplos se importan directamente desde la carpeta de la skill y se compilan con plantillas Angular estrictas. Sus doce recorridos de navegador cubren las seis composiciones en vertical y horizontal. Las pruebas del cliente MCP comprueban herramientas, recursos, versiones y rechazo de cruces Web/Native. Las instrucciones Web siguientes corresponden a la release v0.1.6; las etiquetas anteriores conservan sus catálogos originales.
 
 ## Instalar en Codex
 
 Desde el directorio de tu aplicación, en macOS/Linux o Git Bash. Usa un directorio de descarga nuevo:
 
 ```sh
-git clone --depth 1 --branch v0.1.5 https://github.com/PedroMorenoTrujillo/neural-ai.git neural-ai-skills
+git clone --depth 1 --branch v0.1.6 https://github.com/PedroMorenoTrujillo/neural-ai.git neural-ai-skills
 mkdir -p .agents/skills
 test ! -e .agents/skills/neural-ui && cp -R neural-ai-skills/skills/neural-ui .agents/skills/neural-ui
 ```

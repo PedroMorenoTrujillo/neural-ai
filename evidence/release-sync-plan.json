@@ -1,14 +1,25 @@
 {
   "scopes": [
+    "native",
     "charts-native"
   ],
-  "frameworkVersionsChanged": false,
+  "frameworkVersionsChanged": true,
   "updates": {
+    "native": {
+      "package": "@neural-ui/native",
+      "from": "0.1.0-beta.11",
+      "to": "0.1.0-beta.13",
+      "publication": "https://github.com/PedroMorenoTrujillo/neural-native/actions/runs/45900527456",
+      "api": {
+        "added": [],
+        "breaking": []
+      }
+    },
     "charts-native": {
       "package": "@neural-charts/native",
-      "from": "0.1.0-beta.10",
-      "to": "0.1.0-beta.11",
-      "publication": "https://github.com/PedroMorenoTrujillo/neural-charts-native-library/actions/runs/45361285558",
+      "from": "0.1.0-beta.11",
+      "to": "0.1.0-beta.14",
+      "publication": "https://github.com/PedroMorenoTrujillo/neural-charts-native-library/actions/runs/45901842189",
       "api": {
         "added": [],
         "breaking": []
