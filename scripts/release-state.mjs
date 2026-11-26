@@ -18,7 +18,10 @@ function skillMetadata(skill, key) {
 export const NATIVE_SKILL_VERSION = skillMetadata('neural-native', 'version');
 export const CHARTS_SKILL_VERSION = skillMetadata('neural-charts-native', 'version');
 export const CHARTS_VERSION = skillMetadata('neural-charts-native', 'library-version');
+export const CHARTS_WEB_SKILL_VERSION = skillMetadata('neural-charts-web', 'version');
+export const CHARTS_BROWSER_VERSIONS = Object.fromEntries(['web', 'angular', 'react'].map(adapter =>
+  [`charts-${adapter}`, skillMetadata('neural-charts-web', `charts-${adapter}-version`)]));
 assert.match(WEB_VERSION || '', /^2\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$/, 'The Web skill only accepts pinned stable Core v2 versions');
 assert.match(NATIVE_VERSION || '', /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/, 'Native must have its own pinned package version');
-for (const version of [MCP_VERSION, WEB_SKILL_VERSION, NATIVE_SKILL_VERSION, CHARTS_SKILL_VERSION, CHARTS_VERSION]) assert.match(version || '', /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
+for (const version of [MCP_VERSION, WEB_SKILL_VERSION, NATIVE_SKILL_VERSION, CHARTS_SKILL_VERSION, CHARTS_VERSION, CHARTS_WEB_SKILL_VERSION, ...Object.values(CHARTS_BROWSER_VERSIONS)]) assert.match(version || '', /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
 assert.equal(mcp.name, 'neural-ui-mcp');

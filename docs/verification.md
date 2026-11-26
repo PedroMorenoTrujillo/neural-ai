@@ -1,5 +1,11 @@
 # Verificación de Neural AI
 
+## Charts Web, Angular y React · skill 0.1.0 · MCP 0.4.0
+
+- Los catálogos se extraen de Charts Web 1.2.2, Charts Angular 1.1.1 y Charts React 1.0.0 instalados desde npm. El consumidor conserva un lockfile estricto de la combinación.
+- Los tres ejemplos compilan con TypeScript y plantillas Angular estrictas. En Chromium se comprueban el renderizado SVG, la actualización de Angular desde el teclado, el desmontaje de Web y la leyenda controlada y limpieza de React.
+- El cliente MCP comprueba las APIs, ejemplos y recursos de los tres catálogos y rechaza versiones o paquetes cruzados. Las mismas consultas se prueban en el paquete npm instalado en un consumidor aislado.
+
 ## Angular Native 0.29.0 · skills Native 0.1.8 y Charts Native 0.1.6 · MCP 0.3.10
 
 - Neural Native beta.13 y Charts Native beta.14 se verificaron a partir de los paquetes de npm. La comparación con beta.11 no detectó cambios en los contratos públicos de los catálogos. Charts Native sigue usando Charts Core 0.1.5 en el consumidor conjunto.

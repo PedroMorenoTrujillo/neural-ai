@@ -1,0 +1,720 @@
+{
+  "schemaVersion": 1,
+  "package": "@neural-charts/angular",
+  "version": "1.1.1",
+  "entrypoints": {
+    "@neural-charts/angular": {
+      "types": "./types/neural-charts-angular.d.ts",
+      "sha256": "77a638c6ee39c971f5bc1e939a8805f801d46eb4e6ec273438a02558e416030a",
+      "symbols": [
+        {
+          "name": "CartesianChartData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type CartesianChartData = Extract<ChartData, {\n    type: 'line' | 'spline' | 'area' | 'areaspline' | 'column';\n}>;"
+        },
+        {
+          "name": "ChartAxisLabelContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartAxisLabelContext extends ContentContext {\n    readonly axis: \"x\" | \"y\" | \"secondaryY\";\n    readonly index: number;\n    readonly tick: Readonly<{\n        label: string;\n        value?: number | string;\n        type?: string;\n    }>;\n}"
+        },
+        {
+          "name": "ChartContentContext",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartContentContext = ChartContentContextMap[ChartContentKey];"
+        },
+        {
+          "name": "ChartContentContextMap",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartContentContextMap {\n    title: ChartTitleContext;\n    axisLabel: ChartAxisLabelContext;\n    dataLabel: ChartDataLabelContext;\n    legend: ChartLegendContext;\n    tooltip: ChartTooltipContext;\n}"
+        },
+        {
+          "name": "ChartContentHost",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartContentHost<K extends ChartContentKey> = `${K}` extends 'axisLabel' | 'dataLabel' ? SVGTextElement : HTMLElement;"
+        },
+        {
+          "name": "ChartContentKey",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartContentKey = keyof ChartContentContextMap;"
+        },
+        {
+          "name": "ChartContentPorts",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartContentPorts = {\n    readonly [K in ChartContentSlotName]?: ChartContentSlot<K>;\n} & Readonly<{\n    onError?: (diagnostic: ChartDiagnostic) => void;\n}>;"
+        },
+        {
+          "name": "ChartContentSlot",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartContentSlot<K extends ChartContentKey> {\n    readonly text: (context: ChartContentFor<K>) => string;\n    readonly render?: (host: ChartContentHost<K>, context: ChartRenderContext<K>, signal: AbortSignal) => void | (() => void);\n}"
+        },
+        {
+          "name": "ChartContentSlotName",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartContentSlotName {\n    Title = \"title\",\n    Legend = \"legend\",\n    Tooltip = \"tooltip\",\n    AxisLabel = \"axisLabel\",\n    DataLabel = \"dataLabel\"\n}"
+        },
+        {
+          "name": "ChartData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartData = Data<Source>;"
+        },
+        {
+          "name": "ChartDataLabelContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartDataLabelContext extends ContentContext {\n    readonly index: number;\n    readonly observation?: PlanObservation;\n    readonly annotation?: NonNullable<PlanFrame[\"annotations\"]>[number];\n}"
+        },
+        {
+          "name": "ChartDiagnostic",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartDiagnostic = Readonly<{\n    code: string;\n    reason: string;\n    path: string;\n    message: string;\n}>;"
+        },
+        {
+          "name": "ChartDownloadFormat",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadFormat {\n    Csv = \"csv\",\n    Png = \"png\",\n    Svg = \"svg\"\n}"
+        },
+        {
+          "name": "ChartDownloadMenuPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadMenuPosition {\n    Top = \"top\",\n    Bottom = \"bottom\"\n}"
+        },
+        {
+          "name": "ChartDrilldownData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartDrilldownData = DrilldownData<ChartDrilldownNodeData>;"
+        },
+        {
+          "name": "ChartDrilldownNavigation",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartDrilldownNavigation {\n    readonly nodeId: string;\n    readonly trail: readonly string[];\n}"
+        },
+        {
+          "name": "ChartDrilldownNodeData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartDrilldownNodeData = Extract<ChartData, {\n    readonly type: DrilldownType;\n}>;"
+        },
+        {
+          "name": "ChartDrilldownOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartDrilldownOptions {\n    readonly chart?: ChartOptions;\n    readonly nodes?: Readonly<Record<string, ChartOptions>>;\n}"
+        },
+        {
+          "name": "ChartLabelLayout",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartLabelLayout = 'auto' | 'all' | 'truncate';"
+        },
+        {
+          "name": "ChartLayoutOptions",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartLayoutOptions = RootLayout & Partial<Omit<NonNullable<PlanOptions['circular']>, 'gaugeStyle'>> & Readonly<{\n    style?: 'solid' | 'needle';\n    stackGroups?: PlanOptions['stackGroups'];\n    bands?: Extract<PlanSpec, {\n        family: 'bullet';\n    }>['bands'];\n    shape?: Pictorial['shape'];\n    gap?: number;\n    background?: boolean;\n    levels?: Contour['levels'];\n    segmentBudget?: number;\n}>;"
+        },
+        {
+          "name": "ChartLegendContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartLegendContext extends ContentContext {\n    readonly id: string;\n    readonly name: string;\n    readonly color: string;\n    readonly visible: boolean;\n}"
+        },
+        {
+          "name": "ChartMountOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartMountOptions {\n    readonly instanceId: string;\n    readonly content?: import(\"./content.js\").ChartContentPorts;\n    readonly onPointActivate?: (event: Readonly<{\n        id: ChartPointId;\n        observation: PlanObservation;\n        source: \"pointer\" | \"keyboard\";\n        revision: number;\n    }>) => void;\n    readonly onHiddenSeriesChange?: (ids: readonly string[]) => void;\n    readonly onSelectionChange?: (ids: readonly ChartPointId[]) => void;\n    readonly onViewportChange?: (value: PlanViewportValue) => void;\n    readonly onDiagnostic?: (diagnostic: ChartDiagnostic) => void;\n    readonly synchronization?: import(\"./synchronization.js\").ChartSynchronization;\n}"
+        },
+        {
+          "name": "ChartNumberFormat",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartNumberFormat {\n    readonly style?: \"decimal\" | \"percent\" | \"currency\" | \"unit\";\n    readonly currency?: string;\n    readonly currencyDisplay?: \"symbol\" | \"narrowSymbol\" | \"code\" | \"name\";\n    readonly currencySign?: \"standard\" | \"accounting\";\n    readonly unit?: string;\n    readonly unitDisplay?: \"short\" | \"narrow\" | \"long\";\n    readonly prefix?: string;\n    readonly suffix?: string;\n    readonly notation?: \"standard\" | \"scientific\" | \"engineering\" | \"compact\";\n    readonly minimumFractionDigits?: number;\n    readonly maximumFractionDigits?: number;\n    readonly useGrouping?: boolean;\n    readonly signDisplay?: \"auto\" | \"never\" | \"always\" | \"exceptZero\";\n}"
+        },
+        {
+          "name": "ChartOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartOptions<T extends ChartType = ChartType> {\n    readonly title?: string;\n    readonly description?: string;\n    readonly animation?: Readonly<{\n        enabled?: boolean;\n        duration?: number;\n        revision?: number;\n    }>;\n    readonly capacity?: PlanOptions[\"capacity\"];\n    readonly scales?: PlanOptions[\"scales\"];\n    readonly hierarchy?: PlanOptions[\"hierarchy\"];\n    readonly referenceBands?: PlanOptions[\"referenceBands\"];\n    readonly referenceBandStyles?: readonly ChartReferenceBandStyle[];\n    readonly referenceLabels?: readonly Readonly<{\n        id: string;\n        text: string;\n    }>[];\n    readonly referenceStyles?: readonly ChartReferenceStyle[];\n    readonly annotations?: readonly Readonly<{\n        id: string;\n        point: ChartPointId;\n        text: string;\n        dx?: number;\n        dy?: number;\n    }>[];\n    readonly unit?: string;\n    readonly theme?: \"light\" | \"dark\";\n    readonly direction?: \"ltr\" | \"rtl\";\n    readonly themeTokens?: import(\"./theme.js\").ChartTheme;\n    readonly locale?: \"en\" | \"es\";\n    readonly width?: number;\n    readonly height?: number;\n    readonly responsive?: readonly ChartResponsiveRule[];\n    readonly accessibility?: ChartAccessibilityOptions;\n    readonly formatting?: Readonly<{\n        locale?: string;\n        number?: ChartNumberFormat;\n        date?: ChartDateFormat;\n    }>;\n    readonly layout?: ChartLayoutOptions;\n    readonly appearance?: Readonly<{\n        colors?: readonly string[];\n        series?: readonly ChartSeriesStyle[];\n        points?: readonly ChartPointStyle[];\n        bandColors?: readonly string[];\n        risingColor?: string;\n        fallingColor?: string;\n        lineWidth?: number;\n        markers?: boolean;\n        markerRadius?: number;\n        dataLabels?: boolean;\n        stackLabels?: boolean;\n        centerName?: string;\n        labelLimit?: number;\n        dataLabelLayout?: ChartLabelLayout;\n        titleStyle?: ChartTextStyle;\n        descriptionStyle?: ChartTextStyle;\n        minPlotWidth?: number;\n        waterfall?: \"waterfall\" extends T ? ChartWaterfallStyle : never;\n    }>;\n    readonly colorAxis?: T extends \"heatmap\" | \"tilemap\" ? Extract<PlanSpec, {\n        family: \"tilemap\";\n    }>[\"colorAxis\"] : never;\n    readonly axes?: Readonly<{\n        grid?: boolean;\n        x?: ChartAxisOptions;\n        y?: ChartAxisOptions;\n        secondaryY?: ChartAxisOptions;\n    }>;\n    readonly legend?: Readonly<{\n        visible?: boolean;\n        position?: \"top\" | \"bottom\" | \"left\" | \"right\";\n        interactive?: boolean;\n        reverse?: boolean;\n        maxLabelCharacters?: number;\n        itemSpacing?: number;\n        maxHeight?: number;\n    }>;\n    readonly tooltip?: Readonly<{\n        enabled?: boolean;\n        content?: \"point\" | \"shared\";\n        placement?: \"auto\" | \"docked\" | \"below\";\n        crosshair?: boolean;\n        pinnable?: boolean;\n        background?: string;\n        foreground?: string;\n        maxWidth?: number;\n        maxHeight?: number;\n    }>;\n    readonly downloadMenu?: readonly `${ChartDownloadFormat}`[];\n    readonly downloadMenuPosition?: `${ChartDownloadMenuPosition}`;\n    readonly toolbar?: Readonly<{\n        actions: readonly ChartToolbarAction[];\n        position?: ChartDownloadMenuPosition;\n    }>;\n    readonly viewport?: Readonly<{\n        axes: \"x\" | \"y\" | \"xy\";\n        value?: PlanViewportValue;\n        controls?: boolean;\n        zoom?: Readonly<ChartZoomOptions>;\n        pan?: boolean;\n        pinch?: boolean;\n        wheel?: false | \"ctrl\" | \"always\";\n    }>;\n    readonly hiddenSeriesIds?: readonly string[];\n    readonly selectedPoints?: readonly ChartPointId[];\n    readonly references?: PlanOptions[\"references\"];\n}"
+        },
+        {
+          "name": "ChartPanel",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanel {\n    readonly id: string;\n    readonly data: ChartData;\n}"
+        },
+        {
+          "name": "ChartPanelDiagnostic",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelDiagnostic {\n    readonly panelId: string | null;\n    readonly diagnostic: ChartDiagnostic;\n}"
+        },
+        {
+          "name": "ChartPanelsData",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelsData {\n    readonly panels: readonly ChartPanel[];\n    readonly viewportLinks?: readonly ChartPanelViewportLink[];\n}"
+        },
+        {
+          "name": "ChartPanelsOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelsOptions {\n    readonly chart?: ChartOptions;\n    readonly panels?: Readonly<Record<string, ChartOptions>>;\n    readonly columns?: \"auto\" | 1 | 2;\n}"
+        },
+        {
+          "name": "ChartPanelViewportChange",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelViewportChange {\n    readonly panelId: string;\n    readonly value: ChartPanelViewportValue;\n    readonly linkId: string | null;\n}"
+        },
+        {
+          "name": "ChartPanelViewportLink",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelViewportLink {\n    readonly id: string;\n    readonly axis: \"x\";\n    readonly panelIds: readonly string[];\n}"
+        },
+        {
+          "name": "ChartPanelViewportValue",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartPanelViewportValue = PlanViewportValue;"
+        },
+        {
+          "name": "ChartPanelVisibilityChange",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelVisibilityChange {\n    readonly panelId: string;\n    readonly hiddenSeriesIds: readonly string[];\n}"
+        },
+        {
+          "name": "ChartPointId",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartPointId = Readonly<{\n    seriesId: string;\n    pointId: string;\n}>;"
+        },
+        {
+          "name": "ChartPointStyle",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPointStyle extends ChartPointId {\n    readonly color: string;\n}"
+        },
+        {
+          "name": "ChartReferenceBandStyle",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartReferenceBandStyle {\n    readonly id: string;\n    readonly label?: string;\n    readonly color?: string;\n    readonly opacity?: number;\n}"
+        },
+        {
+          "name": "ChartReferenceStyle",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartReferenceStyle {\n    readonly id: string;\n    readonly color?: string;\n    readonly dash?: \"solid\" | \"dashed\" | \"dotted\";\n    readonly width?: number;\n}"
+        },
+        {
+          "name": "ChartRenderContext",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartRenderContext<K extends ChartContentKey> = ChartContentFor<K> & Readonly<{\n    text: string;\n}>;"
+        },
+        {
+          "name": "ChartTemplateContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "interface ChartTemplateContext<K extends ChartContentKey> {\n    readonly $implicit: ChartRenderContext<K>;\n    readonly context: ChartRenderContext<K>;\n}"
+        },
+        {
+          "name": "ChartTitleContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartTitleContext extends ContentContext {\n    readonly description: string;\n}"
+        },
+        {
+          "name": "ChartToolbarAction",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartToolbarAction {\n    Csv = \"download-csv\",\n    Png = \"download-png\",\n    Svg = \"download-svg\",\n    Zoom = \"zoom\",\n    ZoomIn = \"zoom-in\",\n    ZoomOut = \"zoom-out\",\n    ResetZoom = \"reset\"\n}"
+        },
+        {
+          "name": "ChartToolbarPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadMenuPosition {\n    Top = \"top\",\n    Bottom = \"bottom\"\n}"
+        },
+        {
+          "name": "ChartTooltipContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartTooltipContext extends ContentContext {\n    readonly observation: PlanObservation;\n    readonly points: readonly PlanObservation[];\n    readonly rows?: readonly ChartTooltipRow[];\n    readonly selected: boolean;\n}"
+        },
+        {
+          "name": "ChartTooltipRow",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartTooltipRow {\n    readonly seriesId: string;\n    readonly name: string;\n    readonly color: string;\n    readonly point: PlanObservation | null;\n}"
+        },
+        {
+          "name": "ChartZoomOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartZoomOptions {\n    readonly showSlider?: boolean;\n    readonly position?: ChartZoomPosition;\n    readonly min?: number;\n    readonly max?: number;\n    readonly step?: number;\n    readonly increment?: number;\n    readonly label?: string;\n}"
+        },
+        {
+          "name": "ChartZoomPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartZoomPosition {\n    Toolbar = \"toolbar\",\n    Below = \"below\"\n}"
+        },
+        {
+          "name": "NeuralCartesianChart",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "nc-cartesian-chart",
+          "inputs": [
+            {
+              "name": "data",
+              "alias": "data",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<T>"
+            },
+            {
+              "name": "options",
+              "alias": "options",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartOptions$1<\"flags\" | \"contour\" | \"regression\" | \"fan\" | \"violin\" | \"flame\" | \"dendrogram\" | \"parallel\" | \"heatmap\" | \"venn\" | \"tilemap\" | \"pictorial\" | \"bullet\" | \"variwide\" | \"sankey\" | \"vector\" | \"line\" | \"abands\" | \"ad\" | \"ao\" | \"apo\" | \"aroon\" | \"aroonoscillator\" | \"atr\" | \"bb\" | \"candlestick\" | \"cci\" | \"chaikin\" | \"cmf\" | \"cmo\" | \"dema\" | \"disparityindex\" | \"dmi\" | \"dpo\" | \"ema\" | \"heikinashi\" | \"hlc\" | \"hollowcandlestick\" | \"ikh\" | \"keltnerchannels\" | \"klinger\" | \"linearregression\" | \"linearregressionangle\" | \"linearregressionintercept\" | \"linearregressionslope\" | \"macd\" | \"mfi\" | \"momentum\" | \"natr\" | \"obv\" | \"ohlc\" | \"pc\" | \"pivotpoints\" | \"pointandfigure\" | \"ppo\" | \"priceenvelopes\" | \"psar\" | \"renko\" | \"roc\" | \"rsi\" | \"slowstochastic\" | \"sma\" | \"stochastic\" | \"supertrend\" | \"tema\" | \"trendline\" | \"trix\" | \"vbp\" | \"vwap\" | \"williamsr\" | \"wma\" | \"zigzag\" | \"polygon\" | \"wordcloud\" | \"dependencywheel\" | \"chord\" | \"arcdiagram\" | \"xrange\" | \"timeline\" | \"area\" | \"spline\" | \"column\" | \"mixed\" | \"pie\" | \"donut\" | \"gauge\" | \"scatter\" | \"windrose\" | \"radialbar\" | \"polar\" | \"arearange\" | \"areasplinerange\" | \"areaspline\" | \"streamgraph\" | \"columnrange\" | \"boxplot\" | \"errorbar\" | \"lollipop\" | \"columnpyramid\" | \"dumbbell\" | \"variablepie\" | \"item\" | \"sunburst\" | \"treegraph\" | \"organization\" | \"networkgraph\" | \"packedbubble\" | \"histogram\" | \"bellcurve\" | \"treemap\" | \"waterfall\" | \"funnel\" | \"pyramid\" | \"pareto\" | \"radar\" | \"bubble\" | \"windbarb\">>"
+            },
+            {
+              "name": "instanceId",
+              "alias": "instanceId",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "planningPorts",
+              "alias": "planningPorts",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartPlanningPorts | undefined>"
+            },
+            {
+              "name": "content",
+              "alias": "content",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartContentPorts | undefined>"
+            },
+            {
+              "name": "synchronization",
+              "alias": "synchronization",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<import(\"@neural-charts/web\").ChartSynchronization | undefined>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "pointActivate",
+              "alias": "pointActivate",
+              "type": "OutputEmitterRef<Readonly<{\n    id: ChartPointId;\n    observation: PlanObservation;\n    source: \"pointer\" | \"keyboard\";\n    revision: number;\n}>>"
+            },
+            {
+              "name": "hiddenSeriesChange",
+              "alias": "hiddenSeriesChange",
+              "type": "OutputEmitterRef<readonly string[]>"
+            },
+            {
+              "name": "selectionChange",
+              "alias": "selectionChange",
+              "type": "OutputEmitterRef<readonly Readonly<{\n    seriesId: string;\n    pointId: string;\n}>[]>"
+            },
+            {
+              "name": "viewportChange",
+              "alias": "viewportChange",
+              "type": "OutputEmitterRef<Viewport>"
+            },
+            {
+              "name": "diagnostic",
+              "alias": "diagnostic",
+              "type": "OutputEmitterRef<Readonly<{\n    code: string;\n    reason: string;\n    path: string;\n    message: string;\n}>>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuralChart",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "nc-chart",
+          "inputs": [
+            {
+              "name": "data",
+              "alias": "data",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<T>"
+            },
+            {
+              "name": "options",
+              "alias": "options",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartOptions$1<\"flags\" | \"contour\" | \"regression\" | \"fan\" | \"violin\" | \"flame\" | \"dendrogram\" | \"parallel\" | \"heatmap\" | \"venn\" | \"tilemap\" | \"pictorial\" | \"bullet\" | \"variwide\" | \"sankey\" | \"vector\" | \"line\" | \"abands\" | \"ad\" | \"ao\" | \"apo\" | \"aroon\" | \"aroonoscillator\" | \"atr\" | \"bb\" | \"candlestick\" | \"cci\" | \"chaikin\" | \"cmf\" | \"cmo\" | \"dema\" | \"disparityindex\" | \"dmi\" | \"dpo\" | \"ema\" | \"heikinashi\" | \"hlc\" | \"hollowcandlestick\" | \"ikh\" | \"keltnerchannels\" | \"klinger\" | \"linearregression\" | \"linearregressionangle\" | \"linearregressionintercept\" | \"linearregressionslope\" | \"macd\" | \"mfi\" | \"momentum\" | \"natr\" | \"obv\" | \"ohlc\" | \"pc\" | \"pivotpoints\" | \"pointandfigure\" | \"ppo\" | \"priceenvelopes\" | \"psar\" | \"renko\" | \"roc\" | \"rsi\" | \"slowstochastic\" | \"sma\" | \"stochastic\" | \"supertrend\" | \"tema\" | \"trendline\" | \"trix\" | \"vbp\" | \"vwap\" | \"williamsr\" | \"wma\" | \"zigzag\" | \"polygon\" | \"wordcloud\" | \"dependencywheel\" | \"chord\" | \"arcdiagram\" | \"xrange\" | \"timeline\" | \"area\" | \"spline\" | \"column\" | \"mixed\" | \"pie\" | \"donut\" | \"gauge\" | \"scatter\" | \"windrose\" | \"radialbar\" | \"polar\" | \"arearange\" | \"areasplinerange\" | \"areaspline\" | \"streamgraph\" | \"columnrange\" | \"boxplot\" | \"errorbar\" | \"lollipop\" | \"columnpyramid\" | \"dumbbell\" | \"variablepie\" | \"item\" | \"sunburst\" | \"treegraph\" | \"organization\" | \"networkgraph\" | \"packedbubble\" | \"histogram\" | \"bellcurve\" | \"treemap\" | \"waterfall\" | \"funnel\" | \"pyramid\" | \"pareto\" | \"radar\" | \"bubble\" | \"windbarb\">>"
+            },
+            {
+              "name": "instanceId",
+              "alias": "instanceId",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "planningPorts",
+              "alias": "planningPorts",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartPlanningPorts | undefined>"
+            },
+            {
+              "name": "content",
+              "alias": "content",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartContentPorts | undefined>"
+            },
+            {
+              "name": "synchronization",
+              "alias": "synchronization",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<import(\"@neural-charts/web\").ChartSynchronization | undefined>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "pointActivate",
+              "alias": "pointActivate",
+              "type": "OutputEmitterRef<Readonly<{\n    id: ChartPointId;\n    observation: PlanObservation;\n    source: \"pointer\" | \"keyboard\";\n    revision: number;\n}>>"
+            },
+            {
+              "name": "hiddenSeriesChange",
+              "alias": "hiddenSeriesChange",
+              "type": "OutputEmitterRef<readonly string[]>"
+            },
+            {
+              "name": "selectionChange",
+              "alias": "selectionChange",
+              "type": "OutputEmitterRef<readonly Readonly<{\n    seriesId: string;\n    pointId: string;\n}>[]>"
+            },
+            {
+              "name": "viewportChange",
+              "alias": "viewportChange",
+              "type": "OutputEmitterRef<Viewport>"
+            },
+            {
+              "name": "diagnostic",
+              "alias": "diagnostic",
+              "type": "OutputEmitterRef<Readonly<{\n    code: string;\n    reason: string;\n    path: string;\n    message: string;\n}>>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuralChartAxisLabelTemplate",
+          "kind": "ClassDeclaration",
+          "angularKind": "directive",
+          "selector": "ng-template[ncChartAxisLabel]",
+          "inputs": [],
+          "outputs": [],
+          "members": []
+        },
+        {
+          "name": "NeuralChartDataLabelTemplate",
+          "kind": "ClassDeclaration",
+          "angularKind": "directive",
+          "selector": "ng-template[ncChartDataLabel]",
+          "inputs": [],
+          "outputs": [],
+          "members": []
+        },
+        {
+          "name": "NeuralChartDrilldown",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "nc-chart-drilldown",
+          "inputs": [
+            {
+              "name": "data",
+              "alias": "data",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<ChartDrilldownData$1>"
+            },
+            {
+              "name": "options",
+              "alias": "options",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartDrilldownOptions$1>"
+            },
+            {
+              "name": "instanceId",
+              "alias": "instanceId",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "navigationChange",
+              "alias": "navigationChange",
+              "type": "import(\"@angular/core\").OutputEmitterRef<ChartDrilldownNavigation$1>"
+            },
+            {
+              "name": "diagnostic",
+              "alias": "diagnostic",
+              "type": "import(\"@angular/core\").OutputEmitterRef<Readonly<{\n    code: string;\n    reason: string;\n    path: string;\n    message: string;\n}>>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuralChartLegendTemplate",
+          "kind": "ClassDeclaration",
+          "angularKind": "directive",
+          "selector": "ng-template[ncChartLegend]",
+          "inputs": [],
+          "outputs": [],
+          "members": []
+        },
+        {
+          "name": "NeuralChartPanels",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "nc-chart-panels",
+          "inputs": [
+            {
+              "name": "data",
+              "alias": "data",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<ChartPanelsData$1>"
+            },
+            {
+              "name": "options",
+              "alias": "options",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartPanelsOptions$1>"
+            },
+            {
+              "name": "instanceId",
+              "alias": "instanceId",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "viewportChange",
+              "alias": "viewportChange",
+              "type": "import(\"@angular/core\").OutputEmitterRef<ChartPanelViewportChange$1>"
+            },
+            {
+              "name": "hiddenSeriesChange",
+              "alias": "hiddenSeriesChange",
+              "type": "import(\"@angular/core\").OutputEmitterRef<ChartPanelVisibilityChange$1>"
+            },
+            {
+              "name": "diagnostic",
+              "alias": "diagnostic",
+              "type": "import(\"@angular/core\").OutputEmitterRef<ChartPanelDiagnostic$1>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuralChartTitleTemplate",
+          "kind": "ClassDeclaration",
+          "angularKind": "directive",
+          "selector": "ng-template[ncChartTitle]",
+          "inputs": [],
+          "outputs": [],
+          "members": []
+        },
+        {
+          "name": "NeuralChartTooltipTemplate",
+          "kind": "ClassDeclaration",
+          "angularKind": "directive",
+          "selector": "ng-template[ncChartTooltip]",
+          "inputs": [],
+          "outputs": [],
+          "members": []
+        },
+        {
+          "name": "StaticChart",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "nc-static-chart",
+          "inputs": [
+            {
+              "name": "data",
+              "alias": "data",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<ChartData$1>"
+            },
+            {
+              "name": "options",
+              "alias": "options",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartOptions$1<\"flags\" | \"contour\" | \"regression\" | \"fan\" | \"violin\" | \"flame\" | \"dendrogram\" | \"parallel\" | \"heatmap\" | \"venn\" | \"tilemap\" | \"pictorial\" | \"bullet\" | \"variwide\" | \"sankey\" | \"vector\" | \"line\" | \"abands\" | \"ad\" | \"ao\" | \"apo\" | \"aroon\" | \"aroonoscillator\" | \"atr\" | \"bb\" | \"candlestick\" | \"cci\" | \"chaikin\" | \"cmf\" | \"cmo\" | \"dema\" | \"disparityindex\" | \"dmi\" | \"dpo\" | \"ema\" | \"heikinashi\" | \"hlc\" | \"hollowcandlestick\" | \"ikh\" | \"keltnerchannels\" | \"klinger\" | \"linearregression\" | \"linearregressionangle\" | \"linearregressionintercept\" | \"linearregressionslope\" | \"macd\" | \"mfi\" | \"momentum\" | \"natr\" | \"obv\" | \"ohlc\" | \"pc\" | \"pivotpoints\" | \"pointandfigure\" | \"ppo\" | \"priceenvelopes\" | \"psar\" | \"renko\" | \"roc\" | \"rsi\" | \"slowstochastic\" | \"sma\" | \"stochastic\" | \"supertrend\" | \"tema\" | \"trendline\" | \"trix\" | \"vbp\" | \"vwap\" | \"williamsr\" | \"wma\" | \"zigzag\" | \"polygon\" | \"wordcloud\" | \"dependencywheel\" | \"chord\" | \"arcdiagram\" | \"xrange\" | \"timeline\" | \"area\" | \"spline\" | \"column\" | \"mixed\" | \"pie\" | \"donut\" | \"gauge\" | \"scatter\" | \"windrose\" | \"radialbar\" | \"polar\" | \"arearange\" | \"areasplinerange\" | \"areaspline\" | \"streamgraph\" | \"columnrange\" | \"boxplot\" | \"errorbar\" | \"lollipop\" | \"columnpyramid\" | \"dumbbell\" | \"variablepie\" | \"item\" | \"sunburst\" | \"treegraph\" | \"organization\" | \"networkgraph\" | \"packedbubble\" | \"histogram\" | \"bellcurve\" | \"treemap\" | \"waterfall\" | \"funnel\" | \"pyramid\" | \"pareto\" | \"radar\" | \"bubble\" | \"windbarb\">>"
+            },
+            {
+              "name": "instanceId",
+              "alias": "instanceId",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "planningPorts",
+              "alias": "planningPorts",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartPlanningPorts | undefined>"
+            },
+            {
+              "name": "content",
+              "alias": "content",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartContentPorts$1 | undefined>"
+            }
+          ],
+          "outputs": [],
+          "members": []
+        }
+      ]
+    },
+    "@neural-charts/angular/cartesian": {
+      "types": "./types/neural-charts-angular-cartesian.d.ts",
+      "sha256": "09a670b5b7ae34e438aa185c943c15abde240f2f0a52fbef62b149d168c3b83b",
+      "symbols": [
+        {
+          "name": "CartesianChartData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type CartesianChartData = Extract<ChartData, {\n    type: 'line' | 'spline' | 'area' | 'areaspline' | 'column';\n}>;"
+        },
+        {
+          "name": "ChartDownloadFormat",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadFormat {\n    Csv = \"csv\",\n    Png = \"png\",\n    Svg = \"svg\"\n}"
+        },
+        {
+          "name": "ChartDownloadMenuPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadMenuPosition {\n    Top = \"top\",\n    Bottom = \"bottom\"\n}"
+        },
+        {
+          "name": "ChartOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartOptions<T extends ChartType = ChartType> {\n    readonly title?: string;\n    readonly description?: string;\n    readonly animation?: Readonly<{\n        enabled?: boolean;\n        duration?: number;\n        revision?: number;\n    }>;\n    readonly capacity?: PlanOptions[\"capacity\"];\n    readonly scales?: PlanOptions[\"scales\"];\n    readonly hierarchy?: PlanOptions[\"hierarchy\"];\n    readonly referenceBands?: PlanOptions[\"referenceBands\"];\n    readonly referenceBandStyles?: readonly ChartReferenceBandStyle[];\n    readonly referenceLabels?: readonly Readonly<{\n        id: string;\n        text: string;\n    }>[];\n    readonly referenceStyles?: readonly ChartReferenceStyle[];\n    readonly annotations?: readonly Readonly<{\n        id: string;\n        point: ChartPointId;\n        text: string;\n        dx?: number;\n        dy?: number;\n    }>[];\n    readonly unit?: string;\n    readonly theme?: \"light\" | \"dark\";\n    readonly direction?: \"ltr\" | \"rtl\";\n    readonly themeTokens?: import(\"./theme.js\").ChartTheme;\n    readonly locale?: \"en\" | \"es\";\n    readonly width?: number;\n    readonly height?: number;\n    readonly responsive?: readonly ChartResponsiveRule[];\n    readonly accessibility?: ChartAccessibilityOptions;\n    readonly formatting?: Readonly<{\n        locale?: string;\n        number?: ChartNumberFormat;\n        date?: ChartDateFormat;\n    }>;\n    readonly layout?: ChartLayoutOptions;\n    readonly appearance?: Readonly<{\n        colors?: readonly string[];\n        series?: readonly ChartSeriesStyle[];\n        points?: readonly ChartPointStyle[];\n        bandColors?: readonly string[];\n        risingColor?: string;\n        fallingColor?: string;\n        lineWidth?: number;\n        markers?: boolean;\n        markerRadius?: number;\n        dataLabels?: boolean;\n        stackLabels?: boolean;\n        centerName?: string;\n        labelLimit?: number;\n        dataLabelLayout?: ChartLabelLayout;\n        titleStyle?: ChartTextStyle;\n        descriptionStyle?: ChartTextStyle;\n        minPlotWidth?: number;\n        waterfall?: \"waterfall\" extends T ? ChartWaterfallStyle : never;\n    }>;\n    readonly colorAxis?: T extends \"heatmap\" | \"tilemap\" ? Extract<PlanSpec, {\n        family: \"tilemap\";\n    }>[\"colorAxis\"] : never;\n    readonly axes?: Readonly<{\n        grid?: boolean;\n        x?: ChartAxisOptions;\n        y?: ChartAxisOptions;\n        secondaryY?: ChartAxisOptions;\n    }>;\n    readonly legend?: Readonly<{\n        visible?: boolean;\n        position?: \"top\" | \"bottom\" | \"left\" | \"right\";\n        interactive?: boolean;\n        reverse?: boolean;\n        maxLabelCharacters?: number;\n        itemSpacing?: number;\n        maxHeight?: number;\n    }>;\n    readonly tooltip?: Readonly<{\n        enabled?: boolean;\n        content?: \"point\" | \"shared\";\n        placement?: \"auto\" | \"docked\" | \"below\";\n        crosshair?: boolean;\n        pinnable?: boolean;\n        background?: string;\n        foreground?: string;\n        maxWidth?: number;\n        maxHeight?: number;\n    }>;\n    readonly downloadMenu?: readonly `${ChartDownloadFormat}`[];\n    readonly downloadMenuPosition?: `${ChartDownloadMenuPosition}`;\n    readonly toolbar?: Readonly<{\n        actions: readonly ChartToolbarAction[];\n        position?: ChartDownloadMenuPosition;\n    }>;\n    readonly viewport?: Readonly<{\n        axes: \"x\" | \"y\" | \"xy\";\n        value?: PlanViewportValue;\n        controls?: boolean;\n        zoom?: Readonly<ChartZoomOptions>;\n        pan?: boolean;\n        pinch?: boolean;\n        wheel?: false | \"ctrl\" | \"always\";\n    }>;\n    readonly hiddenSeriesIds?: readonly string[];\n    readonly selectedPoints?: readonly ChartPointId[];\n    readonly references?: PlanOptions[\"references\"];\n}"
+        },
+        {
+          "name": "ChartTemplateContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "interface ChartTemplateContext<K extends ChartContentKey> {\n    readonly $implicit: ChartRenderContext<K>;\n    readonly context: ChartRenderContext<K>;\n}"
+        },
+        {
+          "name": "ChartToolbarAction",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartToolbarAction {\n    Csv = \"download-csv\",\n    Png = \"download-png\",\n    Svg = \"download-svg\",\n    Zoom = \"zoom\",\n    ZoomIn = \"zoom-in\",\n    ZoomOut = \"zoom-out\",\n    ResetZoom = \"reset\"\n}"
+        },
+        {
+          "name": "ChartToolbarPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadMenuPosition {\n    Top = \"top\",\n    Bottom = \"bottom\"\n}"
+        },
+        {
+          "name": "ChartZoomOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartZoomOptions {\n    readonly showSlider?: boolean;\n    readonly position?: ChartZoomPosition;\n    readonly min?: number;\n    readonly max?: number;\n    readonly step?: number;\n    readonly increment?: number;\n    readonly label?: string;\n}"
+        },
+        {
+          "name": "ChartZoomPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartZoomPosition {\n    Toolbar = \"toolbar\",\n    Below = \"below\"\n}"
+        },
+        {
+          "name": "NeuralCartesianChart",
+          "kind": "ClassDeclaration",
+          "angularKind": "component",
+          "selector": "nc-cartesian-chart",
+          "inputs": [
+            {
+              "name": "data",
+              "alias": "data",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<T>"
+            },
+            {
+              "name": "options",
+              "alias": "options",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartOptions$1<\"flags\" | \"contour\" | \"regression\" | \"fan\" | \"violin\" | \"flame\" | \"dendrogram\" | \"parallel\" | \"heatmap\" | \"venn\" | \"tilemap\" | \"pictorial\" | \"bullet\" | \"variwide\" | \"sankey\" | \"vector\" | \"line\" | \"abands\" | \"ad\" | \"ao\" | \"apo\" | \"aroon\" | \"aroonoscillator\" | \"atr\" | \"bb\" | \"candlestick\" | \"cci\" | \"chaikin\" | \"cmf\" | \"cmo\" | \"dema\" | \"disparityindex\" | \"dmi\" | \"dpo\" | \"ema\" | \"heikinashi\" | \"hlc\" | \"hollowcandlestick\" | \"ikh\" | \"keltnerchannels\" | \"klinger\" | \"linearregression\" | \"linearregressionangle\" | \"linearregressionintercept\" | \"linearregressionslope\" | \"macd\" | \"mfi\" | \"momentum\" | \"natr\" | \"obv\" | \"ohlc\" | \"pc\" | \"pivotpoints\" | \"pointandfigure\" | \"ppo\" | \"priceenvelopes\" | \"psar\" | \"renko\" | \"roc\" | \"rsi\" | \"slowstochastic\" | \"sma\" | \"stochastic\" | \"supertrend\" | \"tema\" | \"trendline\" | \"trix\" | \"vbp\" | \"vwap\" | \"williamsr\" | \"wma\" | \"zigzag\" | \"polygon\" | \"wordcloud\" | \"dependencywheel\" | \"chord\" | \"arcdiagram\" | \"xrange\" | \"timeline\" | \"area\" | \"spline\" | \"column\" | \"mixed\" | \"pie\" | \"donut\" | \"gauge\" | \"scatter\" | \"windrose\" | \"radialbar\" | \"polar\" | \"arearange\" | \"areasplinerange\" | \"areaspline\" | \"streamgraph\" | \"columnrange\" | \"boxplot\" | \"errorbar\" | \"lollipop\" | \"columnpyramid\" | \"dumbbell\" | \"variablepie\" | \"item\" | \"sunburst\" | \"treegraph\" | \"organization\" | \"networkgraph\" | \"packedbubble\" | \"histogram\" | \"bellcurve\" | \"treemap\" | \"waterfall\" | \"funnel\" | \"pyramid\" | \"pareto\" | \"radar\" | \"bubble\" | \"windbarb\">>"
+            },
+            {
+              "name": "instanceId",
+              "alias": "instanceId",
+              "required": true,
+              "type": "import(\"@angular/core\").InputSignal<string>"
+            },
+            {
+              "name": "planningPorts",
+              "alias": "planningPorts",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartPlanningPorts | undefined>"
+            },
+            {
+              "name": "content",
+              "alias": "content",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<ChartContentPorts | undefined>"
+            },
+            {
+              "name": "synchronization",
+              "alias": "synchronization",
+              "required": false,
+              "type": "import(\"@angular/core\").InputSignal<import(\"@neural-charts/web\").ChartSynchronization | undefined>"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "pointActivate",
+              "alias": "pointActivate",
+              "type": "OutputEmitterRef<Readonly<{\n    id: ChartPointId;\n    observation: PlanObservation;\n    source: \"pointer\" | \"keyboard\";\n    revision: number;\n}>>"
+            },
+            {
+              "name": "hiddenSeriesChange",
+              "alias": "hiddenSeriesChange",
+              "type": "OutputEmitterRef<readonly string[]>"
+            },
+            {
+              "name": "selectionChange",
+              "alias": "selectionChange",
+              "type": "OutputEmitterRef<readonly Readonly<{\n    seriesId: string;\n    pointId: string;\n}>[]>"
+            },
+            {
+              "name": "viewportChange",
+              "alias": "viewportChange",
+              "type": "OutputEmitterRef<Viewport>"
+            },
+            {
+              "name": "diagnostic",
+              "alias": "diagnostic",
+              "type": "OutputEmitterRef<Readonly<{\n    code: string;\n    reason: string;\n    path: string;\n    message: string;\n}>>"
+            }
+          ],
+          "members": []
+        },
+        {
+          "name": "NeuralChartAxisLabelTemplate",
+          "kind": "ClassDeclaration",
+          "angularKind": "directive",
+          "selector": "ng-template[ncChartAxisLabel]",
+          "inputs": [],
+          "outputs": [],
+          "members": []
+        },
+        {
+          "name": "NeuralChartDataLabelTemplate",
+          "kind": "ClassDeclaration",
+          "angularKind": "directive",
+          "selector": "ng-template[ncChartDataLabel]",
+          "inputs": [],
+          "outputs": [],
+          "members": []
+        },
+        {
+          "name": "NeuralChartLegendTemplate",
+          "kind": "ClassDeclaration",
+          "angularKind": "directive",
+          "selector": "ng-template[ncChartLegend]",
+          "inputs": [],
+          "outputs": [],
+          "members": []
+        },
+        {
+          "name": "NeuralChartTitleTemplate",
+          "kind": "ClassDeclaration",
+          "angularKind": "directive",
+          "selector": "ng-template[ncChartTitle]",
+          "inputs": [],
+          "outputs": [],
+          "members": []
+        },
+        {
+          "name": "NeuralChartTooltipTemplate",
+          "kind": "ClassDeclaration",
+          "angularKind": "directive",
+          "selector": "ng-template[ncChartTooltip]",
+          "inputs": [],
+          "outputs": [],
+          "members": []
+        }
+      ]
+    }
+  },
+  "tokens": [],
+  "assets": {}
+}

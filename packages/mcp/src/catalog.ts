@@ -25,7 +25,10 @@ const catalogSources = {
   web: { file: '', package: '@neural-ui/core', scheme: 'neural-ui' },
   native: { file: 'native-', package: '@neural-ui/native', scheme: 'neural-native' },
   'charts-native': { file: 'charts-native-', package: '@neural-charts/native', scheme: 'neural-charts-native' },
-} as const;
+  'charts-web': { file: 'charts-web-', package: '@neural-charts/web', scheme: 'neural-charts-web' },
+  'charts-angular': { file: 'charts-angular-', package: '@neural-charts/angular', scheme: 'neural-charts-angular' },
+  'charts-react': { file: 'charts-react-', package: '@neural-charts/react', scheme: 'neural-charts-react' },
+} as const satisfies Record<Library, { file: string; package: string; scheme: string }>;
 export function catalogScheme(catalog: Catalog): string {
   const source = Object.values(catalogSources).find(source => source.package === catalog.api.package);
   if (!source) throw new Error('Unsupported catalogue');
@@ -49,9 +52,15 @@ export function loadCatalog(library: Library = 'web'): Catalog {
 export function components(catalog: Catalog, query = '', kind = 'all') {
   const needle = query.toLowerCase();
   const entries = Object.entries(catalog.api.entrypoints).filter(([entrypoint]) => catalog.api.package !== '@neural-ui/native' || entrypoint !== catalog.api.package);
-  return entries.flatMap(([entrypoint, entry]) => entry.symbols
-    .filter(symbol => symbol.angularKind && (kind === 'all' || symbol.angularKind === kind))
-    .map(symbol => ({ entrypoint, name: symbol.name, kind: symbol.angularKind!, selector: symbol.selector! })))
+  return entries.flatMap(([entrypoint, entry]) => entry.symbols.flatMap(symbol => {
+    if (symbol.angularKind && (kind === 'all' || symbol.angularKind === kind)) {
+      return [{ entrypoint, name: symbol.name, kind: symbol.angularKind, selector: symbol.selector }];
+    }
+    if (entrypoint === '@neural-charts/react' && symbol.name === 'Chart' && kind !== 'directive') {
+      return [{ entrypoint, name: symbol.name, kind: 'component' as const, selector: undefined }];
+    }
+    return [];
+  }))
     .filter(item => `${item.name} ${item.selector} ${item.entrypoint}`.toLowerCase().includes(needle))
     .sort((a, b) => a.name.localeCompare(b.name));
 }

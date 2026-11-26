@@ -9,14 +9,15 @@ import { parse as parseYaml } from 'yaml';
 
 const native = process.argv.includes('--native');
 const chartsNative = process.argv.includes('--charts-native');
-const skill = chartsNative ? 'neural-charts-native' : native ? 'neural-native' : 'neural-ui';
+const chartsWeb = process.argv.includes('--charts-web');
+const skill = chartsWeb ? 'neural-charts-web' : chartsNative ? 'neural-charts-native' : native ? 'neural-native' : 'neural-ui';
 const skillPath = path.join(root, 'skills', skill);
 const metadata = parseYaml(/^---\r?\n([\s\S]*?)\r?\n---/.exec(fs.readFileSync(path.join(skillPath, 'SKILL.md'), 'utf8'))[1]);
-const version = native || chartsNative ? metadata.metadata.version : JSON.parse(fs.readFileSync(path.join(root,'package.json'))).version;
+const version = skill !== 'neural-ui' ? metadata.metadata.version : JSON.parse(fs.readFileSync(path.join(root,'package.json'))).version;
 // Refuse to package a stale committed skill when working-tree edits exist.
 const changes = execFileSync('git',['status','--porcelain','--untracked-files=all','--',`skills/${skill}`],{cwd:root,encoding:'utf8'});
 if(changes.trim()) throw Error('Commit the validated skill before packaging');
-const output = path.join(root,'dist', chartsNative ? 'charts-native-skill' : native ? 'native-skill' : '');
+const output = path.join(root,'dist', chartsWeb ? 'charts-web-skill' : chartsNative ? 'charts-native-skill' : native ? 'native-skill' : '');
 fs.mkdirSync(output,{recursive:true});
 const name = `${skill}-${version}.tar.gz`;
 const modified = execFileSync('git', ['log', '-1', '--format=%ct', '--', `skills/${skill}`], { cwd: root, encoding: 'utf8' }).trim();

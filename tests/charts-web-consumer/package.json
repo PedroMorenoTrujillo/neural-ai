@@ -1,0 +1,24 @@
+{
+  "name": "neural-ai-charts-web-consumer",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@angular/common": "22.3.0",
+    "@angular/compiler": "22.3.0",
+    "@angular/core": "22.3.0",
+    "@angular/platform-browser": "22.3.0",
+    "@neural-charts/angular": "1.1.1",
+    "@neural-charts/react": "1.0.0",
+    "@neural-charts/web": "1.2.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "rxjs": "7.8.2"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "22.3.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.2.6",
+    "typescript": "6.0.3"
+  }
+}

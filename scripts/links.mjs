@@ -11,14 +11,18 @@ const report = [];
 // Optional historical directory citation, not an installation/API source. Keep
 // its blocked status visible without failing the release of our own packages.
 const optionalDiscoveryUrl = 'https://skillsmp.com/docs/faq';
-function githubApiUrl(url) {
+function githubFallbackUrls(url) {
   if (url.hostname !== 'github.com') return;
   const [owner, repo, kind, ref, ...file] = url.pathname.split('/').filter(Boolean).map(decodeURIComponent);
   if (!owner || !repo) return;
   const base = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
-  if (!kind) return base;
-  if (kind === 'releases' && !ref) return base + '/releases?per_page=1';
-  if (kind === 'blob' && ref && file.length) return base + '/contents/' + file.map(encodeURIComponent).join('/') + '?ref=' + encodeURIComponent(ref);
+  if (!kind) return [base];
+  if (kind === 'releases' && !ref) return [base + '/releases?per_page=1'];
+  if (kind === 'blob' && ref && file.length) {
+    const encodedFile = file.map(encodeURIComponent).join('/');
+    const raw = 'https://raw.githubusercontent.com/' + [owner, repo, ref].map(encodeURIComponent).join('/') + '/' + encodedFile;
+    return [raw, base + '/contents/' + encodedFile + '?ref=' + encodeURIComponent(ref)];
+  }
 }
 const queue = [...urls].sort();
 await Promise.all(Array.from({length:4},async () => {
@@ -34,13 +38,18 @@ await Promise.all(Array.from({length:4},async () => {
           lastError=undefined; break;
         }
         const parsed = new URL(url);
-        const apiUrl = response.status >= 500 ? githubApiUrl(parsed) : undefined;
-        if (apiUrl) {
-          const checked = await fetch(apiUrl,{signal:AbortSignal.timeout(20000)});
-          await checked.body?.cancel();
-          if (!checked.ok) throw Error(`GitHub web returned ${response.status} and API returned ${checked.status}`);
-          report.push({url,status:response.status,verification:'github-api',apiUrl,verifiedStatus:checked.status});
-          lastError = undefined; break;
+        const alternatives = response.status >= 500 ? githubFallbackUrls(parsed) : undefined;
+        if (alternatives) {
+          for (const alternate of alternatives) {
+            const checked = await fetch(alternate, { signal: AbortSignal.timeout(20000) }).catch(() => undefined);
+            await checked?.body?.cancel();
+            if (!checked?.ok) continue;
+            report.push({ url, status: response.status, verification: 'github-fallback', alternate, verifiedStatus: checked.status });
+            lastError = undefined;
+            break;
+          }
+          if (!report.some(item => item.url === url)) throw Error(`GitHub web returned ${response.status} and the alternate URLs could not be verified`);
+          break;
         }
         const packagePath = /^\/package\/((?:@[^/]+\/)?[^/]+)\/?$/.exec(parsed.pathname);
         if (response.status===403 && parsed.hostname==='www.npmjs.com' && packagePath) {

@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, readdirSync, rmSync, lstatSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
-import { WEB_SKILL_VERSION, NATIVE_SKILL_VERSION, CHARTS_SKILL_VERSION, MCP_VERSION } from './release-state.mjs';
+import { WEB_SKILL_VERSION, NATIVE_SKILL_VERSION, CHARTS_SKILL_VERSION, CHARTS_WEB_SKILL_VERSION, MCP_VERSION } from './release-state.mjs';
 import { OWNER, REPOSITORY } from './release-authorization.mjs';
 
 const root = resolve(import.meta.dirname, '..');
@@ -42,6 +42,7 @@ for (const [skill, version, name, output] of [
   ['neural-ui', WEB_SKILL_VERSION, `v${WEB_SKILL_VERSION}`, 'dist'],
   ['neural-native', NATIVE_SKILL_VERSION, `neural-native-v${NATIVE_SKILL_VERSION}`, 'dist/native-skill'],
   ['neural-charts-native', CHARTS_SKILL_VERSION, `neural-charts-native-v${CHARTS_SKILL_VERSION}`, 'dist/charts-native-skill'],
+  ['neural-charts-web', CHARTS_WEB_SKILL_VERSION, `neural-charts-web-v${CHARTS_WEB_SKILL_VERSION}`, 'dist/charts-web-skill'],
 ]) {
   tag(name);
   assert.equal(git(['rev-parse', `${name}:skills/${skill}`]), git(['rev-parse', `HEAD:skills/${skill}`]), `The ${skill} version was not bumped after changing its content`);

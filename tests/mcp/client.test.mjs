@@ -1,7 +1,7 @@
 import { WEB_VERSION, MCP_VERSION } from '../../scripts/release-state.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { connect, call, assertChartsNative, webSkillSources } from './helpers.mjs';
+import { connect, call, assertChartsNative, assertChartsBrowser, webSkillSources } from './helpers.mjs';
 
 test('official MCP SDK client interoperates over real stdio: all tools and resources', { timeout: 30000 }, async () => {
   const { client, stderr } = await connect();
@@ -50,6 +50,7 @@ export class LocalizedDialog { readonly open = signal(true); }` });
     assert.deepEqual(webResources.sort(), expectedWebResources.sort());
     assert.ok(resources.resources.some(item => item.uri === 'neural-native://docs/references/forms'));
     await assertChartsNative(client);
+    await assertChartsBrowser(client);
     assert.equal(stderr(), '');
   } finally { await client.close(); }
 });
