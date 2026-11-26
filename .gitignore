@@ -3,6 +3,7 @@ node_modules/
 dist/
 .angular/
 test-results/
+tests/charts-web-consumer/.compiled-*/
 playwright-report/
 *.log
 .DS_Store

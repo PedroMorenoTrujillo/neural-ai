@@ -1,8 +1,16 @@
 # Neural AI
 
-Skills oficiales de **Neural UI v2 Web**, **Neural Native** y **Neural Charts Native**, con contratos verificables y un MCP compartido. La skill Web **0.1.6** usa **@neural-ui/core 2.1.0**. La skill Native 0.1.8 está verificada contra **@neural-ui/native 0.1.0-beta.13**, Angular Native 0.29.0 y Angular 22.2.2. La skill Charts Native **0.1.6** usa **@neural-charts/native 0.1.0-beta.14** con Charts Core **0.1.5**. Licencia MIT.
+Skills oficiales de **Neural UI v2 Web**, **Neural Native**, **Neural Charts Native** y **Neural Charts Web**, con contratos verificables y un MCP compartido. La skill Web **0.1.6** usa **@neural-ui/core 2.1.0**. La skill Native 0.1.8 está verificada contra **@neural-ui/native 0.1.0-beta.13**, Angular Native 0.29.0 y Angular 22.2.2. La skill Charts Native **0.1.6** usa **@neural-charts/native 0.1.0-beta.14** con Charts Core **0.1.5**. Licencia MIT.
 
-Tres skills especializadas, referencias bajo demanda y ejemplos compilables. El [servidor MCP local opcional](packages/mcp/README.md) se distribuye como [neural-ui-mcp en npm](https://www.npmjs.com/package/neural-ui-mcp) y mantiene los tres catálogos separados. Las skills se instalan desde GitHub y el proyecto consumidor instala su librería y sus peers.
+Cuatro skills especializadas, referencias bajo demanda y ejemplos compilables. El [servidor MCP local opcional](packages/mcp/README.md) se distribuye como [neural-ui-mcp en npm](https://www.npmjs.com/package/neural-ui-mcp) y mantiene seis catálogos separados. Las skills se instalan desde GitHub y el proyecto consumidor instala su librería y sus peers.
+
+## Neural Charts en el navegador
+
+La [skill Neural Charts Web 0.1.0](skills/neural-charts-web/SKILL.md) incluye ejemplos comprobados para Charts Web 1.2.2, Charts Angular 1.1.1 y Charts React 1.0.0. Selecciona `charts-web`, `charts-angular` o `charts-react` en el MCP según el paquete que use tu aplicación.
+
+```sh
+npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/neural-charts-web-v0.1.0/skills/neural-charts-web --skill neural-charts-web --agent codex claude-code --copy --yes
+```
 
 ## Neural Charts Native
 

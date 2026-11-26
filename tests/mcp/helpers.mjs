@@ -1,4 +1,4 @@
-import { WEB_VERSION, NATIVE_VERSION, CHARTS_VERSION } from '../../scripts/release-state.mjs';
+import { WEB_VERSION, NATIVE_VERSION, CHARTS_VERSION, CHARTS_BROWSER_VERSIONS } from '../../scripts/release-state.mjs';
 import assert from 'node:assert/strict';
 import { Client } from '@modelcontextprotocol/client';
 import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
@@ -32,6 +32,37 @@ export async function call(client, name, args) {
   assert.equal(response.structuredContent.version, args?.version ?? versions[args?.library ?? 'web']);
   assert.deepEqual(JSON.parse(response.content[0].text), response.structuredContent);
   return response.structuredContent.data;
+}
+
+export async function assertChartsBrowser(client) {
+  const exported = { web: 'createChart', angular: 'NeuralChart', react: 'Chart' };
+  for (const [library, version] of Object.entries(CHARTS_BROWSER_VERSIONS)) {
+    const adapter = library.replace('charts-', '');
+    const entrypoint = `@neural-charts/${adapter}`;
+    const chart = (name, args = {}) => call(client, name, { library, version, ...args });
+    const api = await chart('get_api', { entrypoint, symbol: exported[adapter] });
+    assert.equal(api.contract.name, exported[adapter]);
+    if (adapter === 'angular') {
+      assert.equal(api.contract.selector, 'nc-chart');
+      assert.ok(api.contract.inputs.some(field => field.alias === 'data' && field.required));
+      assert.ok(api.contract.outputs.some(field => field.alias === 'pointActivate'));
+    }
+    if (adapter === 'react') {
+      const list = await chart('list_components', { kind: 'component' });
+      assert.ok(list.items.some(item => item.name === 'Chart' && item.entrypoint === entrypoint));
+    }
+    const example = await chart('get_example', { id: `line-${adapter}` });
+    assert.ok(example.text.includes(entrypoint));
+    const report = await chart('validate_usage', { source: example.text, filename: example.source.split('/').at(-1) });
+    assert.equal(report.valid, true, JSON.stringify(report));
+    if (adapter === 'angular') assert.ok(report.templatesChecked > 0);
+    const docs = await chart('search_documentation', { query: 'chart' });
+    assert.ok(docs.results.length && docs.results.every(item => item.uri.startsWith(`neural-${library}://`)));
+    const response = await client.readResource({ uri: docs.results[0].uri });
+    assert.ok(response.contents[0].text.includes(docs.results[0].excerpt));
+    assert.equal((await client.callTool({ name: 'get_api', arguments: { library, version: WEB_VERSION, entrypoint } })).isError, true);
+    assert.equal((await client.callTool({ name: 'get_api', arguments: { library, version, entrypoint: '@neural-charts/native' } })).isError, true);
+  }
 }
 
 export async function assertChartsNative(client) {

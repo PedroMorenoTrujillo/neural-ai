@@ -3,7 +3,7 @@ import { resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { WEB_VERSION, NATIVE_VERSION, CHARTS_VERSION } from './release-state.mjs';
+import { WEB_VERSION, NATIVE_VERSION, CHARTS_VERSION, CHARTS_BROWSER_VERSIONS } from './release-state.mjs';
 import { generateMcpVersions } from './generate-mcp-versions.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -19,8 +19,8 @@ function collect(dir, target, extension, skill = 'neural-ui') {
     const stat = lstatSync(path);
     if (stat.isSymbolicLink()) throw new Error('Symlinks are not allowed in catalogue sources');
     if (stat.isDirectory()) collect(path, target, extension, skill);
-    else if (name.endsWith(extension)) target.push({
-      id: relative(resolve(root, `skills/${skill}`), path).replaceAll('\\', '/').replace(/\.(md|ts)$/, ''),
+    else if (extension === '.ts' ? /\.tsx?$/.test(name) : name.endsWith(extension)) target.push({
+      id: relative(resolve(root, `skills/${skill}`), path).replaceAll('\\', '/').replace(/\.(md|tsx?)$/, ''),
       source: relative(root, path).replaceAll('\\', '/'),
       text: readFileSync(path, 'utf8'),
     });
@@ -51,10 +51,24 @@ if (chartsApi.package !== '@neural-charts/native' || chartsApi.version !== CHART
 const chartsCatalog = JSON.stringify({ schemaVersion: 1, api: chartsApi, documents: chartsDocuments, examples: chartsExamples }) + '\n';
 writeFileSync(resolve(pkg, 'data/charts-native-catalog.json'), chartsCatalog);
 writeFileSync(resolve(pkg, 'data/charts-native-sha256'), createHash('sha256').update(chartsCatalog).digest('hex') + '\n');
+const browserDocs = [], browserExamples = [];
+collect(resolve(root, 'skills/neural-charts-web/references'), browserDocs, '.md', 'neural-charts-web');
+collect(resolve(root, 'skills/neural-charts-web/examples'), browserExamples, '.ts', 'neural-charts-web');
+for (const [library, version] of Object.entries(CHARTS_BROWSER_VERSIONS)) {
+  const adapter = library.slice('charts-'.length);
+  const api = JSON.parse(readFileSync(resolve(root, `evidence/${library}-api.json`), 'utf8'));
+  if (api.package !== `@neural-charts/${adapter}` || api.version !== version) throw new Error(`Unsupported ${library} catalogue version`);
+  const documents = browserDocs.filter(doc => doc.id === `references/${adapter}`);
+  const examples = browserExamples.filter(example => example.id === `examples/line-${adapter}`);
+  if (!documents.length || !examples.length) throw new Error(`Missing documents or examples for ${library}`);
+  const contents = JSON.stringify({ schemaVersion: 1, api, documents, examples }) + '\n';
+  writeFileSync(resolve(pkg, `data/${library}-catalog.json`), contents);
+  writeFileSync(resolve(pkg, `data/${library}-sha256`), createHash('sha256').update(contents).digest('hex') + '\n');
+}
 copyFileSync(resolve(root, 'shared/usage-validator.mjs'), resolve(pkg, 'src/usage-validator.mjs'));
 copyFileSync(resolve(root, 'LICENSE'), resolve(pkg, 'LICENSE'));
 rmSync(resolve(pkg, 'dist'), { recursive: true, force: true });
 execFileSync(process.execPath, [resolve(root, 'node_modules/typescript/bin/tsc'), '-p', resolve(pkg, 'tsconfig.json')], { stdio: 'inherit' });
 copyFileSync(resolve(root, 'shared/usage-validator.mjs'), resolve(pkg, 'dist/usage-validator.mjs'));
 chmodSync(resolve(pkg, 'dist/cli.js'), 0o755);
-console.log(`MCP built for Web, Native and Charts Native (${chartsExamples.length} chart examples)`);
+console.log(`MCP built for Neural UI Web, Native and four Charts catalogues (${chartsExamples.length + browserExamples.length} chart examples)`);

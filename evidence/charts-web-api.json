@@ -1,0 +1,604 @@
+{
+  "schemaVersion": 1,
+  "package": "@neural-charts/web",
+  "version": "1.2.2",
+  "entrypoints": {
+    "@neural-charts/web": {
+      "types": "./dist/index.d.ts",
+      "sha256": "274b541917fb640f5324ef57888bcafe248c0049fb5d0d52a132b30cd83b12a4",
+      "symbols": [
+        {
+          "name": "ChartAccessibilityOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartAccessibilityOptions {\n    readonly description?: string;\n    readonly keyboard?: boolean;\n    readonly announceDataChanges?: boolean;\n    readonly seriesDescriptions?: readonly Readonly<{\n        id: string;\n        description: string;\n    }>[];\n    readonly pointDescriptions?: readonly Readonly<{\n        id: ChartPointId;\n        description: string;\n    }>[];\n}"
+        },
+        {
+          "name": "ChartActivePoint",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartActivePoint {\n    readonly id: ChartPointId;\n    readonly key: string;\n}"
+        },
+        {
+          "name": "ChartAxisLabelContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartAxisLabelContext extends ContentContext {\n    readonly axis: \"x\" | \"y\" | \"secondaryY\";\n    readonly index: number;\n    readonly tick: Readonly<{\n        label: string;\n        value?: number | string;\n        type?: string;\n    }>;\n}"
+        },
+        {
+          "name": "ChartAxisOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartAxisOptions {\n    readonly visible?: boolean;\n    readonly title?: string;\n    readonly titleStyle?: ChartTextStyle;\n    readonly numberFormat?: ChartNumberFormat;\n    readonly labels?: Readonly<{\n        maxLines?: 1 | 2 | 3;\n        maxCharacters?: number;\n        rotation?: number;\n        layout?: ChartLabelLayout;\n        style?: Omit<ChartTextStyle, \"align\">;\n    }>;\n}"
+        },
+        {
+          "name": "chartCapabilities",
+          "kind": "VariableDeclaration",
+          "declaration": "chartCapabilities: {\n    readonly abands: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly ad: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly ao: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly apo: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly aroon: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly aroonoscillator: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly atr: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly bb: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly candlestick: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly cci: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly chaikin: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly cmf: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly cmo: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly dema: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly disparityindex: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly dmi: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly dpo: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly ema: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly flags: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly heikinashi: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly hlc: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly hollowcandlestick: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly ikh: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly keltnerchannels: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly klinger: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly linearregression: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly linearregressionangle: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly linearregressionintercept: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly linearregressionslope: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly macd: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly mfi: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly momentum: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly natr: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly obv: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly ohlc: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly pc: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly pivotpoints: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly pointandfigure: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly ppo: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly priceenvelopes: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly psar: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly renko: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly roc: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly rsi: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly slowstochastic: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly sma: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly stochastic: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly supertrend: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly tema: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly trendline: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly trix: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly vbp: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly vwap: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly williamsr: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly wma: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly zigzag: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"xy\";\n    };\n    readonly fan: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly regression: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly flame: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"x\";\n        readonly measured: true;\n    };\n    readonly violin: {\n        readonly axes: \"cartesian\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly dendrogram: {\n        readonly axes: \"hierarchy\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly parallel: {\n        readonly axes: \"parallel\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly heatmap: {\n        readonly axes: \"cartesian\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly venn: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly wordcloud: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly pictorial: {\n        readonly axes: \"cartesian\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly tilemap: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly contour: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly dependencywheel: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly arcdiagram: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly chord: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly bullet: {\n        readonly axes: \"cartesian\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly variwide: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"y\";\n        readonly measured: true;\n    };\n    readonly xrange: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"x\";\n        readonly measured: true;\n    };\n    readonly timeline: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"x\";\n        readonly measured: true;\n    };\n    readonly vector: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly windbarb: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly line: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly column: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly bar: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly area: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly spline: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly areaspline: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly streamgraph: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly arearange: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly areasplinerange: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly columnrange: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly boxplot: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly errorbar: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly mixed: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly waterfall: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: false;\n    };\n    readonly lollipop: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly dumbbell: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly columnpyramid: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly scatter: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly bubble: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly polygon: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly histogram: {\n        readonly axes: \"cartesian\";\n        readonly viewport: false;\n        readonly measured: false;\n    };\n    readonly bellcurve: {\n        readonly axes: \"cartesian\";\n        readonly viewport: false;\n        readonly measured: false;\n    };\n    readonly pareto: {\n        readonly axes: \"cartesian\";\n        readonly viewport: \"x\";\n        readonly measured: false;\n    };\n    readonly pie: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: false;\n    };\n    readonly donut: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: false;\n    };\n    readonly gauge: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: false;\n    };\n    readonly variablepie: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly item: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly treemap: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly sunburst: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly funnel: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly pyramid: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly sankey: {\n        readonly axes: \"none\";\n        readonly viewport: \"xy\";\n        readonly measured: true;\n    };\n    readonly treegraph: {\n        readonly axes: \"none\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly organization: {\n        readonly axes: \"none\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly networkgraph: {\n        readonly axes: \"none\";\n        readonly viewport: \"any\";\n        readonly measured: true;\n    };\n    readonly packedbubble: {\n        readonly axes: \"none\";\n        readonly viewport: \"xy\";\n        readonly measured: true;\n    };\n    readonly radar: {\n        readonly axes: \"radial\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly polar: {\n        readonly axes: \"radial\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly windrose: {\n        readonly axes: \"radial\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n    readonly radialbar: {\n        readonly axes: \"none\";\n        readonly viewport: false;\n        readonly measured: true;\n    };\n}"
+        },
+        {
+          "name": "ChartContentContext",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartContentContext = ChartContentContextMap[ChartContentKey];"
+        },
+        {
+          "name": "ChartContentContextMap",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartContentContextMap {\n    title: ChartTitleContext;\n    axisLabel: ChartAxisLabelContext;\n    dataLabel: ChartDataLabelContext;\n    legend: ChartLegendContext;\n    tooltip: ChartTooltipContext;\n}"
+        },
+        {
+          "name": "ChartContentHost",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartContentHost<K extends ChartContentKey> = `${K}` extends 'axisLabel' | 'dataLabel' ? SVGTextElement : HTMLElement;"
+        },
+        {
+          "name": "ChartContentKey",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartContentKey = keyof ChartContentContextMap;"
+        },
+        {
+          "name": "ChartContentPorts",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartContentPorts = {\n    readonly [K in ChartContentSlotName]?: ChartContentSlot<K>;\n} & Readonly<{\n    onError?: (diagnostic: ChartDiagnostic) => void;\n}>;"
+        },
+        {
+          "name": "ChartContentSlot",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartContentSlot<K extends ChartContentKey> {\n    readonly text: (context: ChartContentFor<K>) => string;\n    readonly render?: (host: ChartContentHost<K>, context: ChartRenderContext<K>, signal: AbortSignal) => void | (() => void);\n}"
+        },
+        {
+          "name": "ChartContentSlotName",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartContentSlotName {\n    Title = \"title\",\n    Legend = \"legend\",\n    Tooltip = \"tooltip\",\n    AxisLabel = \"axisLabel\",\n    DataLabel = \"dataLabel\"\n}"
+        },
+        {
+          "name": "ChartController",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartController {\n    update(data: ChartData, options?: ChartOptions, content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    updateOptions(options: ChartOptions, content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    updateContent(content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    getFrame(): PlanFrame;\n    getSelection(): readonly ChartPointId[];\n    getHiddenSeriesIds(): readonly string[];\n    setViewport(value: PlanViewportValue): ChartResult<PlanViewportValue>;\n    zoomBy(factor: number): ChartResult<PlanViewportValue>;\n    resetViewport(): ChartResult<PlanViewportValue>;\n    exportSvg(options?: import(\"./export-layout.js\").SvgExportOptions): string;\n    exportCsv(options?: import(\"./export.js\").CsvExportOptions): ChartResult<string>;\n    exportPng(options?: import(\"./export.js\").PngExportOptions): Promise<Blob>;\n    destroy(): void;\n}"
+        },
+        {
+          "name": "ChartData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartData = Data<Source>;"
+        },
+        {
+          "name": "ChartDataLabelContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartDataLabelContext extends ContentContext {\n    readonly index: number;\n    readonly observation?: PlanObservation;\n    readonly annotation?: NonNullable<PlanFrame[\"annotations\"]>[number];\n}"
+        },
+        {
+          "name": "ChartDataTable",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartDataTable {\n    readonly columns: readonly string[];\n    readonly rows: readonly (readonly string[])[];\n    readonly totalRows?: number;\n}"
+        },
+        {
+          "name": "ChartDateFormat",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartDateFormat {\n    readonly timeZone?: string;\n    readonly year?: \"numeric\" | \"2-digit\";\n    readonly month?: \"numeric\" | \"2-digit\" | \"short\" | \"long\" | \"narrow\";\n    readonly day?: \"numeric\" | \"2-digit\";\n    readonly hour?: \"numeric\" | \"2-digit\";\n    readonly minute?: \"numeric\" | \"2-digit\";\n    readonly second?: \"numeric\" | \"2-digit\";\n    readonly weekday?: \"short\" | \"long\" | \"narrow\";\n    readonly hourCycle?: \"h11\" | \"h12\" | \"h23\" | \"h24\";\n}"
+        },
+        {
+          "name": "ChartDiagnostic",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartDiagnostic = Readonly<{\n    code: string;\n    reason: string;\n    path: string;\n    message: string;\n}>;"
+        },
+        {
+          "name": "ChartDownloadFormat",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadFormat {\n    Csv = \"csv\",\n    Png = \"png\",\n    Svg = \"svg\"\n}"
+        },
+        {
+          "name": "ChartDownloadMenuPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadMenuPosition {\n    Top = \"top\",\n    Bottom = \"bottom\"\n}"
+        },
+        {
+          "name": "ChartLabelLayout",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartLabelLayout = 'auto' | 'all' | 'truncate';"
+        },
+        {
+          "name": "ChartLayoutOptions",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartLayoutOptions = RootLayout & Partial<Omit<NonNullable<PlanOptions['circular']>, 'gaugeStyle'>> & Readonly<{\n    style?: 'solid' | 'needle';\n    stackGroups?: PlanOptions['stackGroups'];\n    bands?: Extract<PlanSpec, {\n        family: 'bullet';\n    }>['bands'];\n    shape?: Pictorial['shape'];\n    gap?: number;\n    background?: boolean;\n    levels?: Contour['levels'];\n    segmentBudget?: number;\n}>;"
+        },
+        {
+          "name": "ChartLegendContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartLegendContext extends ContentContext {\n    readonly id: string;\n    readonly name: string;\n    readonly color: string;\n    readonly visible: boolean;\n}"
+        },
+        {
+          "name": "ChartMountOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartMountOptions {\n    readonly instanceId: string;\n    readonly content?: import(\"./content.js\").ChartContentPorts;\n    readonly onPointActivate?: (event: Readonly<{\n        id: ChartPointId;\n        observation: PlanObservation;\n        source: \"pointer\" | \"keyboard\";\n        revision: number;\n    }>) => void;\n    readonly onHiddenSeriesChange?: (ids: readonly string[]) => void;\n    readonly onSelectionChange?: (ids: readonly ChartPointId[]) => void;\n    readonly onViewportChange?: (value: PlanViewportValue) => void;\n    readonly onDiagnostic?: (diagnostic: ChartDiagnostic) => void;\n    readonly synchronization?: import(\"./synchronization.js\").ChartSynchronization;\n}"
+        },
+        {
+          "name": "ChartNumberFormat",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartNumberFormat {\n    readonly style?: \"decimal\" | \"percent\" | \"currency\" | \"unit\";\n    readonly currency?: string;\n    readonly currencyDisplay?: \"symbol\" | \"narrowSymbol\" | \"code\" | \"name\";\n    readonly currencySign?: \"standard\" | \"accounting\";\n    readonly unit?: string;\n    readonly unitDisplay?: \"short\" | \"narrow\" | \"long\";\n    readonly prefix?: string;\n    readonly suffix?: string;\n    readonly notation?: \"standard\" | \"scientific\" | \"engineering\" | \"compact\";\n    readonly minimumFractionDigits?: number;\n    readonly maximumFractionDigits?: number;\n    readonly useGrouping?: boolean;\n    readonly signDisplay?: \"auto\" | \"never\" | \"always\" | \"exceptZero\";\n}"
+        },
+        {
+          "name": "ChartOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartOptions<T extends ChartType = ChartType> {\n    readonly title?: string;\n    readonly description?: string;\n    readonly animation?: Readonly<{\n        enabled?: boolean;\n        duration?: number;\n        revision?: number;\n    }>;\n    readonly capacity?: PlanOptions[\"capacity\"];\n    readonly scales?: PlanOptions[\"scales\"];\n    readonly hierarchy?: PlanOptions[\"hierarchy\"];\n    readonly referenceBands?: PlanOptions[\"referenceBands\"];\n    readonly referenceBandStyles?: readonly ChartReferenceBandStyle[];\n    readonly referenceLabels?: readonly Readonly<{\n        id: string;\n        text: string;\n    }>[];\n    readonly referenceStyles?: readonly ChartReferenceStyle[];\n    readonly annotations?: readonly Readonly<{\n        id: string;\n        point: ChartPointId;\n        text: string;\n        dx?: number;\n        dy?: number;\n    }>[];\n    readonly unit?: string;\n    readonly theme?: \"light\" | \"dark\";\n    readonly direction?: \"ltr\" | \"rtl\";\n    readonly themeTokens?: import(\"./theme.js\").ChartTheme;\n    readonly locale?: \"en\" | \"es\";\n    readonly width?: number;\n    readonly height?: number;\n    readonly responsive?: readonly ChartResponsiveRule[];\n    readonly accessibility?: ChartAccessibilityOptions;\n    readonly formatting?: Readonly<{\n        locale?: string;\n        number?: ChartNumberFormat;\n        date?: ChartDateFormat;\n    }>;\n    readonly layout?: ChartLayoutOptions;\n    readonly appearance?: Readonly<{\n        colors?: readonly string[];\n        series?: readonly ChartSeriesStyle[];\n        points?: readonly ChartPointStyle[];\n        bandColors?: readonly string[];\n        risingColor?: string;\n        fallingColor?: string;\n        lineWidth?: number;\n        markers?: boolean;\n        markerRadius?: number;\n        dataLabels?: boolean;\n        stackLabels?: boolean;\n        centerName?: string;\n        labelLimit?: number;\n        dataLabelLayout?: ChartLabelLayout;\n        titleStyle?: ChartTextStyle;\n        descriptionStyle?: ChartTextStyle;\n        minPlotWidth?: number;\n        waterfall?: \"waterfall\" extends T ? ChartWaterfallStyle : never;\n    }>;\n    readonly colorAxis?: T extends \"heatmap\" | \"tilemap\" ? Extract<PlanSpec, {\n        family: \"tilemap\";\n    }>[\"colorAxis\"] : never;\n    readonly axes?: Readonly<{\n        grid?: boolean;\n        x?: ChartAxisOptions;\n        y?: ChartAxisOptions;\n        secondaryY?: ChartAxisOptions;\n    }>;\n    readonly legend?: Readonly<{\n        visible?: boolean;\n        position?: \"top\" | \"bottom\" | \"left\" | \"right\";\n        interactive?: boolean;\n        reverse?: boolean;\n        maxLabelCharacters?: number;\n        itemSpacing?: number;\n        maxHeight?: number;\n    }>;\n    readonly tooltip?: Readonly<{\n        enabled?: boolean;\n        content?: \"point\" | \"shared\";\n        placement?: \"auto\" | \"docked\" | \"below\";\n        crosshair?: boolean;\n        pinnable?: boolean;\n        background?: string;\n        foreground?: string;\n        maxWidth?: number;\n        maxHeight?: number;\n    }>;\n    readonly downloadMenu?: readonly `${ChartDownloadFormat}`[];\n    readonly downloadMenuPosition?: `${ChartDownloadMenuPosition}`;\n    readonly toolbar?: Readonly<{\n        actions: readonly ChartToolbarAction[];\n        position?: ChartDownloadMenuPosition;\n    }>;\n    readonly viewport?: Readonly<{\n        axes: \"x\" | \"y\" | \"xy\";\n        value?: PlanViewportValue;\n        controls?: boolean;\n        zoom?: Readonly<ChartZoomOptions>;\n        pan?: boolean;\n        pinch?: boolean;\n        wheel?: false | \"ctrl\" | \"always\";\n    }>;\n    readonly hiddenSeriesIds?: readonly string[];\n    readonly selectedPoints?: readonly ChartPointId[];\n    readonly references?: PlanOptions[\"references\"];\n}"
+        },
+        {
+          "name": "ChartPlanningPorts",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPlanningPorts {\n    readonly measureWords?: (requests: readonly import(\"@neural-charts/core\").PlanWordCloudMeasurementRequest[]) => readonly import(\"@neural-charts/core\").PlanWordCloudMeasurement[];\n    readonly fontKey?: string;\n}"
+        },
+        {
+          "name": "ChartPointId",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartPointId = Readonly<{\n    seriesId: string;\n    pointId: string;\n}>;"
+        },
+        {
+          "name": "ChartPointStyle",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPointStyle extends ChartPointId {\n    readonly color: string;\n}"
+        },
+        {
+          "name": "ChartReferenceBandStyle",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartReferenceBandStyle {\n    readonly id: string;\n    readonly label?: string;\n    readonly color?: string;\n    readonly opacity?: number;\n}"
+        },
+        {
+          "name": "ChartReferenceStyle",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartReferenceStyle {\n    readonly id: string;\n    readonly color?: string;\n    readonly dash?: \"solid\" | \"dashed\" | \"dotted\";\n    readonly width?: number;\n}"
+        },
+        {
+          "name": "ChartRenderContext",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartRenderContext<K extends ChartContentKey> = ChartContentFor<K> & Readonly<{\n    text: string;\n}>;"
+        },
+        {
+          "name": "ChartResponsiveRule",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartResponsiveRule {\n    readonly minWidth?: number;\n    readonly maxWidth?: number;\n    readonly options: Pick<ChartOptions, \"height\" | \"legend\" | \"axes\" | \"appearance\" | \"tooltip\">;\n}"
+        },
+        {
+          "name": "ChartResult",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartResult<T> = Readonly<{\n    status: 'ok';\n    value: T;\n}> | Readonly<{\n    status: 'invalid';\n    diagnostic: ChartDiagnostic;\n}>;"
+        },
+        {
+          "name": "ChartSeriesStyle",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartSeriesStyle {\n    readonly id: string;\n    readonly color?: string;\n    readonly dash?: \"solid\" | \"dashed\" | \"dotted\";\n    readonly marker?: \"circle\" | \"square\" | \"diamond\" | \"triangle\";\n    readonly markerRadius?: number;\n    readonly fillOpacity?: number;\n    readonly markerFill?: string;\n    readonly markerStroke?: string;\n    readonly markerStrokeWidth?: number;\n    readonly pattern?: \"none\" | \"diagonal\" | \"dots\" | \"crosshatch\";\n}"
+        },
+        {
+          "name": "ChartSyncGroup",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartSyncGroup extends ChartSynchronization {\n    readonly size: number;\n    destroy(): void;\n}"
+        },
+        {
+          "name": "ChartSynchronization",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartSynchronization {\n    join(receive: (value: ChartActivePoint | undefined) => void): ChartSyncChannel;\n}"
+        },
+        {
+          "name": "ChartTablePage",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartTablePage {\n    readonly offset?: number;\n    readonly limit: number;\n}"
+        },
+        {
+          "name": "ChartTextStyle",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartTextStyle {\n    readonly align?: \"left\" | \"center\" | \"right\";\n    readonly color?: string;\n    readonly fontSize?: number;\n    readonly fontWeight?: 400 | 500 | 600 | 700;\n}"
+        },
+        {
+          "name": "ChartTitleContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartTitleContext extends ContentContext {\n    readonly description: string;\n}"
+        },
+        {
+          "name": "ChartToolbarAction",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartToolbarAction {\n    Csv = \"download-csv\",\n    Png = \"download-png\",\n    Svg = \"download-svg\",\n    Zoom = \"zoom\",\n    ZoomIn = \"zoom-in\",\n    ZoomOut = \"zoom-out\",\n    ResetZoom = \"reset\"\n}"
+        },
+        {
+          "name": "ChartToolbarPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadMenuPosition {\n    Top = \"top\",\n    Bottom = \"bottom\"\n}"
+        },
+        {
+          "name": "ChartTooltipContext",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartTooltipContext extends ContentContext {\n    readonly observation: PlanObservation;\n    readonly points: readonly PlanObservation[];\n    readonly rows?: readonly ChartTooltipRow[];\n    readonly selected: boolean;\n}"
+        },
+        {
+          "name": "ChartTooltipRow",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartTooltipRow {\n    readonly seriesId: string;\n    readonly name: string;\n    readonly color: string;\n    readonly point: PlanObservation | null;\n}"
+        },
+        {
+          "name": "ChartType",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartType = PlanSpec['family'];"
+        },
+        {
+          "name": "chartTypes",
+          "kind": "VariableDeclaration",
+          "declaration": "chartTypes: readonly (\"timeline\" | \"item\" | \"area\" | \"line\" | \"polygon\" | \"organization\" | \"contour\" | \"regression\" | \"fan\" | \"violin\" | \"flame\" | \"dendrogram\" | \"parallel\" | \"heatmap\" | \"venn\" | \"tilemap\" | \"pictorial\" | \"bullet\" | \"variwide\" | \"sankey\" | \"vector\" | \"abands\" | \"ad\" | \"ao\" | \"apo\" | \"aroon\" | \"aroonoscillator\" | \"atr\" | \"bb\" | \"candlestick\" | \"cci\" | \"chaikin\" | \"cmf\" | \"cmo\" | \"dema\" | \"disparityindex\" | \"dmi\" | \"dpo\" | \"ema\" | \"flags\" | \"heikinashi\" | \"hlc\" | \"hollowcandlestick\" | \"ikh\" | \"keltnerchannels\" | \"klinger\" | \"linearregression\" | \"linearregressionangle\" | \"linearregressionintercept\" | \"linearregressionslope\" | \"macd\" | \"mfi\" | \"momentum\" | \"natr\" | \"obv\" | \"ohlc\" | \"pc\" | \"pivotpoints\" | \"pointandfigure\" | \"ppo\" | \"priceenvelopes\" | \"psar\" | \"renko\" | \"roc\" | \"rsi\" | \"slowstochastic\" | \"sma\" | \"stochastic\" | \"supertrend\" | \"tema\" | \"trendline\" | \"trix\" | \"vbp\" | \"vwap\" | \"williamsr\" | \"wma\" | \"zigzag\" | \"wordcloud\" | \"dependencywheel\" | \"chord\" | \"arcdiagram\" | \"xrange\" | \"spline\" | \"column\" | \"mixed\" | \"pie\" | \"donut\" | \"gauge\" | \"scatter\" | \"windrose\" | \"radialbar\" | \"polar\" | \"arearange\" | \"areasplinerange\" | \"areaspline\" | \"streamgraph\" | \"columnrange\" | \"boxplot\" | \"errorbar\" | \"lollipop\" | \"columnpyramid\" | \"dumbbell\" | \"variablepie\" | \"sunburst\" | \"treegraph\" | \"networkgraph\" | \"packedbubble\" | \"histogram\" | \"bellcurve\" | \"treemap\" | \"waterfall\" | \"funnel\" | \"pyramid\" | \"pareto\" | \"radar\" | \"bubble\" | \"windbarb\")[]"
+        },
+        {
+          "name": "ChartWaterfallStyle",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartWaterfallStyle {\n    readonly positiveColor?: string;\n    readonly negativeColor?: string;\n    readonly totalColor?: string;\n    readonly connectorColor?: string;\n}"
+        },
+        {
+          "name": "ChartZoomOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartZoomOptions {\n    readonly showSlider?: boolean;\n    readonly position?: ChartZoomPosition;\n    readonly min?: number;\n    readonly max?: number;\n    readonly step?: number;\n    readonly increment?: number;\n    readonly label?: string;\n}"
+        },
+        {
+          "name": "ChartZoomPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartZoomPosition {\n    Toolbar = \"toolbar\",\n    Below = \"below\"\n}"
+        },
+        {
+          "name": "createChart",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function createChart(host: HTMLElement, initialData: ChartData, initialOptions: ChartOptions, mount: ChartMountOptions): ChartResult<ChartController>;"
+        },
+        {
+          "name": "createChartSyncGroup",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function createChartSyncGroup(): ChartSyncGroup;"
+        },
+        {
+          "name": "CsvExportOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface CsvExportOptions {\n    readonly delimiter?: \",\" | \";\";\n    readonly bom?: boolean;\n}"
+        },
+        {
+          "name": "describeChartData",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function describeChartData(data: ChartData, hidden?: readonly string[], locale?: 'en' | 'es', page?: ChartTablePage): ChartResult<ChartDataTable>;"
+        },
+        {
+          "name": "exportChartCsv",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function exportChartCsv(data: ChartData, options?: CsvExportOptions): ChartResult<string>;"
+        },
+        {
+          "name": "formatChartTitle",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function formatChartTitle(data: Pick<ChartData, 'type'>, options: ChartOptions, ports?: ChartContentPorts): string;"
+        },
+        {
+          "name": "PlanFrame",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface PlanFrame {\n    readonly financial?: Readonly<{\n        layout: \"price\" | \"indicator\" | \"ordinal\" | \"volume-profile\";\n    }>;\n    readonly circular?: import(\"./circular-plan-types.js\").PlanCircularFrame;\n    readonly radialSummary?: import(\"./circular-plan-types.js\").PlanRadialSummary;\n    readonly mixedAxes?: PlanMixedAxesLayout;\n    readonly mixedRanges?: import(\"./mixed-range-plan-types.js\").PlanMixedRangesLayout;\n    readonly stackGroups?: PlanStackGroupsLayout;\n    readonly heatmapData?: readonly PlanHeatmapSummary[];\n    readonly heatmapLayout?: PlanHeatmapLayout;\n    readonly vennData?: readonly PlanVennSummary[];\n    readonly vennLayout?: PlanVennLayout;\n    readonly contour?: PlanContourLayout;\n    readonly colorAxis?: PlanColorAxisFrame;\n    readonly tilemapData?: readonly PlanTilemapSummary[];\n    readonly tilemapLayout?: PlanTilemapLayout;\n    readonly pictorialGlyphs?: readonly PlanPictorialGlyph[];\n    readonly pictorialData?: readonly PlanPictorialSummary[];\n    readonly pictorialLayout?: PlanPictorialLayoutSummary;\n    readonly wordcloudData?: readonly PlanWordCloudSummary[];\n    readonly wordcloudLayout?: PlanWordCloudLayout;\n    readonly bulletData?: readonly PlanBulletSummary[];\n    readonly bulletBands?: readonly PlanBulletBandGeometry[];\n    readonly bulletTargets?: readonly PlanBulletTargetGeometry[];\n    readonly bulletOrientation?: \"horizontal\" | \"vertical\";\n    readonly bulletGrid?: readonly Readonly<{\n        x1: number;\n        y1: number;\n        x2: number;\n        y2: number;\n    }>[];\n    readonly categoryBands?: readonly PlanVariwideCategoryBand[];\n    readonly variwideData?: readonly PlanVariwideSummary[];\n    readonly variwideLayout?: Readonly<{\n        status: \"ready\" | \"no-positive-width\";\n        incomplete: boolean;\n    }>;\n    readonly intervals?: readonly PlanIntervalSummary[];\n    readonly events?: readonly PlanTimelineSummary[];\n    readonly distribution?: PlanDistributionSummary;\n    readonly secondaryGrid?: readonly Readonly<{\n        y: number;\n        label: string;\n        value?: number;\n        type?: \"number\" | \"time\";\n    }>[];\n    readonly schema: \"nc-plan/1\";\n    readonly family: PlanSpec[\"family\"] | \"bar\";\n    readonly title: string;\n    readonly description: string;\n    readonly unit: string;\n    readonly width: number;\n    readonly height: number;\n    readonly legend: readonly PlanLegendItem[];\n    readonly series: readonly PlanSeries[];\n    readonly observations: readonly PlanObservation[];\n    readonly grid: readonly Readonly<{\n        y: number;\n        label: string;\n        value?: number;\n        type?: \"number\" | \"time\";\n    }>[];\n    readonly labels: readonly Readonly<{\n        x: number;\n        label: string;\n        value?: number;\n        type?: \"number\" | \"time\";\n    }>[];\n    readonly yLabels?: readonly Readonly<{\n        id: string;\n        y: number;\n        label: string;\n    }>[];\n    readonly annotations?: readonly PlanAnnotation[];\n    readonly viewport?: PlanViewportState;\n    readonly references?: readonly PlanProjectedReference[];\n    readonly referenceBands?: readonly import(\"./reference-band-plan-types.js\").PlanProjectedReferenceBand[];\n    readonly regression?: PlanRegressionLayout;\n    readonly fan?: PlanFanLayout;\n    readonly violin?: PlanViolinLayout;\n    readonly flame?: PlanFlameLayout;\n    readonly dendrogram?: PlanDendrogramLayout;\n    readonly parallel?: PlanParallelLayout;\n    readonly polarGrid?: PlanPolarGrid;\n}"
+        },
+        {
+          "name": "PlanObservation",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface PlanObservation {\n    readonly financial?: PlanFinancialValue;\n    readonly valueAxis?: \"primary\" | \"secondary\";\n    readonly regression?: PlanRegressionValue;\n    readonly fan?: PlanFanValue;\n    readonly violin?: PlanViolinValue;\n    readonly flame?: PlanFlameValue;\n    readonly dendrogram?: PlanDendrogramValue;\n    readonly parallel?: PlanParallelValue;\n    readonly heatmap?: PlanHeatmapValue;\n    readonly venn?: PlanVennValue;\n    readonly contour?: PlanContourValue;\n    readonly tilemap?: PlanTilemapValue;\n    readonly pictorial?: PlanPictorialValue;\n    readonly interval?: PlanIntervalValue;\n    readonly event?: PlanTimelineEvent;\n    readonly relationship?: PlanRelationshipMetadata;\n    readonly bullet?: PlanBulletValue;\n    readonly variwide?: PlanVariwideValue;\n    readonly sankey?: (Readonly<{\n        type: \"node\";\n        incoming: number;\n        outgoing: number;\n    }> | Readonly<{\n        type: \"link\";\n        from: string;\n        to: string;\n        fromLabel: string;\n        toLabel: string;\n    }>) & Readonly<{\n        geometryOmitted?: true;\n    }>;\n    readonly vector?: Readonly<{\n        dx: number;\n        dy: number;\n    }>;\n    readonly wind?: Readonly<{\n        direction: number | null;\n    }>;\n    readonly yValue?: number;\n    readonly node?: Readonly<{\n        incoming: number;\n        outgoing: number;\n    }> & (Readonly<{\n        depth: number;\n        directed?: true;\n    }> | Readonly<{\n        directed: false;\n        depth?: never;\n    }>);\n    readonly stem?: Readonly<{\n        x: number;\n        startY: number;\n        endY: number;\n    }>;\n    readonly minimumValue?: number;\n    readonly q1Value?: number;\n    readonly medianValue?: number;\n    readonly q3Value?: number;\n    readonly maximumValue?: number;\n    readonly lowValue?: number;\n    readonly highValue?: number;\n    readonly valueUnit?: \"%\";\n    readonly id: Readonly<{\n        seriesId: string;\n        pointId: string;\n    }>;\n    readonly label: string;\n    readonly seriesName: string;\n    readonly value: number;\n    readonly x: number;\n    readonly y: number;\n    readonly color: string;\n    readonly group?: Readonly<{\n        key: string;\n        label: string;\n        coordinate: number;\n    }>;\n    readonly hit?: PlanHitRegion;\n    readonly percentage?: number;\n    readonly xValue?: number;\n    readonly sizeValue?: number;\n    readonly subtotal?: boolean;\n    readonly incomplete?: boolean;\n    readonly computedKind?: \"subtotal\" | \"total\";\n}"
+        },
+        {
+          "name": "planWebChart",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function planWebChart(data: ChartData, options: ChartOptions, size: Readonly<{\n    width: number;\n    height: number;\n}>, hidden?: readonly string[], ports?: ChartPlanningPorts): ChartResult<PlanFrame>;"
+        },
+        {
+          "name": "PngExportOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface PngExportOptions extends SvgExportOptions {\n    readonly width?: number;\n    readonly height?: number;\n    readonly pixelRatio?: number;\n    readonly background?: string;\n    readonly signal?: AbortSignal;\n}"
+        },
+        {
+          "name": "rasterizeChartSvg",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function rasterizeChartSvg(svg: string, document: Document, settings?: PngExportOptions): Promise<Blob>;"
+        },
+        {
+          "name": "renderChartSvg",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function renderChartSvg(data: ChartData, options: ChartOptions, settings: SvgRenderOptions): ChartResult<string>;"
+        },
+        {
+          "name": "SvgExportOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface SvgExportOptions {\n    readonly composition?: \"chart\" | \"plot\";\n    readonly legend?: boolean;\n    readonly description?: boolean;\n    readonly content?: ChartContentPorts;\n}"
+        },
+        {
+          "name": "SvgRenderOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface SvgRenderOptions extends SvgExportOptions {\n    readonly instanceId: string;\n    readonly ports?: ChartPlanningPorts;\n}"
+        },
+        {
+          "name": "validateChartContent",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function validateChartContent(input: ChartContentPorts | undefined): ChartResult<ChartContentPorts | undefined>;"
+        }
+      ]
+    },
+    "@neural-charts/web/cartesian": {
+      "types": "./dist/cartesian.d.ts",
+      "sha256": "3436db6e7b8e4526f093cd9f6e38aab202d8fbfa20086829ab1a1744f47e183a",
+      "symbols": [
+        {
+          "name": "CartesianChartData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type CartesianChartData = Extract<ChartData, {\n    type: 'line' | 'spline' | 'area' | 'areaspline' | 'column';\n}>;"
+        },
+        {
+          "name": "ChartController",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartController {\n    update(data: ChartData, options?: ChartOptions, content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    updateOptions(options: ChartOptions, content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    updateContent(content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    getFrame(): PlanFrame;\n    getSelection(): readonly ChartPointId[];\n    getHiddenSeriesIds(): readonly string[];\n    setViewport(value: PlanViewportValue): ChartResult<PlanViewportValue>;\n    zoomBy(factor: number): ChartResult<PlanViewportValue>;\n    resetViewport(): ChartResult<PlanViewportValue>;\n    exportSvg(options?: import(\"./export-layout.js\").SvgExportOptions): string;\n    exportCsv(options?: import(\"./export.js\").CsvExportOptions): ChartResult<string>;\n    exportPng(options?: import(\"./export.js\").PngExportOptions): Promise<Blob>;\n    destroy(): void;\n}"
+        },
+        {
+          "name": "ChartData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartData = Data<Source>;"
+        },
+        {
+          "name": "ChartDownloadFormat",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadFormat {\n    Csv = \"csv\",\n    Png = \"png\",\n    Svg = \"svg\"\n}"
+        },
+        {
+          "name": "ChartDownloadMenuPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadMenuPosition {\n    Top = \"top\",\n    Bottom = \"bottom\"\n}"
+        },
+        {
+          "name": "ChartMountOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartMountOptions {\n    readonly instanceId: string;\n    readonly content?: import(\"./content.js\").ChartContentPorts;\n    readonly onPointActivate?: (event: Readonly<{\n        id: ChartPointId;\n        observation: PlanObservation;\n        source: \"pointer\" | \"keyboard\";\n        revision: number;\n    }>) => void;\n    readonly onHiddenSeriesChange?: (ids: readonly string[]) => void;\n    readonly onSelectionChange?: (ids: readonly ChartPointId[]) => void;\n    readonly onViewportChange?: (value: PlanViewportValue) => void;\n    readonly onDiagnostic?: (diagnostic: ChartDiagnostic) => void;\n    readonly synchronization?: import(\"./synchronization.js\").ChartSynchronization;\n}"
+        },
+        {
+          "name": "ChartOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartOptions<T extends ChartType = ChartType> {\n    readonly title?: string;\n    readonly description?: string;\n    readonly animation?: Readonly<{\n        enabled?: boolean;\n        duration?: number;\n        revision?: number;\n    }>;\n    readonly capacity?: PlanOptions[\"capacity\"];\n    readonly scales?: PlanOptions[\"scales\"];\n    readonly hierarchy?: PlanOptions[\"hierarchy\"];\n    readonly referenceBands?: PlanOptions[\"referenceBands\"];\n    readonly referenceBandStyles?: readonly ChartReferenceBandStyle[];\n    readonly referenceLabels?: readonly Readonly<{\n        id: string;\n        text: string;\n    }>[];\n    readonly referenceStyles?: readonly ChartReferenceStyle[];\n    readonly annotations?: readonly Readonly<{\n        id: string;\n        point: ChartPointId;\n        text: string;\n        dx?: number;\n        dy?: number;\n    }>[];\n    readonly unit?: string;\n    readonly theme?: \"light\" | \"dark\";\n    readonly direction?: \"ltr\" | \"rtl\";\n    readonly themeTokens?: import(\"./theme.js\").ChartTheme;\n    readonly locale?: \"en\" | \"es\";\n    readonly width?: number;\n    readonly height?: number;\n    readonly responsive?: readonly ChartResponsiveRule[];\n    readonly accessibility?: ChartAccessibilityOptions;\n    readonly formatting?: Readonly<{\n        locale?: string;\n        number?: ChartNumberFormat;\n        date?: ChartDateFormat;\n    }>;\n    readonly layout?: ChartLayoutOptions;\n    readonly appearance?: Readonly<{\n        colors?: readonly string[];\n        series?: readonly ChartSeriesStyle[];\n        points?: readonly ChartPointStyle[];\n        bandColors?: readonly string[];\n        risingColor?: string;\n        fallingColor?: string;\n        lineWidth?: number;\n        markers?: boolean;\n        markerRadius?: number;\n        dataLabels?: boolean;\n        stackLabels?: boolean;\n        centerName?: string;\n        labelLimit?: number;\n        dataLabelLayout?: ChartLabelLayout;\n        titleStyle?: ChartTextStyle;\n        descriptionStyle?: ChartTextStyle;\n        minPlotWidth?: number;\n        waterfall?: \"waterfall\" extends T ? ChartWaterfallStyle : never;\n    }>;\n    readonly colorAxis?: T extends \"heatmap\" | \"tilemap\" ? Extract<PlanSpec, {\n        family: \"tilemap\";\n    }>[\"colorAxis\"] : never;\n    readonly axes?: Readonly<{\n        grid?: boolean;\n        x?: ChartAxisOptions;\n        y?: ChartAxisOptions;\n        secondaryY?: ChartAxisOptions;\n    }>;\n    readonly legend?: Readonly<{\n        visible?: boolean;\n        position?: \"top\" | \"bottom\" | \"left\" | \"right\";\n        interactive?: boolean;\n        reverse?: boolean;\n        maxLabelCharacters?: number;\n        itemSpacing?: number;\n        maxHeight?: number;\n    }>;\n    readonly tooltip?: Readonly<{\n        enabled?: boolean;\n        content?: \"point\" | \"shared\";\n        placement?: \"auto\" | \"docked\" | \"below\";\n        crosshair?: boolean;\n        pinnable?: boolean;\n        background?: string;\n        foreground?: string;\n        maxWidth?: number;\n        maxHeight?: number;\n    }>;\n    readonly downloadMenu?: readonly `${ChartDownloadFormat}`[];\n    readonly downloadMenuPosition?: `${ChartDownloadMenuPosition}`;\n    readonly toolbar?: Readonly<{\n        actions: readonly ChartToolbarAction[];\n        position?: ChartDownloadMenuPosition;\n    }>;\n    readonly viewport?: Readonly<{\n        axes: \"x\" | \"y\" | \"xy\";\n        value?: PlanViewportValue;\n        controls?: boolean;\n        zoom?: Readonly<ChartZoomOptions>;\n        pan?: boolean;\n        pinch?: boolean;\n        wheel?: false | \"ctrl\" | \"always\";\n    }>;\n    readonly hiddenSeriesIds?: readonly string[];\n    readonly selectedPoints?: readonly ChartPointId[];\n    readonly references?: PlanOptions[\"references\"];\n}"
+        },
+        {
+          "name": "ChartToolbarAction",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartToolbarAction {\n    Csv = \"download-csv\",\n    Png = \"download-png\",\n    Svg = \"download-svg\",\n    Zoom = \"zoom\",\n    ZoomIn = \"zoom-in\",\n    ZoomOut = \"zoom-out\",\n    ResetZoom = \"reset\"\n}"
+        },
+        {
+          "name": "ChartToolbarPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartDownloadMenuPosition {\n    Top = \"top\",\n    Bottom = \"bottom\"\n}"
+        },
+        {
+          "name": "ChartZoomOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartZoomOptions {\n    readonly showSlider?: boolean;\n    readonly position?: ChartZoomPosition;\n    readonly min?: number;\n    readonly max?: number;\n    readonly step?: number;\n    readonly increment?: number;\n    readonly label?: string;\n}"
+        },
+        {
+          "name": "ChartZoomPosition",
+          "kind": "EnumDeclaration",
+          "declaration": "export declare enum ChartZoomPosition {\n    Toolbar = \"toolbar\",\n    Below = \"below\"\n}"
+        },
+        {
+          "name": "createBarChart",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function createBarChart(host: HTMLElement, data: Extract<ChartData, {\n    type: 'column';\n}>, options: ChartOptions, mount: ChartMountOptions): ChartResult<ChartController>;"
+        },
+        {
+          "name": "createCartesianChart",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function createCartesianChart(host: HTMLElement, data: CartesianChartData, options: ChartOptions, mount: ChartMountOptions): ChartResult<ChartController>;"
+        },
+        {
+          "name": "createColumnChart",
+          "kind": "VariableDeclaration",
+          "declaration": "createColumnChart: (host: HTMLElement, data: Extract<ChartData, {\n    type: \"column\";\n}>, options: ChartOptions, mount: ChartMountOptions) => ChartResult<ChartController>"
+        },
+        {
+          "name": "createLineChart",
+          "kind": "VariableDeclaration",
+          "declaration": "createLineChart: (host: HTMLElement, data: Extract<ChartData, {\n    type: \"line\";\n}>, options: ChartOptions, mount: ChartMountOptions) => ChartResult<ChartController>"
+        },
+        {
+          "name": "renderCartesianChartSvg",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function renderCartesianChartSvg(data: CartesianChartData, options: ChartOptions, settings: SvgRenderOptions): ChartResult<string>;"
+        }
+      ]
+    },
+    "@neural-charts/web/drilldown": {
+      "types": "./dist/drilldown.d.ts",
+      "sha256": "f2104ece6f6fae976ff166e312aab50b28a20b4cf5298f660ee4c48edfdd463d",
+      "symbols": [
+        {
+          "name": "ChartDrilldownController",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartDrilldownController extends Pick<ChartController, \"exportSvg\" | \"exportCsv\" | \"exportPng\" | \"destroy\"> {\n    update(data: ChartDrilldownData, options?: ChartDrilldownOptions): ChartResult<ChartDrilldownNavigation>;\n    enter(): boolean;\n    back(): boolean;\n    getTrail(): readonly string[];\n}"
+        },
+        {
+          "name": "ChartDrilldownData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartDrilldownData = DrilldownData<ChartDrilldownNodeData>;"
+        },
+        {
+          "name": "ChartDrilldownMountOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartDrilldownMountOptions {\n    readonly instanceId: string;\n    readonly onNavigationChange?: (value: ChartDrilldownNavigation) => void;\n    readonly onDiagnostic?: (diagnostic: ChartDiagnostic) => void;\n}"
+        },
+        {
+          "name": "ChartDrilldownNavigation",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartDrilldownNavigation {\n    readonly nodeId: string;\n    readonly trail: readonly string[];\n}"
+        },
+        {
+          "name": "ChartDrilldownNodeData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartDrilldownNodeData = Extract<ChartData, {\n    readonly type: DrilldownType;\n}>;"
+        },
+        {
+          "name": "ChartDrilldownOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartDrilldownOptions {\n    readonly chart?: ChartOptions;\n    readonly nodes?: Readonly<Record<string, ChartOptions>>;\n}"
+        },
+        {
+          "name": "ChartDrilldownRoot",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartDrilldownRoot {\n    readonly data: ChartDrilldownNodeData;\n    readonly options: ChartOptions;\n}"
+        },
+        {
+          "name": "createChartDrilldown",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function createChartDrilldown(host: HTMLElement, data: ChartDrilldownData, options: ChartDrilldownOptions, mount: ChartDrilldownMountOptions): ChartResult<ChartDrilldownController>;"
+        },
+        {
+          "name": "resolveChartDrilldownRoot",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function resolveChartDrilldownRoot(data: ChartDrilldownData, options?: ChartDrilldownOptions): ChartResult<ChartDrilldownRoot>;"
+        }
+      ]
+    },
+    "@neural-charts/web/financial": {
+      "types": "./dist/financial.d.ts",
+      "sha256": "cc80b77bde47041b096bf4454153059d41c90964d197d258662231940830ce7a",
+      "symbols": [
+        {
+          "name": "ChartController",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartController {\n    update(data: ChartData, options?: ChartOptions, content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    updateOptions(options: ChartOptions, content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    updateContent(content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    getFrame(): PlanFrame;\n    getSelection(): readonly ChartPointId[];\n    getHiddenSeriesIds(): readonly string[];\n    setViewport(value: PlanViewportValue): ChartResult<PlanViewportValue>;\n    zoomBy(factor: number): ChartResult<PlanViewportValue>;\n    resetViewport(): ChartResult<PlanViewportValue>;\n    exportSvg(options?: import(\"./export-layout.js\").SvgExportOptions): string;\n    exportCsv(options?: import(\"./export.js\").CsvExportOptions): ChartResult<string>;\n    exportPng(options?: import(\"./export.js\").PngExportOptions): Promise<Blob>;\n    destroy(): void;\n}"
+        },
+        {
+          "name": "ChartData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartData = Data<Source>;"
+        },
+        {
+          "name": "ChartMountOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartMountOptions {\n    readonly instanceId: string;\n    readonly content?: import(\"./content.js\").ChartContentPorts;\n    readonly onPointActivate?: (event: Readonly<{\n        id: ChartPointId;\n        observation: PlanObservation;\n        source: \"pointer\" | \"keyboard\";\n        revision: number;\n    }>) => void;\n    readonly onHiddenSeriesChange?: (ids: readonly string[]) => void;\n    readonly onSelectionChange?: (ids: readonly ChartPointId[]) => void;\n    readonly onViewportChange?: (value: PlanViewportValue) => void;\n    readonly onDiagnostic?: (diagnostic: ChartDiagnostic) => void;\n    readonly synchronization?: import(\"./synchronization.js\").ChartSynchronization;\n}"
+        },
+        {
+          "name": "ChartOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartOptions<T extends ChartType = ChartType> {\n    readonly title?: string;\n    readonly description?: string;\n    readonly animation?: Readonly<{\n        enabled?: boolean;\n        duration?: number;\n        revision?: number;\n    }>;\n    readonly capacity?: PlanOptions[\"capacity\"];\n    readonly scales?: PlanOptions[\"scales\"];\n    readonly hierarchy?: PlanOptions[\"hierarchy\"];\n    readonly referenceBands?: PlanOptions[\"referenceBands\"];\n    readonly referenceBandStyles?: readonly ChartReferenceBandStyle[];\n    readonly referenceLabels?: readonly Readonly<{\n        id: string;\n        text: string;\n    }>[];\n    readonly referenceStyles?: readonly ChartReferenceStyle[];\n    readonly annotations?: readonly Readonly<{\n        id: string;\n        point: ChartPointId;\n        text: string;\n        dx?: number;\n        dy?: number;\n    }>[];\n    readonly unit?: string;\n    readonly theme?: \"light\" | \"dark\";\n    readonly direction?: \"ltr\" | \"rtl\";\n    readonly themeTokens?: import(\"./theme.js\").ChartTheme;\n    readonly locale?: \"en\" | \"es\";\n    readonly width?: number;\n    readonly height?: number;\n    readonly responsive?: readonly ChartResponsiveRule[];\n    readonly accessibility?: ChartAccessibilityOptions;\n    readonly formatting?: Readonly<{\n        locale?: string;\n        number?: ChartNumberFormat;\n        date?: ChartDateFormat;\n    }>;\n    readonly layout?: ChartLayoutOptions;\n    readonly appearance?: Readonly<{\n        colors?: readonly string[];\n        series?: readonly ChartSeriesStyle[];\n        points?: readonly ChartPointStyle[];\n        bandColors?: readonly string[];\n        risingColor?: string;\n        fallingColor?: string;\n        lineWidth?: number;\n        markers?: boolean;\n        markerRadius?: number;\n        dataLabels?: boolean;\n        stackLabels?: boolean;\n        centerName?: string;\n        labelLimit?: number;\n        dataLabelLayout?: ChartLabelLayout;\n        titleStyle?: ChartTextStyle;\n        descriptionStyle?: ChartTextStyle;\n        minPlotWidth?: number;\n        waterfall?: \"waterfall\" extends T ? ChartWaterfallStyle : never;\n    }>;\n    readonly colorAxis?: T extends \"heatmap\" | \"tilemap\" ? Extract<PlanSpec, {\n        family: \"tilemap\";\n    }>[\"colorAxis\"] : never;\n    readonly axes?: Readonly<{\n        grid?: boolean;\n        x?: ChartAxisOptions;\n        y?: ChartAxisOptions;\n        secondaryY?: ChartAxisOptions;\n    }>;\n    readonly legend?: Readonly<{\n        visible?: boolean;\n        position?: \"top\" | \"bottom\" | \"left\" | \"right\";\n        interactive?: boolean;\n        reverse?: boolean;\n        maxLabelCharacters?: number;\n        itemSpacing?: number;\n        maxHeight?: number;\n    }>;\n    readonly tooltip?: Readonly<{\n        enabled?: boolean;\n        content?: \"point\" | \"shared\";\n        placement?: \"auto\" | \"docked\" | \"below\";\n        crosshair?: boolean;\n        pinnable?: boolean;\n        background?: string;\n        foreground?: string;\n        maxWidth?: number;\n        maxHeight?: number;\n    }>;\n    readonly downloadMenu?: readonly `${ChartDownloadFormat}`[];\n    readonly downloadMenuPosition?: `${ChartDownloadMenuPosition}`;\n    readonly toolbar?: Readonly<{\n        actions: readonly ChartToolbarAction[];\n        position?: ChartDownloadMenuPosition;\n    }>;\n    readonly viewport?: Readonly<{\n        axes: \"x\" | \"y\" | \"xy\";\n        value?: PlanViewportValue;\n        controls?: boolean;\n        zoom?: Readonly<ChartZoomOptions>;\n        pan?: boolean;\n        pinch?: boolean;\n        wheel?: false | \"ctrl\" | \"always\";\n    }>;\n    readonly hiddenSeriesIds?: readonly string[];\n    readonly selectedPoints?: readonly ChartPointId[];\n    readonly references?: PlanOptions[\"references\"];\n}"
+        },
+        {
+          "name": "createFinancialChart",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function createFinancialChart(host: HTMLElement, data: FinancialChartData, options: ChartOptions, mount: ChartMountOptions): import(\"./types.js\").ChartResult<import(\"./types.js\").ChartController>;"
+        },
+        {
+          "name": "FinancialChartData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type FinancialChartData = Extract<ChartData, {\n    type: PlanFinancialSpec['family'];\n}>;"
+        },
+        {
+          "name": "FinancialGroupingUnit",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type FinancialGroupingUnit = keyof typeof interval | 'month';"
+        },
+        {
+          "name": "FinancialOhlcBucket",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface FinancialOhlcBucket {\n    readonly point: PlanFinancialPoint;\n    readonly sourceIds: readonly string[];\n}"
+        },
+        {
+          "name": "groupFinancialOhlc",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function groupFinancialOhlc(data: readonly PlanFinancialPoint[], unit: FinancialGroupingUnit): readonly FinancialOhlcBucket[];"
+        }
+      ]
+    },
+    "@neural-charts/web/panels": {
+      "types": "./dist/panels.d.ts",
+      "sha256": "5c75d2de550c15ffa3197af73d242b9bab4f6c65874a9c01f55e4dc59863dd3f",
+      "symbols": [
+        {
+          "name": "ChartPanel",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanel {\n    readonly id: string;\n    readonly data: ChartData;\n}"
+        },
+        {
+          "name": "chartPanelColumns",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function chartPanelColumns(columns: ResolvedChartPanels['columns']): string;"
+        },
+        {
+          "name": "ChartPanelDiagnostic",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelDiagnostic {\n    readonly panelId: string | null;\n    readonly diagnostic: ChartDiagnostic;\n}"
+        },
+        {
+          "name": "ChartPanelsController",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelsController {\n    update(data: ChartPanelsData, options?: ChartPanelsOptions): ChartResult<true>;\n    setViewport(panelId: string, value: ChartPanelViewportValue): ChartResult<ChartPanelViewportValue>;\n    getViewport(panelId: string): ChartPanelViewportValue | undefined;\n    getHiddenSeriesIds(panelId: string): readonly string[] | undefined;\n    destroy(): void;\n}"
+        },
+        {
+          "name": "ChartPanelsData",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelsData {\n    readonly panels: readonly ChartPanel[];\n    readonly viewportLinks?: readonly ChartPanelViewportLink[];\n}"
+        },
+        {
+          "name": "ChartPanelsMountOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelsMountOptions {\n    readonly instanceId: string;\n    readonly onViewportChange?: (event: ChartPanelViewportChange) => void;\n    readonly onHiddenSeriesChange?: (event: ChartPanelVisibilityChange) => void;\n    readonly onDiagnostic?: (event: ChartPanelDiagnostic) => void;\n}"
+        },
+        {
+          "name": "ChartPanelsOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelsOptions {\n    readonly chart?: ChartOptions;\n    readonly panels?: Readonly<Record<string, ChartOptions>>;\n    readonly columns?: \"auto\" | 1 | 2;\n}"
+        },
+        {
+          "name": "ChartPanelViewportChange",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelViewportChange {\n    readonly panelId: string;\n    readonly value: ChartPanelViewportValue;\n    readonly linkId: string | null;\n}"
+        },
+        {
+          "name": "ChartPanelViewportLink",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelViewportLink {\n    readonly id: string;\n    readonly axis: \"x\";\n    readonly panelIds: readonly string[];\n}"
+        },
+        {
+          "name": "ChartPanelViewportValue",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartPanelViewportValue = PlanViewportValue;"
+        },
+        {
+          "name": "ChartPanelVisibilityChange",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartPanelVisibilityChange {\n    readonly panelId: string;\n    readonly hiddenSeriesIds: readonly string[];\n}"
+        },
+        {
+          "name": "createChartPanels",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function createChartPanels(host: HTMLElement, data: ChartPanelsData, options: ChartPanelsOptions, mount: ChartPanelsMountOptions): ChartResult<ChartPanelsController>;"
+        },
+        {
+          "name": "resolveChartPanels",
+          "kind": "FunctionDeclaration",
+          "declaration": "export declare function resolveChartPanels(data: ChartPanelsData, options?: ChartPanelsOptions): ChartResult<ResolvedChartPanels>;"
+        },
+        {
+          "name": "ResolvedChartPanel",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ResolvedChartPanel extends ChartPanel {\n    readonly options: ChartOptions;\n}"
+        },
+        {
+          "name": "ResolvedChartPanels",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ResolvedChartPanels {\n    readonly panels: readonly ResolvedChartPanel[];\n    readonly columns: NonNullable<ChartPanelsOptions[\"columns\"]>;\n}"
+        }
+      ]
+    }
+  },
+  "tokens": [],
+  "assets": {}
+}

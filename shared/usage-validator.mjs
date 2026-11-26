@@ -14,7 +14,8 @@ export function analyzeSource(text, api, filename = 'example.ts') {
   let hasFormField = false;
   const isCharts = api.package === '@neural-charts/native';
   const isNative = api.package === '@neural-ui/native' || isCharts;
-  const ownsSelector = tag => isCharts ? /^(?:neu-c-|nc-chart)/.test(tag) : tag.startsWith('neu-');
+  const ownsSelector = tag => isCharts ? /^(?:neu-c-|nc-chart)/.test(tag)
+    : api.package === '@neural-charts/angular' ? tag.startsWith('nc-') : tag.startsWith('neu-');
   function entryFor(specifier) {
     if (!isNative && /neural.*native|neural-native/.test(specifier)) errors.push(`Neural Native import forbidden: ${specifier}`);
     if (isNative && (specifier === '@neural-ui/core' || specifier.startsWith('@neural-ui/core/'))) errors.push(`Neural Web import forbidden in Native: ${specifier}`);

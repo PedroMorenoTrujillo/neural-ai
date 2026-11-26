@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { connect, call, assertConsumer, assertChartsNative } from '../tests/mcp/helpers.mjs';
+import { connect, call, assertConsumer, assertChartsNative, assertChartsBrowser } from '../tests/mcp/helpers.mjs';
 import { expectedPublishedHash } from './mcp-publication-artifact.mjs';
 import { NATIVE_VERSION } from './release-state.mjs';
 
@@ -60,7 +60,10 @@ try {
   connection = await connect(cli, { command: bin, args: [], cwd: consumer });
   await assertConsumer(connection.client, webVersion);
   await assertNative(connection.client);
-  if (current) await assertChartsNative(connection.client);
+  if (current) {
+    await assertChartsNative(connection.client);
+    await assertChartsBrowser(connection.client);
+  }
   assert.equal(connection.stderr(), '');
   await connection.client.close();
   connection = undefined;
@@ -70,7 +73,10 @@ try {
   connection = await connect(cli, { command: 'npx', args: ['--yes', '--registry=' + registry, '--cache=' + join(consumer, 'npx-cache'), `${name}@${version}`], cwd: launch });
   await assertConsumer(connection.client, webVersion);
   await assertNative(connection.client);
-  if (current) await assertChartsNative(connection.client);
+  if (current) {
+    await assertChartsNative(connection.client);
+    await assertChartsBrowser(connection.client);
+  }
   assert.equal(connection.stderr(), '');
   await connection.client.close();
   connection = undefined;
