@@ -71,4 +71,4 @@ rmSync(resolve(pkg, 'dist'), { recursive: true, force: true });
 execFileSync(process.execPath, [resolve(root, 'node_modules/typescript/bin/tsc'), '-p', resolve(pkg, 'tsconfig.json')], { stdio: 'inherit' });
 copyFileSync(resolve(root, 'shared/usage-validator.mjs'), resolve(pkg, 'dist/usage-validator.mjs'));
 chmodSync(resolve(pkg, 'dist/cli.js'), 0o755);
-console.log(`MCP built for Neural UI Web, Native and four Charts catalogues (${chartsExamples.length + browserExamples.length} chart examples)`);
+console.log(`MCP built for Neural UI Web, Native and ${Object.keys(CHARTS_BROWSER_VERSIONS).length + 1} Charts catalogues (${chartsExamples.length + browserExamples.length} chart examples)`);

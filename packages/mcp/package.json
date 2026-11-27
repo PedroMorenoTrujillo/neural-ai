@@ -1,6 +1,6 @@
 {
   "name": "neural-ui-mcp",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Official local MCP server for Neural UI Web, Neural Native and Neural Charts public APIs, documentation, examples and static usage validation",
   "license": "MIT",
   "type": "module",

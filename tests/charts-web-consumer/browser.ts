@@ -3,9 +3,11 @@ import { createComponent } from '@angular/core';
 import { createApplication } from '@angular/platform-browser';
 import { createElement, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { createApp } from 'vue';
 import { VisitsChart as AngularVisits } from './line-angular.js';
 import { VisitsChart as ReactVisits } from './line-react.js';
 import { mountVisits } from './line-web.js';
+import { VisitsChart as VueVisits } from './line-vue.js';
 
 const web = document.querySelector<HTMLElement>('#web')!;
 const cleanup = mountVisits(web, 'web-visits');
@@ -22,3 +24,7 @@ const react = document.querySelector<HTMLElement>('#react')!;
 const root = createRoot(react);
 root.render(createElement(StrictMode, null, createElement(ReactVisits)));
 document.querySelector('#unmount')!.addEventListener('click', () => root.unmount(), { once: true });
+
+const vue = createApp(VueVisits);
+vue.mount(document.querySelector<HTMLElement>('#vue')!);
+document.querySelector('#unmount-vue')!.addEventListener('click', () => vue.unmount(), { once: true });

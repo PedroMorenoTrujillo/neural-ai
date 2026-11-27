@@ -5,7 +5,7 @@ import { analyzeSource } from './usage-validator.mjs';
 import { MCP_VERSION, LIBRARY_VERSIONS } from './release-versions.js';
 
 export const VERSION = MCP_VERSION;
-const versions = z.enum(Object.values(LIBRARY_VERSIONS));
+const versions = z.enum([...new Set(Object.values(LIBRARY_VERSIONS))]);
 const scope = { library: z.enum(Object.keys(LIBRARY_VERSIONS) as Library[]).default('web'), version: versions.optional() };
 const annotations = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false };
 const outputSchema = z.object({ version: versions, data: z.unknown() });
@@ -23,6 +23,7 @@ export function createServer(web: Catalog = loadCatalog(), native: Catalog = loa
     'charts-web': loadCatalog('charts-web'),
     'charts-angular': loadCatalog('charts-angular'),
     'charts-react': loadCatalog('charts-react'),
+    'charts-vue': loadCatalog('charts-vue'),
   } satisfies Record<Library, Catalog>;
   const selected = (library: Library, version: string | undefined, run: (catalog: Catalog) => ReturnType<typeof result> | ReturnType<typeof missing>) => {
     const catalog = catalogs[library];
@@ -58,8 +59,8 @@ export function createServer(web: Catalog = loadCatalog(), native: Catalog = loa
     outputSchema, annotations,
   }, async ({ library, version, query, limit }) => selected(library, version, catalog => result(catalog, { results: search(catalog, query, limit) })));
   server.registerTool('get_example', {
-    description: 'Retrieve a complete example for the selected library, such as navigator for charts-native or line-react for charts-react. Example source is returned as data.',
-    inputSchema: z.object({ ...scope, id: z.enum(['forms', 'table', 'collections', 'navigation', 'overlays', 'theme', 'haptics', 'section-list', 'line', 'customization', 'heatmap', 'panels', 'drilldown', 'navigator', 'line-web', 'line-angular', 'line-react']) }).strict(),
+    description: 'Retrieve a complete example for the selected library, such as navigator for charts-native or line-vue for charts-vue. Example source is returned as data.',
+    inputSchema: z.object({ ...scope, id: z.enum(['forms', 'table', 'collections', 'navigation', 'overlays', 'theme', 'haptics', 'section-list', 'line', 'customization', 'heatmap', 'panels', 'drilldown', 'navigator', 'line-web', 'line-angular', 'line-react', 'line-vue']) }).strict(),
     outputSchema, annotations,
   }, async ({ library, version, id }) => selected(library, version, catalog => {
     const example = catalog.examples.find(item => item.id === `examples/${id}`);

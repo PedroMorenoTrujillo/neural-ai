@@ -1,12 +1,12 @@
 # neural-ui-mcp
 
-Servidor MCP local, de solo lectura, para Neural UI, Neural Native y Neural Charts. La versión **0.4.0** contiene seis catálogos con sus propias versiones. Licencia MIT. Requiere Node **22.22.3 o posterior**.
+Servidor MCP local, de solo lectura, para Neural UI, Neural Native y Neural Charts. La versión **0.5.0** incorpora Charts Vue 1.0.0. Licencia MIT. Requiere Node **22.22.3 o posterior**.
 
 El servidor funciona sin backend ni conexión de red durante la ejecución. La descarga de dependencias sí usa npm. El cliente de IA que elijas mantiene sus propias condiciones de uso.
 
 ## Instalar desde npm
 
-La misma instalación incluye los seis catálogos.
+La versión 0.4.0 está disponible en npm. Para probar el catálogo de Vue, compila el paquete 0.5.0 con los pasos de instalación local.
 
 ```sh
 npx --yes neural-ui-mcp@0.4.0
@@ -22,7 +22,7 @@ Desde una copia del repositorio [Neural AI](https://github.com/PedroMorenoTrujil
 npm ci
 npm ci --prefix packages/mcp
 npm run verify:mcp
-npm install --prefix /ruta/absoluta/neural-mcp-local ./dist/mcp/neural-ui-mcp-0.4.0.tgz
+npm install --prefix /ruta/absoluta/neural-mcp-local ./dist/mcp/neural-ui-mcp-0.5.0.tgz
 ```
 
 El último comando instala el paquete local preparado por las pruebas. Comprueba su SHA-256 con `dist/mcp/SHA256SUMS`. También puedes ejecutar directamente `node /ruta/absoluta/neural-ai/packages/mcp/dist/cli.js` después de compilarlo. El proceso espera a un cliente en stdin.
@@ -88,6 +88,7 @@ En cada llamada, `version` es opcional y debe coincidir con el catálogo selecci
 | `charts-web` | `@neural-charts/web` | 1.2.2 |
 | `charts-angular` | `@neural-charts/angular` | 1.1.1 |
 | `charts-react` | `@neural-charts/react` | 1.0.0 |
+| `charts-vue` | `@neural-charts/vue` | 1.0.0 |
 
 Las respuestas conservan `{ version, data }`, datos estructurados y texto JSON equivalente. Los errores de mezcla de catálogo o versión se rechazan; no hay conversión implícita. Para proyectos fijados a Core 2.0.3, conserva MCP 0.2.1 y la skill Web 0.1.1; para Core 2.0.1, conserva MCP 0.2.0 y la skill Web 0.1.0 hasta actualizar su baseline. La validación detecta imports internos, símbolos desconocidos, inputs/outputs inexistentes, inputs requeridos ausentes y propietarios de formulario en conflicto, dentro del alcance descrito abajo.
 
@@ -118,6 +119,7 @@ La skill está en `skills/neural-charts-native` dentro del [repositorio de Neura
 - `charts-web` documenta el renderer directo. Consulta `createChart` con `get_api` en `@neural-charts/web` o abre el ejemplo `line-web`.
 - `charts-angular` documenta componentes como `NeuralChart` y sus bindings. El ejemplo `line-angular` muestra una actualización controlada por estado.
 - `charts-react` documenta `Chart`, `ChartProps` y `ChartHandle`. `line-react` usa la leyenda controlada y `validate_usage` admite un nombre de archivo `.tsx`. Las props y sus tipos se comprueban con el compilador de la aplicación.
+- `charts-vue` documenta `Chart`, `ChartProps` y `ChartHandle`. `line-vue` usa una leyenda controlada en TypeScript. Comprueba los archivos `.vue` con el compilador de la aplicación.
 
 Los tres ejemplos también se distribuyen con la skill Neural Charts Web en [GitHub Releases](https://github.com/PedroMorenoTrujillo/neural-ai/releases).
 

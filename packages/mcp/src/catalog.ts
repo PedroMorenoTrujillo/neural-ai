@@ -28,6 +28,7 @@ const catalogSources = {
   'charts-web': { file: 'charts-web-', package: '@neural-charts/web', scheme: 'neural-charts-web' },
   'charts-angular': { file: 'charts-angular-', package: '@neural-charts/angular', scheme: 'neural-charts-angular' },
   'charts-react': { file: 'charts-react-', package: '@neural-charts/react', scheme: 'neural-charts-react' },
+  'charts-vue': { file: 'charts-vue-', package: '@neural-charts/vue', scheme: 'neural-charts-vue' },
 } as const satisfies Record<Library, { file: string; package: string; scheme: string }>;
 export function catalogScheme(catalog: Catalog): string {
   const source = Object.values(catalogSources).find(source => source.package === catalog.api.package);
@@ -56,7 +57,7 @@ export function components(catalog: Catalog, query = '', kind = 'all') {
     if (symbol.angularKind && (kind === 'all' || symbol.angularKind === kind)) {
       return [{ entrypoint, name: symbol.name, kind: symbol.angularKind, selector: symbol.selector }];
     }
-    if (entrypoint === '@neural-charts/react' && symbol.name === 'Chart' && kind !== 'directive') {
+    if ((entrypoint === '@neural-charts/react' || entrypoint === '@neural-charts/vue') && symbol.name === 'Chart' && kind !== 'directive') {
       return [{ entrypoint, name: symbol.name, kind: 'component' as const, selector: undefined }];
     }
     return [];

@@ -10,10 +10,12 @@
     "@angular/platform-browser": "22.3.0",
     "@neural-charts/angular": "1.1.1",
     "@neural-charts/react": "1.0.0",
+    "@neural-charts/vue": "1.0.0",
     "@neural-charts/web": "1.2.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "rxjs": "7.8.2"
+    "rxjs": "7.8.2",
+    "vue": "3.5.46"
   },
   "devDependencies": {
     "@angular/compiler-cli": "22.3.0",

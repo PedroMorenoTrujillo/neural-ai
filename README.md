@@ -6,7 +6,7 @@ Cuatro skills especializadas, referencias bajo demanda y ejemplos compilables. E
 
 ## Neural Charts en el navegador
 
-La [skill Neural Charts Web 0.1.0](skills/neural-charts-web/SKILL.md) incluye ejemplos comprobados para Charts Web 1.2.2, Charts Angular 1.1.1 y Charts React 1.0.0. Selecciona `charts-web`, `charts-angular` o `charts-react` en el MCP según el paquete que use tu aplicación.
+La [skill Neural Charts Web 0.2.0](skills/neural-charts-web/SKILL.md) incluye ejemplos comprobados para Charts Web 1.2.2, Charts Angular 1.1.1, Charts React 1.0.0 y Charts Vue 1.0.0. Selecciona `charts-web`, `charts-angular`, `charts-react` o `charts-vue` en el MCP según el paquete que use tu aplicación.
 
 ```sh
 npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/neural-charts-web-v0.1.0/skills/neural-charts-web --skill neural-charts-web --agent codex claude-code --copy --yes
