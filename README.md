@@ -9,7 +9,7 @@ Cuatro skills especializadas, referencias bajo demanda y ejemplos compilables. E
 La [skill Neural Charts Web 0.2.0](skills/neural-charts-web/SKILL.md) incluye ejemplos comprobados para Charts Web 1.2.2, Charts Angular 1.1.1, Charts React 1.0.0 y Charts Vue 1.0.0. Selecciona `charts-web`, `charts-angular`, `charts-react` o `charts-vue` en el MCP según el paquete que use tu aplicación.
 
 ```sh
-npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/neural-charts-web-v0.1.0/skills/neural-charts-web --skill neural-charts-web --agent codex claude-code --copy --yes
+npx --yes skills@1.7.2 add https://github.com/PedroMorenoTrujillo/neural-ai/tree/neural-charts-web-v0.2.0/skills/neural-charts-web --skill neural-charts-web --agent codex claude-code --copy --yes
 ```
 
 ## Neural Charts Native
@@ -24,7 +24,7 @@ También puedes descargar la skill desde [GitHub Releases](https://github.com/Pe
 
 La skill también está disponible en [Skills.sh](https://www.skills.sh/pedromorenotrujillo/neural-ai/neural-ui). Consulta el [informe de distribución](docs/distribution.md) para la instalación con su CLI, la prueba en Angular limpio y el estado real de los directorios.
 
-El MCP requiere Node 22.22.3 o posterior y se puede iniciar con `npx --yes neural-ui-mcp@0.3.5`. Es un proceso stdio para conectar desde un cliente MCP. Consulta su [configuración para Codex y Claude Code](packages/mcp/README.md#conectar-codex-y-claude-code).
+El MCP requiere Node 22.22.3 o posterior y se puede iniciar con `npx --yes neural-ui-mcp@0.5.0`. Es un proceso stdio para conectar desde un cliente MCP. Consulta su [configuración para Codex y Claude Code](packages/mcp/README.md#conectar-codex-y-claude-code).
 
 ## Ampliación Native
 

@@ -6,13 +6,13 @@ El servidor funciona sin backend ni conexión de red durante la ejecución. La d
 
 ## Instalar desde npm
 
-La versión 0.4.0 está disponible en npm. Para probar el catálogo de Vue, compila el paquete 0.5.0 con los pasos de instalación local.
+La versión 0.5.0 incluye el catálogo de Vue. Puedes iniciar el servidor desde npm con este comando.
 
 ```sh
-npx --yes neural-ui-mcp@0.4.0
+npx --yes neural-ui-mcp@0.5.0
 ```
 
-El proceso espera mensajes MCP en stdin. Para instalarlo como dependencia de tu proyecto usa `npm install --save-dev --save-exact neural-ui-mcp@0.4.0`. La instalación, el binario y el arranque con npx se comprueban con un cliente MCP real. [Publicaciones y artefactos verificados](https://github.com/PedroMorenoTrujillo/neural-ai/releases).
+El proceso espera mensajes MCP en stdin. Para instalarlo como dependencia de tu proyecto usa `npm install --save-dev --save-exact neural-ui-mcp@0.5.0`. La instalación, el binario y el arranque con npx se comprueban con un cliente MCP real. [Publicaciones y artefactos verificados](https://github.com/PedroMorenoTrujillo/neural-ai/releases).
 
 ## Instalar el tarball verificado
 
@@ -34,8 +34,8 @@ Usa un Node compatible disponible para el cliente.
 Para usar directamente la versión publicada:
 
 ```sh
-codex mcp add neural-ui -- npx --yes neural-ui-mcp@0.4.0
-claude mcp add --transport stdio neural-ui -- npx --yes neural-ui-mcp@0.4.0
+codex mcp add neural-ui -- npx --yes neural-ui-mcp@0.5.0
+claude mcp add --transport stdio neural-ui -- npx --yes neural-ui-mcp@0.5.0
 ```
 
 Para una instalación local del tarball:
