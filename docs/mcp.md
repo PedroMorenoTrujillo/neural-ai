@@ -4,6 +4,8 @@
 
 MCP 0.4.0 añade Charts Web 1.2.2, Angular 1.1.1 y React 1.0.0 con catálogos independientes. Consulta la [guía de instalación y selección de catálogo](../packages/mcp/README.md).
 
+MCP 0.5.0 incorpora Charts Vue 1.0.0 mediante el catálogo `charts-vue`. Para usarlo, instala `neural-ui-mcp@0.5.0` y selecciona `library: "charts-vue"` en la consulta.
+
 MCP 0.3.0 incorpora **@neural-charts/native 0.1.0-beta.3** bajo `library: "charts-native"`. La verificación deriva su catálogo de las declaraciones de npm y compila los ejemplos de la skill con plantillas Angular estrictas. [Instalación y herramientas](../packages/mcp/README.md)
 
 MCP 0.2.6 actualizó Native a **@neural-ui/native 0.1.0-beta.7**, alineada con Angular Native **0.22.2**, y mantuvo Web Core **2.0.4**. Para aplicaciones que mantengan Native beta.5, utiliza MCP 0.2.4. Para beta.2, usa MCP 0.2.2.

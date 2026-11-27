@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { connect, call, assertConsumer, assertChartsNative, assertChartsBrowser } from '../tests/mcp/helpers.mjs';
-import { NATIVE_VERSION } from './release-state.mjs';
+import { CHARTS_BROWSER_VERSIONS, NATIVE_VERSION } from './release-state.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const target = join(root, 'dist/mcp');
@@ -19,7 +19,7 @@ for (const file of packed.files) {
   assert.ok(/^(dist\/|data\/|README\.md$|LICENSE$|package\.json$)/.test(file.path), `Unexpected packed file: ${file.path}`);
   assert.ok(!/node_modules|\.env|package-lock/.test(file.path));
 }
-for (const path of ['dist/cli.js', 'dist/server.js', 'dist/server.d.ts', 'dist/usage-validator.mjs', 'data/catalog.json', 'data/sha256', 'data/native-catalog.json', 'data/native-sha256', 'data/charts-native-catalog.json', 'data/charts-native-sha256', ...['web', 'angular', 'react'].flatMap(name => [`data/charts-${name}-catalog.json`, `data/charts-${name}-sha256`]), 'README.md', 'LICENSE']) {
+for (const path of ['dist/cli.js', 'dist/server.js', 'dist/server.d.ts', 'dist/usage-validator.mjs', 'data/catalog.json', 'data/sha256', 'data/native-catalog.json', 'data/native-sha256', 'data/charts-native-catalog.json', 'data/charts-native-sha256', ...Object.keys(CHARTS_BROWSER_VERSIONS).flatMap(name => [`data/${name}-catalog.json`, `data/${name}-sha256`]), 'README.md', 'LICENSE']) {
   assert.ok(packed.files.some(file => file.path === path), `Missing ${path}`);
 }
 const archive = join(target, packed.filename);

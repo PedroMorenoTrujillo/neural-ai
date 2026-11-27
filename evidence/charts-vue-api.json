@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "package": "@neural-charts/vue",
+  "version": "1.0.0",
+  "entrypoints": {
+    "@neural-charts/vue": {
+      "types": "./dist/index.d.ts",
+      "sha256": "41cfe8fbefd14614deb87756bcf6ae3c47d6488d3f86f8939feb5ddf40afb725",
+      "symbols": [
+        {
+          "name": "Chart",
+          "kind": "VariableDeclaration",
+          "declaration": "Chart: DefineSetupFnComponent<ChartProps, ChartEvents, {}>"
+        },
+        {
+          "name": "ChartController",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartController {\n    update(data: ChartData, options?: ChartOptions, content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    updateOptions(options: ChartOptions, content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    updateContent(content?: import(\"./content.js\").ChartContentPorts): ChartResult<number>;\n    getFrame(): PlanFrame;\n    getSelection(): readonly ChartPointId[];\n    getHiddenSeriesIds(): readonly string[];\n    setViewport(value: PlanViewportValue): ChartResult<PlanViewportValue>;\n    zoomBy(factor: number): ChartResult<PlanViewportValue>;\n    resetViewport(): ChartResult<PlanViewportValue>;\n    exportSvg(options?: import(\"./export-layout.js\").SvgExportOptions): string;\n    exportCsv(options?: import(\"./export.js\").CsvExportOptions): ChartResult<string>;\n    exportPng(options?: import(\"./export.js\").PngExportOptions): Promise<Blob>;\n    destroy(): void;\n}"
+        },
+        {
+          "name": "ChartData",
+          "kind": "TypeAliasDeclaration",
+          "declaration": "export type ChartData = Data<Source>;"
+        },
+        {
+          "name": "ChartHandle",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartHandle {\n    getController(): ChartController | undefined;\n}"
+        },
+        {
+          "name": "ChartMountOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartMountOptions {\n    readonly instanceId: string;\n    readonly content?: import(\"./content.js\").ChartContentPorts;\n    readonly onPointActivate?: (event: Readonly<{\n        id: ChartPointId;\n        observation: PlanObservation;\n        source: \"pointer\" | \"keyboard\";\n        revision: number;\n    }>) => void;\n    readonly onHiddenSeriesChange?: (ids: readonly string[]) => void;\n    readonly onSelectionChange?: (ids: readonly ChartPointId[]) => void;\n    readonly onViewportChange?: (value: PlanViewportValue) => void;\n    readonly onDiagnostic?: (diagnostic: ChartDiagnostic) => void;\n    readonly synchronization?: import(\"./synchronization.js\").ChartSynchronization;\n}"
+        },
+        {
+          "name": "ChartOptions",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartOptions<T extends ChartType = ChartType> {\n    readonly title?: string;\n    readonly description?: string;\n    readonly animation?: Readonly<{\n        enabled?: boolean;\n        duration?: number;\n        revision?: number;\n    }>;\n    readonly capacity?: PlanOptions[\"capacity\"];\n    readonly scales?: PlanOptions[\"scales\"];\n    readonly hierarchy?: PlanOptions[\"hierarchy\"];\n    readonly referenceBands?: PlanOptions[\"referenceBands\"];\n    readonly referenceBandStyles?: readonly ChartReferenceBandStyle[];\n    readonly referenceLabels?: readonly Readonly<{\n        id: string;\n        text: string;\n    }>[];\n    readonly referenceStyles?: readonly ChartReferenceStyle[];\n    readonly annotations?: readonly Readonly<{\n        id: string;\n        point: ChartPointId;\n        text: string;\n        dx?: number;\n        dy?: number;\n    }>[];\n    readonly unit?: string;\n    readonly theme?: \"light\" | \"dark\";\n    readonly direction?: \"ltr\" | \"rtl\";\n    readonly themeTokens?: import(\"./theme.js\").ChartTheme;\n    readonly locale?: \"en\" | \"es\";\n    readonly width?: number;\n    readonly height?: number;\n    readonly responsive?: readonly ChartResponsiveRule[];\n    readonly accessibility?: ChartAccessibilityOptions;\n    readonly formatting?: Readonly<{\n        locale?: string;\n        number?: ChartNumberFormat;\n        date?: ChartDateFormat;\n    }>;\n    readonly layout?: ChartLayoutOptions;\n    readonly appearance?: Readonly<{\n        colors?: readonly string[];\n        series?: readonly ChartSeriesStyle[];\n        points?: readonly ChartPointStyle[];\n        bandColors?: readonly string[];\n        risingColor?: string;\n        fallingColor?: string;\n        lineWidth?: number;\n        markers?: boolean;\n        markerRadius?: number;\n        dataLabels?: boolean;\n        stackLabels?: boolean;\n        centerName?: string;\n        labelLimit?: number;\n        dataLabelLayout?: ChartLabelLayout;\n        titleStyle?: ChartTextStyle;\n        descriptionStyle?: ChartTextStyle;\n        minPlotWidth?: number;\n        waterfall?: \"waterfall\" extends T ? ChartWaterfallStyle : never;\n    }>;\n    readonly colorAxis?: T extends \"heatmap\" | \"tilemap\" ? Extract<PlanSpec, {\n        family: \"tilemap\";\n    }>[\"colorAxis\"] : never;\n    readonly axes?: Readonly<{\n        grid?: boolean;\n        x?: ChartAxisOptions;\n        y?: ChartAxisOptions;\n        secondaryY?: ChartAxisOptions;\n    }>;\n    readonly legend?: Readonly<{\n        visible?: boolean;\n        position?: \"top\" | \"bottom\" | \"left\" | \"right\";\n        interactive?: boolean;\n        reverse?: boolean;\n        maxLabelCharacters?: number;\n        itemSpacing?: number;\n        maxHeight?: number;\n    }>;\n    readonly tooltip?: Readonly<{\n        enabled?: boolean;\n        content?: \"point\" | \"shared\";\n        placement?: \"auto\" | \"docked\" | \"below\";\n        crosshair?: boolean;\n        pinnable?: boolean;\n        background?: string;\n        foreground?: string;\n        maxWidth?: number;\n        maxHeight?: number;\n    }>;\n    readonly downloadMenu?: readonly `${ChartDownloadFormat}`[];\n    readonly downloadMenuPosition?: `${ChartDownloadMenuPosition}`;\n    readonly toolbar?: Readonly<{\n        actions: readonly ChartToolbarAction[];\n        position?: ChartDownloadMenuPosition;\n    }>;\n    readonly viewport?: Readonly<{\n        axes: \"x\" | \"y\" | \"xy\";\n        value?: PlanViewportValue;\n        controls?: boolean;\n        zoom?: Readonly<ChartZoomOptions>;\n        pan?: boolean;\n        pinch?: boolean;\n        wheel?: false | \"ctrl\" | \"always\";\n    }>;\n    readonly hiddenSeriesIds?: readonly string[];\n    readonly selectedPoints?: readonly ChartPointId[];\n    readonly references?: PlanOptions[\"references\"];\n}"
+        },
+        {
+          "name": "ChartProps",
+          "kind": "InterfaceDeclaration",
+          "declaration": "export interface ChartProps {\n    readonly data: ChartData;\n    readonly options: ChartOptions;\n    readonly content?: ChartMountOptions[\"content\"];\n    readonly synchronization?: ChartMountOptions[\"synchronization\"];\n    readonly instanceId?: string;\n}"
+        }
+      ]
+    }
+  },
+  "tokens": [],
+  "assets": {}
+}

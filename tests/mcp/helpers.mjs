@@ -35,7 +35,7 @@ export async function call(client, name, args) {
 }
 
 export async function assertChartsBrowser(client) {
-  const exported = { web: 'createChart', angular: 'NeuralChart', react: 'Chart' };
+  const exported = { web: 'createChart', angular: 'NeuralChart', react: 'Chart', vue: 'Chart' };
   for (const [library, version] of Object.entries(CHARTS_BROWSER_VERSIONS)) {
     const adapter = library.replace('charts-', '');
     const entrypoint = `@neural-charts/${adapter}`;
@@ -47,7 +47,7 @@ export async function assertChartsBrowser(client) {
       assert.ok(api.contract.inputs.some(field => field.alias === 'data' && field.required));
       assert.ok(api.contract.outputs.some(field => field.alias === 'pointActivate'));
     }
-    if (adapter === 'react') {
+    if (adapter === 'react' || adapter === 'vue') {
       const list = await chart('list_components', { kind: 'component' });
       assert.ok(list.items.some(item => item.name === 'Chart' && item.entrypoint === entrypoint));
     }

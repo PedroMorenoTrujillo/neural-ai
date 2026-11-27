@@ -12,6 +12,7 @@ export async function verifyChartsBrowser(root, entry) {
   <section aria-label="Web chart"><div id="web"></div><button id="dispose">Dispose Web chart</button></section>
   <section id="angular" aria-label="Angular chart"></section>
   <section aria-label="React chart"><div id="react"></div><button id="unmount">Unmount React chart</button></section>
+  <section aria-label="Vue chart"><div id="vue"></div><button id="unmount-vue">Unmount Vue chart</button></section>
 </main><script type="module" src="./browser.js"></script></body></html>`);
   const server = await createServer({
     root, configFile: false, logLevel: 'error',
@@ -29,7 +30,7 @@ export async function verifyChartsBrowser(root, entry) {
       const errors = [];
       page.on('pageerror', error => errors.push(error.message));
       await page.goto(`http://127.0.0.1:${address.port}/${index.slice(root.length + 1)}`);
-      for (const id of ['web', 'angular', 'react']) {
+      for (const id of ['web', 'angular', 'react', 'vue']) {
         await page.locator(`#${id} svg`).first().waitFor({ state: 'visible' });
       }
       await page.getByRole('button', { name: 'Show previous week' }).press('Enter');
@@ -42,8 +43,14 @@ export async function verifyChartsBrowser(root, entry) {
       await expect(previousWeek).toHaveAttribute('aria-pressed', 'false');
       await page.getByRole('button', { name: 'Unmount React chart' }).click();
       await page.locator('#react svg').first().waitFor({ state: 'detached' });
+      const vuePreviousWeek = page.locator('#vue').getByRole('button', { name: /last week/i });
+      await expect(vuePreviousWeek).toHaveAttribute('aria-pressed', 'true');
+      await vuePreviousWeek.click();
+      await expect(vuePreviousWeek).toHaveAttribute('aria-pressed', 'false');
+      await page.getByRole('button', { name: 'Unmount Vue chart' }).click();
+      await page.locator('#vue svg').first().waitFor({ state: 'detached' });
       assert.deepEqual(errors, [], 'Uncaught errors in Charts browser examples');
-      console.log('Chromium verified SVG rendering, Angular keyboard updates, Web disposal, and React legend state and unmount');
+      console.log('Chromium verified SVG rendering, Angular keyboard updates, Web disposal, and React and Vue legend state and unmount');
     } finally {
       await browser.close();
     }

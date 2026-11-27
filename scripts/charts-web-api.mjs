@@ -13,7 +13,7 @@ const policy = {
   internalEntrypoints: [], internalDeclarations: [], publicMembers: {},
   publicImperativeMembers: { NeuralChart: ['exportSvg', 'exportCsv', 'exportPng'] },
 };
-const examples = { web: 'line-web.ts', angular: 'line-angular.ts', react: 'line-react.tsx' };
+const examples = { web: 'line-web.ts', angular: 'line-angular.ts', react: 'line-react.tsx', vue: 'line-vue.ts' };
 const installed = basename => join(fixture, 'node_modules', '@neural-charts', basename);
 const compileDir = mkdtempSync(join(fixture, '.compiled-'));
 const write = process.argv.includes('--write');
@@ -57,7 +57,7 @@ try {
   }));
   execFileSync(process.execPath, [join(fixture, 'node_modules/@angular/compiler-cli/bundles/src/bin/ngc.js'), '-p', 'tsconfig.json'],
     { cwd: compileDir, stdio: 'inherit', timeout: 60_000 });
-  console.log('All three Charts browser examples compiled with strict TypeScript and Angular templates');
+  console.log('All Charts browser examples compiled with strict TypeScript and Angular templates');
 
   if (process.argv.includes('--browser')) {
     const { verifyChartsBrowser } = await import('../tests/charts-web-consumer/browser-check.mjs');

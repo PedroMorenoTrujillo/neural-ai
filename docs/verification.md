@@ -1,5 +1,11 @@
 # Verificación de Neural AI
 
+## Charts Vue 1.0.0 · skill Charts Web 0.2.0 · MCP 0.5.0
+
+- El consumidor instala Vue desde npm junto con las versiones fijadas de Charts Web, Angular y React. El catálogo del MCP se comprueba contra las declaraciones públicas de `@neural-charts/vue@1.0.0`.
+- El ejemplo de Vue usa una leyenda controlada. La prueba de Chromium comprueba el montaje del SVG, el cambio de visibilidad desde la leyenda y la limpieza al desmontar el componente.
+- El cliente MCP comprueba `charts-vue`, el recurso de referencia y el ejemplo `line-vue`, también desde el paquete instalado en un consumidor aislado.
+
 ## Charts Web, Angular y React · skill 0.1.0 · MCP 0.4.0
 
 - Los catálogos se extraen de Charts Web 1.2.2, Charts Angular 1.1.1 y Charts React 1.0.0 instalados desde npm. El consumidor conserva un lockfile estricto de la combinación.
